@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VESTIAIRE | Occasion Styling</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#fff8f4",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#75736c",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#1c1c17",
+                        "inverse-primary": "#c9c6be",
+                        "on-secondary-fixed": "#281717",
+                        "secondary-container": "#f8d8d8",
+                        "surface-dim": "#e1d8d2",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#eae1da",
+                        "on-secondary-container": "#755d5d",
+                        "on-primary-fixed-variant": "#484741",
+                        "on-secondary-fixed-variant": "#574142",
+                        "surface-container": "#f5ece5",
+                        "inverse-on-surface": "#f8efe8",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#301216",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c9c6bd",
+                        "surface-container-low": "#fbf2eb",
+                        "primary-fixed": "#e6e2d9",
+                        "primary-container": "#fffbf2",
+                        "surface-variant": "#eae1da",
+                        "background": "#fff8f4",
+                        "tertiary-fixed-dim": "#eeb9bd",
+                        "tertiary-container": "#fffaf9",
+                        "surface-bright": "#fff8f4",
+                        "tertiary-fixed": "#ffdadc",
+                        "on-surface-variant": "#484740",
+                        "secondary": "#705959",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#1f1b17",
+                        "tertiary": "#7c5357",
+                        "inverse-surface": "#34302b",
+                        "outline": "#79776f",
+                        "primary-fixed-dim": "#c9c6be",
+                        "surface-container-high": "#f0e7df",
+                        "on-tertiary-container": "#94686c",
+                        "primary": "#605e58",
+                        "secondary-fixed": "#fbdbdb",
+                        "on-tertiary-fixed-variant": "#623c40",
+                        "surface-tint": "#605e58",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1f1b17",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#debfbf"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "24px",
+                        "margin-desktop": "64px",
+                        "container-gap": "32px",
+                        "gutter": "16px",
+                        "stack-lg": "40px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["DM Sans"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "label-md": ["DM Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "body-lg": ["DM Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "label-sm": ["DM Sans"],
+                        "headline-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #fff8f4;
+            color: #1f1b17;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(232, 180, 184, 0.2);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-[0_20px_40px_rgba(232,180,184,0.1)] flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity active:scale-95 transition-transform">arrow_back</button>
+<h1 class="font-display-lg text-headline-lg-mobile md:text-headline-lg tracking-tighter text-primary">VESTIAIRE</h1>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional high-fashion editorial portrait of a sophisticated woman with clear skin and elegant features. The lighting is soft and natural, coming from a large window in a bright, cream-colored studio. She is wearing a minimalist beige silk blouse. The overall aesthetic is clean, luxury, and high-end boutique style with a warm, inviting glow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKSu4DwlmTKQ5W5arWXtpeLOjZszbI9EFGDGa6bwTEnvBFI0DT_NUxbmwcsLWCSb991xH-wHFBOyZF-20NdUKwvxuolDX_T3VZ70UBOFCXiZ2KSHwimHO_zxwkcUDfHhgTGGD_RnR2cJh3ymeMJ2yaoLZt4Ndm6s_f-ExnbnezwlYr_yzJtdvD2PSyY_1fOTLwaoJw2jKqPYMuQsoboKhblB2ZbM7nKsdvEqTnlt37vmTYJ5PdNmWEa9LoUakLkbf7TVN3oB8JDUA"/>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<!-- Header Section -->
+<section class="mb-stack-lg animate-in fade-in slide-in-from-bottom-4 duration-700">
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em] mb-2">Curated for You</p>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-on-surface">Garden Soirée</h2>
+<p class="text-on-surface-variant font-body-md mt-2 max-w-xl">A sophisticated blend of seasonal textures and soft floral notes, tailored for an elegant afternoon gathering.</p>
+</section>
+<!-- Main Bento Content -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter lg:gap-container-gap">
+<!-- Hero Outfit Image (Bento Main) -->
+<div class="md:col-span-7 lg:col-span-8 rounded-lg overflow-hidden relative shadow-[0_30px_60px_rgba(232,180,184,0.15)] group h-[500px] md:h-[700px]">
+<img alt="Main Outfit" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" data-alt="A full-length fashion editorial shot of a woman wearing a sophisticated floral silk midi dress in soft rose and cream tones. She is standing in a sun-drenched, minimalist marble terrace overlooking a lush, soft-focus green garden. The lighting is golden hour, warm and ethereal. The style is high-end luxury fashion photography with a soft minimalist aesthetic and heavy whitespace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo-D3KoH-39fxz8V3wsI_OwJM5w-bAFHUWKBV7Mp9PdG7wiKjO6XRuVzeK91w4HagA41YBx9mb2-gja9O2q1SKS10i24cToWoEgMWgZa_477RCzSMeyE6UlyJI31kybp4dWh3pQu-QfCExlzA3WI6j_vt7jUlAukJuJ66YiUA1mFYHRoj7HBvNJqJUC8hquNwlVXq7nWkC59xiAmTURyThvm5ldDwkEQcKhEnaCRoNYWNgzImRulw5fHkyCaTWDRu5BAyODPmLLoA"/>
+<div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/40 to-transparent flex justify-between items-end">
+<div class="text-white">
+<span class="font-label-sm text-label-sm tracking-widest uppercase">The Look</span>
+<h3 class="font-headline-md mt-1">Ethereal Bloom</h3>
+</div>
+<div class="flex gap-3">
+<button class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-white hover:bg-white hover:text-tertiary transition-all duration-300 active:scale-90">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<button class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-white hover:bg-white hover:text-tertiary transition-all duration-300 active:scale-90">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Item List & Styling Tip (Bento Sidebar) -->
+<div class="md:col-span-5 lg:col-span-4 flex flex-col gap-gutter lg:gap-container-gap">
+<!-- Styling Tip Card -->
+<div class="bg-secondary-container/30 p-8 rounded-lg border border-secondary-container/50">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-tertiary">lightbulb</span>
+<h4 class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Styling Tip</h4>
+</div>
+<p class="font-body-md text-on-secondary-container italic">"To elevate this look for a cooler evening, drape a structured cream wool coat over your shoulders rather than wearing it. This maintains the silhouette while adding a layer of sophisticated warmth."</p>
+</div>
+<!-- Closet Items -->
+<div class="bg-surface-container-low rounded-lg p-6">
+<h4 class="font-label-md text-label-md text-on-surface mb-6 uppercase tracking-widest">Included Items</h4>
+<div class="space-y-6">
+<!-- Item 1 -->
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-20 h-24 rounded overflow-hidden bg-white shadow-sm flex-shrink-0">
+<img alt="Silk Dress" class="w-full h-full object-cover" data-alt="Studio product shot of a high-end silk midi dress in a blush pink color. The fabric has a soft sheen and elegant draping. The background is a clean, neutral cream. High-key lighting, minimalist luxury presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2ihWPsPSEQrFagjX9Rg-2N92Ez_nS3fcKu0MAQYEOG3dvauGqfacz4YWIwbQM2XD3pD-dl_VUA2QWCaKUpjOjR1Q6aluZBUXfTjLRScRJHEdCmcCy9s8loojCr-EswQDldX7zypy7HcA-F7xkQnIY1ta20nEYD5hcWqy5ARH4l7xr_J6zJiajGe4YFPJTq9_J-01WZ0LoYueKa1mxRCeFj3-1OWZ1ctk8w5VqFGyRQmO_wAmxKmwOC1-YNtPUIuOtw5xkQ-Xale4"/>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-on-surface">Silk Bloom Midi</h5>
+<p class="text-on-surface-variant font-label-sm text-sm">Zimmermann • $850</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline group-hover:text-tertiary transition-colors">chevron_right</span>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-20 h-24 rounded overflow-hidden bg-white shadow-sm flex-shrink-0">
+<img alt="Heels" class="w-full h-full object-cover" data-alt="High-end fashion product photography of minimalist strappy sandals in a nude leather. The shoes are placed on a textured stone surface with soft shadows. Warm, bright light, sophisticated aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuZh7EjjnzNxhpAV5GMBsxUcc9_ea2ISV6HQlFMNF4WuII4UBd998gaq_svvXQXJyrSwe3E_IwRwrVul0QOCoqgKwrl2pfgoLzNLTU_MTDK1zIp8lDocXWjc8tcSEY_Ix9p90R9zdI_qEX0BREk7VBmvEjolFROvLHUo5ezY-NeHgzZ1TiVQxz8ifC3n7WGlal1R7a6-mk8as-jghpIBJsAhkhDsx-TJ-A2_v4lnzu1MbiLvd7Rqa9-0KgmTzO10tJLE_egCpAUQE"/>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-on-surface">Minimalist Sandal</h5>
+<p class="text-on-surface-variant font-label-sm text-sm">Saint Laurent • $695</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline group-hover:text-tertiary transition-colors">chevron_right</span>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-20 h-24 rounded overflow-hidden bg-white shadow-sm flex-shrink-0">
+<img alt="Clutch" class="w-full h-full object-cover" data-alt="Luxury leather handbag in a cream tone, photographed in a high-end boutique setting. Soft focus background, clear sharp focus on the gold hardware and pebble grain leather. Elegant and airy lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9WcJzkQA5ulau7XzyqNOeesa4tsaz980EDH6lPtgxhW4k5q2Hmh7kzkJqagTxAYaMJe-skMtAFZbPgMeiiC8ftrenBG7HAXiKu07_jdmG7MWh3ikeynQUsrL0yq1PfPOKCHLMXvxXHWgt8-BasVERosETDpJoLAnSI92jm2QRO8o_U0Bm_oyoC1FJX4KgZ8oS6dcHSZe9VFU9QCTvS23LYT--YUteCNtJTaaHwbcraPWNulVOFa-kVGJL-d0kGXvxF0K21VOyYlQ"/>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-on-surface">Leather Pouch</h5>
+<p class="text-on-surface-variant font-label-sm text-sm">Bottega Veneta • $1,200</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline group-hover:text-tertiary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Quick Action -->
+<button class="w-full bg-tertiary text-on-tertiary h-14 rounded-full font-label-md text-label-md uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 shadow-[0_10px_20px_rgba(124,83,87,0.2)] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">calendar_today</span>
+                    Add to Planner
+                </button>
+</div>
+</div>
+<!-- Asymmetric Detail Section -->
+<section class="mt-stack-lg">
+<div class="flex flex-col md:flex-row items-center gap-gutter lg:gap-container-gap">
+<div class="w-full md:w-1/3">
+<div class="aspect-square rounded-full overflow-hidden border-[16px] border-surface-container-high relative">
+<img alt="Texture Detail" class="w-full h-full object-cover" data-alt="An extreme close-up of high-quality silk fabric with a subtle floral print in pastel pinks and creams. The texture is soft and tactile. The lighting is bright and diffuse, highlighting the intricate weave. Sophisticated, minimalist, and luxury focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxvpMDkHlNdWGLMGdFfWrKzEbeKjD4B3DCyztV6yCI6nvSCG-NnG5o6wYhAhbLT6UlK4vX8Cyd1Tfvu7ErVi9A-_0Qf826fP30GODyF0ZHMIODdd_x7dBxRa34XBv8OiVFyGrTJV59wUMma2mohHNuPkzVasG2WomOwrjZ8OPMMdDNEBZs_GLcOOucT2YTGMaUefhFOFGe1qvlOWW8MHWzAC2htbBPqm4YdhPj_q-rxsNS-ACwYqURdAVIGRIb81p75reY1cqLwHM"/>
+</div>
+</div>
+<div class="w-full md:w-2/3">
+<h3 class="font-headline-md text-on-surface mb-4">The Philosophy</h3>
+<p class="font-body-lg text-on-surface-variant leading-relaxed">
+                        This ensemble is built on the principle of <span class="text-tertiary font-medium">unstructured grace</span>. By combining the fluidity of silk with structured leather accessories, we create a visual balance that feels both effortless and intentional. It’s about being present in the moment, unencumbered by your attire.
+                    </p>
+<div class="flex gap-4 mt-8">
+<span class="px-6 py-2 bg-surface-container-highest rounded-full text-label-sm text-on-surface-variant uppercase tracking-widest">#GardenParty</span>
+<span class="px-6 py-2 bg-surface-container-highest rounded-full text-label-sm text-on-surface-variant uppercase tracking-widest">#LuxeFloral</span>
+<span class="px-6 py-2 bg-surface-container-highest rounded-full text-label-sm text-on-surface-variant uppercase tracking-widest">#SpringStyle</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center pt-2 pb-6 px-4 bg-surface/90 dark:bg-surface-container-low/90 backdrop-blur-xl border-t border-secondary-container/30 shadow-[0_-10px_30px_rgba(232,180,184,0.15)] z-50 rounded-t-lg">
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-primary transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-primary transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed relative after:content-[''] after:w-1 after:h-1 after:bg-secondary after:rounded-full after:mt-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">checkroom</span>
+<span class="font-label-sm text-label-sm">Outfits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-primary transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-sm text-label-sm">Planner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-primary transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-sm text-label-sm">Favorites</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for heart toggle
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.querySelector('.material-symbols-outlined')?.textContent === 'favorite') {
+                btn.addEventListener('click', function() {
+                    const icon = this.querySelector('.material-symbols-outlined');
+                    if (icon.getAttribute('style')?.includes("'FILL' 1")) {
+                        icon.style.fontVariationSettings = "'FILL' 0";
+                        icon.classList.remove('text-red-400');
+                    } else {
+                        icon.style.fontVariationSettings = "'FILL' 1";
+                        icon.classList.add('text-red-400');
+                    }
+                });
+            }
+        });
+
+        // Simple scroll parallax effect for main image
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.group img');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.05}px) scale(${1 + scrolled * 0.0001})`;
+            }
+        });
+    </script>
+</body></html>

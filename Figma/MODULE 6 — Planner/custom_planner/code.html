@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VESTIAIRE - Wardrobe Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            font-size: 24px;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .glass-card {
+            background: rgba(255, 248, 244, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#eae1da",
+                      "inverse-surface": "#34302b",
+                      "background": "#fff8f4",
+                      "tertiary-fixed": "#ffdadc",
+                      "secondary-fixed-dim": "#debfbf",
+                      "primary-container": "#fffbf2",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "error": "#ba1a1a",
+                      "secondary-container": "#f8d8d8",
+                      "on-tertiary-fixed": "#301216",
+                      "surface-container-high": "#f0e7df",
+                      "on-primary-fixed": "#1c1c17",
+                      "surface-container-highest": "#eae1da",
+                      "on-surface-variant": "#484740",
+                      "tertiary-container": "#fffaf9",
+                      "surface": "#fff8f4",
+                      "surface-dim": "#e1d8d2",
+                      "tertiary-fixed-dim": "#eeb9bd",
+                      "on-secondary-container": "#755d5d",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#c9c6be",
+                      "primary-fixed": "#e6e2d9",
+                      "on-primary-fixed-variant": "#484741",
+                      "on-tertiary-fixed-variant": "#623c40",
+                      "secondary-fixed": "#fbdbdb",
+                      "on-tertiary-container": "#94686c",
+                      "surface-bright": "#fff8f4",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#75736c",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#605e58",
+                      "on-secondary-fixed-variant": "#574142",
+                      "surface-container": "#f5ece5",
+                      "secondary": "#705959",
+                      "outline-variant": "#c9c6bd",
+                      "surface-container-low": "#fbf2eb",
+                      "primary": "#605e58",
+                      "outline": "#79776f",
+                      "on-background": "#1f1b17",
+                      "on-tertiary": "#ffffff",
+                      "tertiary": "#7c5357",
+                      "on-surface": "#1f1b17",
+                      "on-secondary-fixed": "#281717",
+                      "inverse-primary": "#c9c6be",
+                      "inverse-on-surface": "#f8efe8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-lg": "40px",
+                      "unit": "4px",
+                      "gutter": "16px",
+                      "margin-mobile": "24px",
+                      "stack-md": "16px",
+                      "stack-sm": "8px",
+                      "margin-desktop": "64px",
+                      "container-gap": "32px"
+              },
+              "fontFamily": {
+                      "label-sm": ["DM Sans"],
+                      "body-md": ["DM Sans"],
+                      "body-lg": ["DM Sans"],
+                      "display-lg": ["Playfair Display"],
+                      "headline-md": ["Playfair Display"],
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "label-md": ["DM Sans"],
+                      "headline-lg": ["Playfair Display"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-16 w-full bg-surface/80 backdrop-blur-xl">
+<button class="text-primary active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-display-lg text-headline-md tracking-widest text-on-surface">VESTIAIRE</h1>
+<button class="text-primary active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile max-w-screen-md mx-auto">
+<!-- Sophisticated Date Picker -->
+<section class="mb-stack-lg">
+<div class="flex justify-between items-center mb-stack-md">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile">October</h2>
+<div class="flex gap-stack-sm">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar py-2">
+<!-- Date Item Active -->
+<div class="flex-shrink-0 w-16 h-24 flex flex-col items-center justify-center rounded-xl bg-tertiary text-on-tertiary shadow-lg ring-4 ring-tertiary-fixed">
+<span class="font-label-sm text-label-sm opacity-80 uppercase">Mon</span>
+<span class="font-headline-md text-headline-md font-bold">14</span>
+</div>
+<!-- Date Item -->
+<div class="flex-shrink-0 w-16 h-24 flex flex-col items-center justify-center rounded-xl glass-card border border-surface-variant text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Tue</span>
+<span class="font-headline-md text-headline-md">15</span>
+</div>
+<div class="flex-shrink-0 w-16 h-24 flex flex-col items-center justify-center rounded-xl glass-card border border-surface-variant text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Wed</span>
+<span class="font-headline-md text-headline-md">16</span>
+</div>
+<div class="flex-shrink-0 w-16 h-24 flex flex-col items-center justify-center rounded-xl glass-card border border-surface-variant text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Thu</span>
+<span class="font-headline-md text-headline-md">17</span>
+</div>
+<div class="flex-shrink-0 w-16 h-24 flex flex-col items-center justify-center rounded-xl glass-card border border-surface-variant text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Fri</span>
+<span class="font-headline-md text-headline-md">18</span>
+</div>
+<div class="flex-shrink-0 w-16 h-24 flex flex-col items-center justify-center rounded-xl glass-card border border-surface-variant text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Sat</span>
+<span class="font-headline-md text-headline-md text-tertiary">19</span>
+</div>
+<div class="flex-shrink-0 w-16 h-24 flex flex-col items-center justify-center rounded-xl glass-card border border-surface-variant text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Sun</span>
+<span class="font-headline-md text-headline-md text-tertiary">20</span>
+</div>
+</div>
+</section>
+<!-- Select Outfit Section -->
+<section class="space-y-stack-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md">Select Outfit</h3>
+<button class="text-secondary font-label-md text-label-md flex items-center gap-1">
+                    Filters <span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Outfit Card 1 -->
+<div class="group relative bg-surface-container-low rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+<div class="aspect-[3/4] w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A meticulously curated high-fashion outfit flat lay on a warm cream background. The ensemble includes a silk beige blouse, tailored charcoal trousers, and elegant leather loafers. The lighting is soft and diffused, characteristic of a high-end fashion boutique. The composition is artistic and intentional, emphasizing the premium quality and soft minimalist aesthetic of the wardrobe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGy4IIwpWOCd_yzwbakYNQqcNE1xcss1_QMrEXeTk-Mu9goRnc-5GeJG4v4HdR8l8xFtmLPgmiwBXTnj2hURofRkCJBtugmp2rUtvEs4SfVyIX4-Uu26m7seoVsowyKVndFZxAStGE-xl5Ze955VN5XJeosDL1x7ZhF_nUOJXAZaB578xCRlj_aEW01ApaeMQo0osIbP6RPaFNMU7Bezg-CVfJAr0gk7jn8FZ9e8JjcmwTyuOnHIRjWJoCQk4FqnkqZw5ZeQNCraY"/>
+</div>
+<div class="p-stack-sm flex flex-col gap-unit">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Minimalist</span>
+<h4 class="font-body-md text-body-md font-medium text-on-surface">Effortless Monday</h4>
+</div>
+<div class="absolute bottom-16 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="bg-surface/90 backdrop-blur-sm p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="favorite" data-weight="fill" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary font-label-md text-label-md active:scale-[0.98] transition-transform">
+                        Select
+                    </button>
+</div>
+<!-- Outfit Card 2 -->
+<div class="group relative bg-surface-container-low rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+<div class="aspect-[3/4] w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A sophisticated autumn-inspired outfit displayed against a textured cream wall. Features an oversized cashmere knit sweater in soft rose, a pleated midi skirt in chocolate brown, and tall suede boots. The mood is cozy yet luxurious, with golden hour sunlight creating warm, elongated shadows. The style is aspirational and intentional, reflecting a curated and elevated lifestyle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZodKweXJo8CWUhRcuShLpVl5P6B5TatsrxORgsfOVS9SpSVGQy5QiqXlnSOfYNrXVFRDFUo3RZEBIGmM9Rcq_miy2-0CFlR_U9b9blQcARXlCTZi0iAgqfxLfuwpkRAFZ3m8rO7DPpk4QkPoSoJ06xBcq_L_nmtQ1FNH13I6Y3NhGiwFIGgbWKNDZ2_u_QIkIBoaxsLB0jkbj3qtCag3PbyC9HYBdXtcmFRkrEobiWm1MXQoxZIAmtqHtv4-j5TLP2D9Qbn8eEp8"/>
+</div>
+<div class="p-stack-sm flex flex-col gap-unit">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Cozy Luxe</span>
+<h4 class="font-body-md text-body-md font-medium text-on-surface">Autumn Layers</h4>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary font-label-md text-label-md active:scale-[0.98] transition-transform">
+                        Select
+                    </button>
+</div>
+<!-- Outfit Card 3 -->
+<div class="group relative bg-surface-container-low rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+<div class="aspect-[3/4] w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A professional chic ensemble for the modern workplace. A crisp white cotton shirt paired with a high-waisted navy pencil skirt and delicate gold jewelry. The setting is a bright, minimalist studio with plenty of whitespace, evoking a sense of calm and order. The photography is clean and high-key, highlighting the sophisticated and approachable elegance of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY2zXDbQckv0AE-WorNZ3jIs3YZrUeocVMZ9-DIKnqHf8wMgiYmzYmxXsZBI2lRNTEI2FhBvZdYUYNTFS62yyJTun_JppU3f2gBCNwLnW5x7uRUeav4RWbLP5Uce0z-QLPwhUA5kqRYhZl38xM00kHOg4oQ5qXRqPSmTW1DIiHpiaeDMncyzBGmlRGBJaAgpQUfSp6GWKaj6gPd_pfXOrlCc9KcPmI1MI-6YANPvQQ6m_Z56o3BoipGnjiRJjdKxYBy6Mts-oq5lI"/>
+</div>
+<div class="p-stack-sm flex flex-col gap-unit">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Professional</span>
+<h4 class="font-body-md text-body-md font-medium text-on-surface">Boardroom Chic</h4>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary font-label-md text-label-md active:scale-[0.98] transition-transform">
+                        Select
+                    </button>
+</div>
+<!-- Outfit Card 4 -->
+<div class="group relative bg-surface-container-low rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+<div class="aspect-[3/4] w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="An elegant evening attire featuring a sleek black slip dress in satin, layered with a structured blush pink blazer. Minimalist silver heels and a clutch bag complete the look. The lighting is sophisticated, with soft directional highlights that create a sense of depth and physical weightlessness. The aesthetic is contemporary luxury, focusing on intention and refined style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAq3GgsKRKVwQONN9SmzN95qA8arrbHovfSU1XsbwLSx5cxrwFWsrshFCgmSaDjT9n8k1dSW5-XbwqMxfMEBfthHbp-hT2lfjqxW7SUcmeg3rd0I9Rgn7sE2U4yuXU-W693_JtjVRRG8R6g7W_tU5iry35hliNkqK08oRd5t7pROq_Nbgzam3_HTP89WHdwZWs9gwFRQhbeqjJdPz-0S7uGyem5VDSeI43sHOzAWFBe7Mgp12cgEi70UCo8Lo1UpCjyC0MY3y2dCFU"/>
+</div>
+<div class="p-stack-sm flex flex-col gap-unit">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Evening</span>
+<h4 class="font-body-md text-body-md font-medium text-on-surface">Satin Soiree</h4>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary font-label-md text-label-md active:scale-[0.98] transition-transform">
+                        Select
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-surface/80 backdrop-blur-xl z-50 rounded-t-lg shadow-[0_-10px_40px_rgba(124,83,87,0.1)]">
+<a class="flex flex-col items-center justify-center text-outline opacity-60 hover:text-secondary-container transition-colors active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="home_app_logo">home_app_logo</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline opacity-60 hover:text-secondary-container transition-colors active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="font-label-sm text-label-sm">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline opacity-60 hover:text-secondary-container transition-colors active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="checkroom">checkroom</span>
+<span class="font-label-sm text-label-sm">Outfits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-secondary after:rounded-full active:scale-90 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm">Planner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline opacity-60 hover:text-secondary-container transition-colors active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-sm text-label-sm">Favorites</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for date selection
+        const dateItems = document.querySelectorAll('.flex-shrink-0.w-16.h-24');
+        dateItems.forEach(item => {
+            item.addEventListener('click', () => {
+                dateItems.forEach(i => {
+                    i.classList.remove('bg-tertiary', 'text-on-tertiary', 'shadow-lg', 'ring-4', 'ring-tertiary-fixed');
+                    i.classList.add('glass-card', 'border', 'border-surface-variant', 'text-on-surface-variant');
+                    // Reset internal spans
+                    const spans = i.querySelectorAll('span');
+                    spans[0].classList.remove('opacity-80');
+                    spans[1].classList.remove('font-bold');
+                });
+                
+                item.classList.add('bg-tertiary', 'text-on-tertiary', 'shadow-lg', 'ring-4', 'ring-tertiary-fixed');
+                item.classList.remove('glass-card', 'border', 'border-surface-variant', 'text-on-surface-variant');
+                const activeSpans = item.querySelectorAll('span');
+                activeSpans[0].classList.add('opacity-80');
+                activeSpans[1].classList.add('font-bold');
+            });
+        });
+
+        // Button hover sounds or effects could be added here
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('touchstart', () => {
+                btn.style.transform = 'scale(0.95)';
+            });
+            btn.addEventListener('touchend', () => {
+                btn.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

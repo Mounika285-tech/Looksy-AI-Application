@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>VESTIAIRE - Mix &amp; Match</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .selection-circle {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .item-card:active {
+            transform: scale(0.98);
+        }
+        .safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#fff8f4",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#75736c",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#1c1c17",
+                        "inverse-primary": "#c9c6be",
+                        "on-secondary-fixed": "#281717",
+                        "secondary-container": "#f8d8d8",
+                        "surface-dim": "#e1d8d2",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#eae1da",
+                        "on-secondary-container": "#755d5d",
+                        "on-primary-fixed-variant": "#484741",
+                        "on-secondary-fixed-variant": "#574142",
+                        "surface-container": "#f5ece5",
+                        "inverse-on-surface": "#f8efe8",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#301216",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c9c6bd",
+                        "surface-container-low": "#fbf2eb",
+                        "primary-fixed": "#e6e2d9",
+                        "primary-container": "#fffbf2",
+                        "surface-variant": "#eae1da",
+                        "background": "#fff8f4",
+                        "tertiary-fixed-dim": "#eeb9bd",
+                        "tertiary-container": "#fffaf9",
+                        "surface-bright": "#fff8f4",
+                        "tertiary-fixed": "#ffdadc",
+                        "on-surface-variant": "#484740",
+                        "secondary": "#705959",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#1f1b17",
+                        "tertiary": "#7c5357",
+                        "inverse-surface": "#34302b",
+                        "outline": "#79776f",
+                        "primary-fixed-dim": "#c9c6be",
+                        "surface-container-high": "#f0e7df",
+                        "on-tertiary-container": "#94686c",
+                        "primary": "#605e58",
+                        "secondary-fixed": "#fbdbdb",
+                        "on-tertiary-fixed-variant": "#623c40",
+                        "surface-tint": "#605e58",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1f1b17",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#debfbf"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "24px",
+                        "margin-desktop": "64px",
+                        "container-gap": "32px",
+                        "gutter": "16px",
+                        "stack-lg": "40px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["DM Sans"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "label-md": ["DM Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "body-lg": ["DM Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "label-sm": ["DM Sans"],
+                        "headline-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-40">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-[0_20px_40px_rgba(232,180,184,0.1)] flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16">
+<button class="text-primary active:scale-95 transition-transform">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-display-lg text-[24px] md:text-display-lg tracking-tighter text-primary">VESTIAIRE</h1>
+<div class="w-8 h-8 rounded-full bg-secondary-fixed overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional studio portrait of a sophisticated woman with a warm expression, styled for a high-end fashion application. The lighting is soft and flattering against a clean, cream-toned background, maintaining a minimalist and premium aesthetic. Her attire is elegant and intentional, reflecting a luxury lifestyle and curated wardrobe brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdW23KGKvdFTT5fnfE7ys1kJ50Nv6oOc5qGHCX-pJOxg-X4CVrZSyGjO6llhMXDP-7XQr26UkRs5wPNtjem1-2TNTfyxPOnWMV8I2GWyI8BV5E9GSfss7t9jWZM7OiQ26xl66nNKMEoOn7RxOwCdfnhGhk_P3jfOlHM5Qsh8lTJVul-MUVCQtK_BQHrdb606G36hk54cyiVZaLmOfnHgyaIaYe3eWbs7DWdW-J7MN6F1fq620jOda7K9MeUEIs1UYUvmlrOuM6GWk"/>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-24 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<div class="flex flex-col gap-stack-md mb-stack-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Select Items</h2>
+<p class="font-body-md text-on-surface-variant max-w-lg">Curate your look by selecting pieces from your digital wardrobe to see how they pair together.</p>
+</div>
+<!-- Filter Chips (Horizontal Scroll) -->
+<div class="flex gap-stack-sm overflow-x-auto pb-4 -mx-margin-mobile px-margin-mobile no-scrollbar">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-label-md shrink-0">All</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md shrink-0 hover:bg-secondary-container transition-colors">Tops</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md shrink-0 hover:bg-secondary-container transition-colors">Bottoms</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md shrink-0 hover:bg-secondary-container transition-colors">Outerwear</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md shrink-0 hover:bg-secondary-container transition-colors">Accessories</button>
+</div>
+<!-- Wardrobe Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-gutter mt-stack-md">
+<!-- Item 1 -->
+<div class="item-card group relative cursor-pointer" onclick="toggleSelection(this)">
+<div class="aspect-[3/4] rounded-lg bg-surface-container-low overflow-hidden border border-secondary-container/20 shadow-sm transition-all duration-300 group-hover:shadow-md">
+<img alt="Silk Blouse" class="w-full h-full object-cover" data-alt="A high-quality studio photograph of a premium cream-colored silk blouse draped elegantly against a minimalist warm beige background. The lighting is bright and airy, emphasizing the soft texture and luxurious sheen of the fabric. The composition is clean and centered, suitable for a high-end fashion catalog." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkWqkR5PT7Bavl-4ujQPl8DZuSpY6oLPErC1MjdO_PObRL9j8GaonEC-ex0j7jxdiDUFog_QkNH6Bl34sAW6ahUhT4PDTuuY4NALKF06n9sJ3AWa-HdJc2g0DZPeJOikUc70nkH1caGEcw0BCvnt2pC5klyGsoecxn9zcGbVHQOutt6BzcQ-qpYBe9gwUmqTC4ISVDtr59TArPw2lyiVP4maclE7aevSktVh7HSqwLvGm3fPZ4eYNzOU082MuDsgBNCru_JGW6aX8"/>
+<!-- Selection Indicator Overlay -->
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-[.selected]:opacity-100 transition-opacity"></div>
+<div class="absolute top-3 right-3 w-6 h-6 rounded-full border-2 border-primary bg-transparent flex items-center justify-center selection-circle group-[.selected]:bg-tertiary group-[.selected]:border-tertiary">
+<span class="material-symbols-outlined text-white text-[16px] opacity-0 group-[.selected]:opacity-100">check</span>
+</div>
+</div>
+<div class="mt-stack-sm px-2">
+<p class="font-label-md text-on-surface">Silk Blouse</p>
+<p class="font-label-sm text-on-surface-variant uppercase tracking-widest text-[10px]">Tops</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="item-card group relative cursor-pointer" onclick="toggleSelection(this)">
+<div class="aspect-[3/4] rounded-lg bg-surface-container-low overflow-hidden border border-secondary-container/20 shadow-sm transition-all duration-300 group-hover:shadow-md">
+<img alt="Tailored Trousers" class="w-full h-full object-cover" data-alt="Close-up fashion photography of tailored wool trousers in a soft charcoal grey, presented on a light-drenched cream background. The focus is on the impeccable stitching and fabric quality. The overall mood is sophisticated and orderly, echoing a premium boutique experience with soft ambient shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQpB5RNTvJARmGajGuy_rwCPsFDeu5dL2yZTwNnuTYlIBuuPepLWbkPkQan3uN5qmpZ4EFklHWrW3eSVPHY8ujqGh2ThUIJ0xszj7tk4PzMRdJ1MTtxWYJhwdRHrBbIZDUpbC-qXgCdwJqprDhnuE1Ex7V5ADmiDtKp78Qe_bmRyDtgaY3aqB6Ene2tv1PRTCfb5AiudckUh07Tk-7D1-Yu1IsjbI9ltLDd71cNSygMqQw0b0xJ8tklUYDp5q_ctM9NwniNNT1gfg"/>
+<div class="absolute top-3 right-3 w-6 h-6 rounded-full border-2 border-primary bg-transparent flex items-center justify-center selection-circle group-[.selected]:bg-tertiary group-[.selected]:border-tertiary">
+<span class="material-symbols-outlined text-white text-[16px] opacity-0 group-[.selected]:opacity-100">check</span>
+</div>
+</div>
+<div class="mt-stack-sm px-2">
+<p class="font-label-md text-on-surface">Wool Trousers</p>
+<p class="font-label-sm text-on-surface-variant uppercase tracking-widest text-[10px]">Bottoms</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="item-card group relative cursor-pointer" onclick="toggleSelection(this)">
+<div class="aspect-[3/4] rounded-lg bg-surface-container-low overflow-hidden border border-secondary-container/20 shadow-sm transition-all duration-300 group-hover:shadow-md">
+<img alt="Wool Coat" class="w-full h-full object-cover" data-alt="A minimalist fashion still-life featuring a luxurious camel-colored wool coat hanging on a simple wooden hanger against a pristine white studio backdrop. The lighting is soft-key, creating gentle glows and highlighting the garment's clean lines and structured silhouette. The aesthetic is extremely high-end and calm." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc4sHkVDSXDBHgVaNbwy4wkEwg_AtArL6vRr4kgGzf2TAUsOEIX2ziEvbxvWIaCFbbKysN9X3hauOFEwmvd5yEAMwvlLwVSmTwXRwO48MC56CSy2CSVt-gRge-8IbXn4sFW_bw3qIJ7An-w_3UDu89AL8LKGSbo5UQOamsPK-YjFTL9br0YF2eWeJoYQFrqhzeFOC6BxUGEA_SUaEDaX4U8rGcUGr5JjtX0Lqeq0_-ofk5--HX886EE5mQyqXAszTu2TWP3bR7Ttc"/>
+<div class="absolute top-3 right-3 w-6 h-6 rounded-full border-2 border-primary bg-transparent flex items-center justify-center selection-circle group-[.selected]:bg-tertiary group-[.selected]:border-tertiary">
+<span class="material-symbols-outlined text-white text-[16px] opacity-0 group-[.selected]:opacity-100">check</span>
+</div>
+</div>
+<div class="mt-stack-sm px-2">
+<p class="font-label-md text-on-surface">Camel Coat</p>
+<p class="font-label-sm text-on-surface-variant uppercase tracking-widest text-[10px]">Outerwear</p>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="item-card group relative cursor-pointer" onclick="toggleSelection(this)">
+<div class="aspect-[3/4] rounded-lg bg-surface-container-low overflow-hidden border border-secondary-container/20 shadow-sm transition-all duration-300 group-hover:shadow-md">
+<img alt="Designer Heels" class="w-full h-full object-cover" data-alt="A pair of minimalist pointed-toe leather pumps in a soft blush pink, positioned artistically on a textured cream stone surface. The lighting is warm and natural, suggesting a sunset glow through a window. The focus is sharp on the leather texture, embodying approachable elegance and luxury fashion curation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6xM_c1ZnQnGYmDB6mTSmlJis3BoNGNOicxm2ybXbW-x5qqSoMYJEtpV1AzZDR3CDkIrX6G3lhRZQxjHF2RgMjt4B2q_rKScN1hX3fyBzFdcmDtW0PZJ0rJMywMWEKovppWBE3bqKJ38O_cz26MmTnm9sCqNaDK36aSIhaO_yn59aLYfcQKAlZ-6xAiMYkiGv2e8ze8odJh989VtMbtyp9nVfaiKOQOe2TEOzw-kP5RtJu91ariljYpYBfFcpgRoIXnLb-MrQULYY"/>
+<div class="absolute top-3 right-3 w-6 h-6 rounded-full border-2 border-primary bg-transparent flex items-center justify-center selection-circle group-[.selected]:bg-tertiary group-[.selected]:border-tertiary">
+<span class="material-symbols-outlined text-white text-[16px] opacity-0 group-[.selected]:opacity-100">check</span>
+</div>
+</div>
+<div class="mt-stack-sm px-2">
+<p class="font-label-md text-on-surface">Leather Pumps</p>
+<p class="font-label-sm text-on-surface-variant uppercase tracking-widest text-[10px]">Accessories</p>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="item-card group relative cursor-pointer" onclick="toggleSelection(this)">
+<div class="aspect-[3/4] rounded-lg bg-surface-container-low overflow-hidden border border-secondary-container/20 shadow-sm transition-all duration-300 group-hover:shadow-md">
+<img alt="Cashmere Sweater" class="w-full h-full object-cover" data-alt="A folded cream cashmere sweater presented in a minimalist high-key setting. The image emphasizes the deep texture of the knit and the softness of the material. Soft diffused lighting creates a sense of physical weightlessness and premium quality, adhering to a soft minimalist aesthetic with a light-drenched atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHXzQT76mq7fBKQ7ZutWdHsFjEGFeFOoSZ5NxF1pbEunilQkC501wdDPSbTGvy_wCAMnG6aohMzacoWXM4a7r1lf1Ci6CLIjANP_94jzmWGDtfWromJibbL7oz5Oq7-ZYS0s2g6dmOQY8vCKyjcCC5ZHKKkZ8ZrS3uiS6XEqkatZqN7Du1-gkslUyqzpO9bcvvgX9pXjyM7m9pFhk4TmcgUBemXpdpfFjlyBc0hziJ-_as7S85rARb6RRr5s2Bxh8uicWJZc3YGgc"/>
+<div class="absolute top-3 right-3 w-6 h-6 rounded-full border-2 border-primary bg-transparent flex items-center justify-center selection-circle group-[.selected]:bg-tertiary group-[.selected]:border-tertiary">
+<span class="material-symbols-outlined text-white text-[16px] opacity-0 group-[.selected]:opacity-100">check</span>
+</div>
+</div>
+<div class="mt-stack-sm px-2">
+<p class="font-label-md text-on-surface">Knit Sweater</p>
+<p class="font-label-sm text-on-surface-variant uppercase tracking-widest text-[10px]">Tops</p>
+</div>
+</div>
+<!-- Item 6 -->
+<div class="item-card group relative cursor-pointer" onclick="toggleSelection(this)">
+<div class="aspect-[3/4] rounded-lg bg-surface-container-low overflow-hidden border border-secondary-container/20 shadow-sm transition-all duration-300 group-hover:shadow-md">
+<img alt="Pleated Skirt" class="w-full h-full object-cover" data-alt="A high-fashion shot of a flowing, pleated midi skirt in a muted sage green. The skirt is captured mid-movement to show the fluidity of the fabric. The background is a clean, bright cream studio, maintaining the luxury design system's focus on heavy whitespace and high-quality imagery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO4BnI8HledSh3kaLPZ-j9-iz4IMYn8813LE_Ql5XnUp7raR6ZsczsGVG65NH_KhIuy-bgjbIqukuL7rrqV8vOEjs-WTWbnWtWJ7n6eBaMaANtQ5WCAoeRwcQfvSP61WfJ9mTd6YEH9bAKqdxwfUHY0qowCPWAJXOxEVHkepNAoodnqffrOBnu777y_qCHXexOVN72eAXCLXnuNer243kVuuGgbkxaX4WniPx-mLVerXaXUwCz87b38p04zMK_zPF5xlfJ0G7upDY"/>
+<div class="absolute top-3 right-3 w-6 h-6 rounded-full border-2 border-primary bg-transparent flex items-center justify-center selection-circle group-[.selected]:bg-tertiary group-[.selected]:border-tertiary">
+<span class="material-symbols-outlined text-white text-[16px] opacity-0 group-[.selected]:opacity-100">check</span>
+</div>
+</div>
+<div class="mt-stack-sm px-2">
+<p class="font-label-md text-on-surface">Pleated Skirt</p>
+<p class="font-label-sm text-on-surface-variant uppercase tracking-widest text-[10px]">Bottoms</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Selection Summary & Generate Button (Floating Dock) -->
+<div class="fixed bottom-0 left-0 w-full z-50 px-margin-mobile pb-margin-mobile safe-bottom">
+<div class="glass-card max-w-2xl mx-auto rounded-lg p-stack-md shadow-[0_20px_60px_rgba(112,89,89,0.15)] flex items-center justify-between border border-white/40">
+<div class="flex flex-col">
+<span class="font-label-sm text-on-surface-variant" id="selection-count">0 Items Selected</span>
+<span class="font-body-md text-on-surface font-bold">Ready to mix?</span>
+</div>
+<button class="bg-tertiary text-on-tertiary px-8 py-4 rounded-full font-label-md opacity-50 transition-all duration-300 active:scale-95 flex items-center gap-2 shadow-lg shadow-tertiary/20" disabled="" id="generate-btn">
+                Generate Outfit
+                <span class="material-symbols-outlined text-[18px]">auto_fix_high</span>
+</button>
+</div>
+</div>
+<!-- Bottom Navigation Bar (Contextual Filter applied - Hidden for Task-Focused Selection) -->
+<!-- Suppressed to prioritize the "Generate" action and content canvas -->
+<script>
+        let selectedCount = 0;
+
+        function toggleSelection(element) {
+            element.classList.toggle('selected');
+            updateCount();
+            
+            // Subtle Haptic/Visual Feedback
+            if (element.classList.contains('selected')) {
+                element.style.transform = 'translateY(-4px)';
+                setTimeout(() => { element.style.transform = ''; }, 200);
+            }
+        }
+
+        function updateCount() {
+            selectedCount = document.querySelectorAll('.item-card.selected').length;
+            const countLabel = document.getElementById('selection-count');
+            const generateBtn = document.getElementById('generate-btn');
+
+            countLabel.textContent = `${selectedCount} Item${selectedCount !== 1 ? 's' : ''} Selected`;
+
+            if (selectedCount > 0) {
+                generateBtn.removeAttribute('disabled');
+                generateBtn.classList.remove('opacity-50');
+                generateBtn.classList.add('hover:opacity-90');
+            } else {
+                generateBtn.setAttribute('disabled', 'true');
+                generateBtn.classList.add('opacity-50');
+                generateBtn.classList.remove('hover:opacity-90');
+            }
+        }
+
+        // Horizontal Scroll Behavior for Chips
+        const chipsContainer = document.querySelector('.overflow-x-auto');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        chipsContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - chipsContainer.offsetLeft;
+            scrollLeft = chipsContainer.scrollLeft;
+        });
+        chipsContainer.addEventListener('mouseleave', () => { isDown = false; });
+        chipsContainer.addEventListener('mouseup', () => { isDown = false; });
+        chipsContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - chipsContainer.offsetLeft;
+            const walk = (x - startX) * 2;
+            chipsContainer.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body></html>

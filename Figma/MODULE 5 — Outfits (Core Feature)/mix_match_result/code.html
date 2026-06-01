@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VESTIAIRE | Mix &amp; Match Result</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#fff8f4",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#75736c",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#1c1c17",
+                    "inverse-primary": "#c9c6be",
+                    "on-secondary-fixed": "#281717",
+                    "secondary-container": "#f8d8d8",
+                    "surface-dim": "#e1d8d2",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#eae1da",
+                    "on-secondary-container": "#755d5d",
+                    "on-primary-fixed-variant": "#484741",
+                    "on-secondary-fixed-variant": "#574142",
+                    "surface-container": "#f5ece5",
+                    "inverse-on-surface": "#f8efe8",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#301216",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c9c6bd",
+                    "surface-container-low": "#fbf2eb",
+                    "primary-fixed": "#e6e2d9",
+                    "primary-container": "#fffbf2",
+                    "surface-variant": "#eae1da",
+                    "background": "#fff8f4",
+                    "tertiary-fixed-dim": "#eeb9bd",
+                    "tertiary-container": "#fffaf9",
+                    "surface-bright": "#fff8f4",
+                    "tertiary-fixed": "#ffdadc",
+                    "on-surface-variant": "#484740",
+                    "secondary": "#705959",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1f1b17",
+                    "tertiary": "#7c5357",
+                    "inverse-surface": "#34302b",
+                    "outline": "#79776f",
+                    "primary-fixed-dim": "#c9c6be",
+                    "surface-container-high": "#f0e7df",
+                    "on-tertiary-container": "#94686c",
+                    "primary": "#605e58",
+                    "secondary-fixed": "#fbdbdb",
+                    "on-tertiary-fixed-variant": "#623c40",
+                    "surface-tint": "#605e58",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#1f1b17",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#debfbf"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "margin-mobile": "24px",
+                    "margin-desktop": "64px",
+                    "container-gap": "32px",
+                    "gutter": "16px",
+                    "stack-lg": "40px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["DM Sans"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "label-md": ["DM Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "body-lg": ["DM Sans"],
+                    "display-lg": ["Playfair Display"],
+                    "label-sm": ["DM Sans"],
+                    "headline-lg": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 248, 244, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(232, 180, 184, 0.2);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .active-dot::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            width: 4px;
+            height: 4px;
+            background-color: #705959;
+            border-radius: 50%;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen pb-32">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-[0_20px_40px_rgba(232,180,184,0.1)] flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 transition-transform">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-display-lg text-headline-lg-mobile md:text-headline-lg tracking-tighter text-primary">VESTIAIRE</h1>
+<div class="w-10 h-10 rounded-full bg-secondary-container overflow-hidden border border-tertiary/20">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a stylish woman with a warm, confident expression in a high-end photography studio. She has soft, natural lighting illuminating her face, highlighting her elegant features. The background is a blurred, neutral cream tone that matches a sophisticated fashion brand aesthetic. The overall mood is approachable luxury and intentional curation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBUyZyzRSkLH-afrSM9A6WT_ONkJfU94U-58YE075fH5DRabn8WIJQ9jmnXzmgXHOTlrAOv1gBshbI4o-hmZXVIlINybRVz8tRog6C-lrUtoV5vn2A7yrCvtXwcabk9EZUcJTeHdavJdUd2EASlIrt9rlSUez75zsC_qaY9UDLoPfyfgEMEMV1L2osjntkwWLY4Z7MNmfkBP2yMwkGqpsa9Q-tWToDILsjQDhL_lGhzr7G3hllKYENGqDiR9WMNIJ_9A9eyxEp85s"/>
+</div>
+</header>
+<main class="pt-20 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<!-- Hero Section: Curated Outfit Image -->
+<section class="mt-stack-lg relative group">
+<div class="aspect-[4/5] md:aspect-[16/9] w-full overflow-hidden rounded-lg shadow-[0_30px_60px_rgba(232,180,184,0.15)] bg-surface-container-low relative">
+<img alt="Curated Outfit" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" data-alt="A high-fashion editorial shot of a complete outfit styled on a minimalist background. A silk cream blouse is paired with tailored terracotta trousers and a structured wool coat. The lighting is soft and bright, creating a light-drenched, ethereal atmosphere consistent with a premium boutique. Soft shadows define the textures of the high-quality fabrics, evoking a sense of calm, order, and intentional luxury lifestyle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRN70ADewsBnNh3_fhsFfX47MNHyjGhOR7JSKnZy2cAqu3fUhgrSvS9A0qshNP_14xrC5qP6q2MbdQA0QU37WRM9-bRU06P0SVYCs9wNHNE4LGRnRqoEjSu-NahRJu5xnUgBG5puBrsfkg8tL1d81LusoZxjV32BXS2vqxRA07jooM6XPN88mqRqtawtKYhq3fDFW3ZZfAqhu39VQUWChLSieF4Y7ze56G684gupvq9ErMWFv3SggYWEintPoCRJXmq46s8GSC_2Q"/>
+<!-- Floating Detail Badge -->
+<div class="absolute bottom-6 left-6 glass-panel px-6 py-4 rounded-lg flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Outfit Choice</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Effortless Monochrome</h2>
+</div>
+<!-- Action Floating Buttons -->
+<div class="absolute top-6 right-6 flex flex-col gap-stack-sm">
+<button class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-primary hover:text-error transition-colors active:scale-90">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<button class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-primary hover:text-secondary transition-colors active:scale-90">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Main Content Area -->
+<div class="mt-stack-lg grid grid-cols-1 lg:grid-cols-12 gap-container-gap">
+<!-- Left: Included Items List -->
+<div class="lg:col-span-8">
+<div class="flex items-center justify-between mb-stack-md">
+<h3 class="font-headline-md text-headline-md">Included Items</h3>
+<span class="font-label-md text-label-md text-outline">4 PIECES</span>
+</div>
+<div class="space-y-stack-md">
+<!-- Item 1 -->
+<div class="flex items-center p-4 bg-surface-container-low rounded-lg border border-transparent hover:border-secondary-container transition-all group">
+<div class="w-20 h-20 rounded-md overflow-hidden bg-white shadow-sm">
+<img alt="Silk Blouse" class="w-full h-full object-cover" data-alt="A detailed studio shot of a high-quality cream silk blouse laid flat on a pristine white surface. The fabric has a soft sheen and elegant draping, photographed with high-key lighting to emphasize the delicate texture and premium craftsmanship. The aesthetic is minimalist and sophisticated, characteristic of a luxury fashion closet app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAH--PW-Ll0ZN2iOKuw4fV-Ae_KexYvVuM6fCAQoUyQM9KA59d8DhIKeCXSMLvT0JzQ46ZeSOWLJyL9U-hw3jfiQIsz79a-1-4iKPu7f073bUgJDqmZaddR_uAon3hiUBwoACpIAF0DZomXZcW-uS_puMcg1Tg2RIfM8DoKAr8_k5kRoYrJw8rcgB5SOtvvAOT3pFGTDInrWVPN4vFcb9u9Bm-tLF9Yv_aSOY8nU3AlLlaSA19Me1DcY_aJpPtOQ9tVJQ9FN69I24"/>
+</div>
+<div class="ml-stack-md flex-1">
+<h4 class="font-label-md text-body-lg font-bold text-on-surface">Silk Button-Down</h4>
+<p class="text-label-sm text-outline uppercase tracking-wider">Top • Ivory</p>
+</div>
+<button class="text-outline group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center p-4 bg-surface-container-low rounded-lg border border-transparent hover:border-secondary-container transition-all group">
+<div class="w-20 h-20 rounded-md overflow-hidden bg-white shadow-sm">
+<img alt="Tailored Pants" class="w-full h-full object-cover" data-alt="A studio photograph of perfectly tailored terracotta-colored trousers. The image shows the crisp pleat and fine stitching of the fabric. Lighting is warm and diffused, creating a soft minimalist mood. The presentation is clean and professional, focusing on the quality and color of the garment in a luxury wardrobe context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdTmo3-juRLfkSD6tHjqu4E1SS00hOIS228tLqNKLCIXQFTWZ0oTIleJXEHbmPR31iPLLSi-2qGOe7yIepST47TA4A7ey7KXygngxd7y3nntVfRqiI2q0QItuMo0wKObUGO-HYEB0H4BPjc_42JJmGYO4K8fCjmxd0p1pwW1Q6XCiANuWz1Nqc1qA4mtt0Qj_s2-yNXkohxtfkBIBCXGrZNjl4UStE-JkHLxVEJWAAs8jiqRD9nRxWOZWF0g_t7-Ml0L0QmL6gBNU"/>
+</div>
+<div class="ml-stack-md flex-1">
+<h4 class="font-label-md text-body-lg font-bold text-on-surface">Tailored Trouser</h4>
+<p class="text-label-sm text-outline uppercase tracking-wider">Bottom • Terracotta</p>
+</div>
+<button class="text-outline group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center p-4 bg-surface-container-low rounded-lg border border-transparent hover:border-secondary-container transition-all group">
+<div class="w-20 h-20 rounded-md overflow-hidden bg-white shadow-sm">
+<img alt="Wool Coat" class="w-full h-full object-cover" data-alt="Close-up of a structured beige wool coat, emphasizing the thick, high-quality material and clean lines. The image is shot with a shallow depth of field against a soft cream background, creating a luxurious and cozy aesthetic. The lighting is bright and even, showcasing the garment as a curated staple in an elegant wardrobe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBPyRiriqKMI6D9bxqtiSplv1Qeag-rQWlhgUh-Img3rOGfj8X4Nmb9k6LJMF8sd94vILYy1iCXjeXnlFFKIOq64W7s2lz3DE0wKwDAqtYaWyWlEUXLa15Ns5bF0WHCPWK94sSsLp_feP0iPG0ozg1iJ1ZcXELsseDUdVU84OE2q5eGlDK69QZGJrx3DkQKyigs3_wooiWTdReCFl3XQsMbYC6r1iUQn9qsL8IG9iUgyrkQX8Sq0nNDHUJsf3uzJi3g6oCwiXyhAE"/>
+</div>
+<div class="ml-stack-md flex-1">
+<h4 class="font-label-md text-body-lg font-bold text-on-surface">Minimalist Wool Coat</h4>
+<p class="text-label-sm text-outline uppercase tracking-wider">Outerwear • Oatmeal</p>
+</div>
+<button class="text-outline group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Item 4 -->
+<div class="flex items-center p-4 bg-surface-container-low rounded-lg border border-transparent hover:border-secondary-container transition-all group">
+<div class="w-20 h-20 rounded-md overflow-hidden bg-white shadow-sm">
+<img alt="Leather Boots" class="w-full h-full object-cover" data-alt="Polished tan leather ankle boots photographed in a bright, minimalist studio environment. The light reflects softly off the smooth leather surface, highlighting the premium quality and elegant shape. The overall style is clean and sophisticated, fitting into a light-drenched, aspirational fashion interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABZsIGJd6p__WSSUTpiHijwj000nI2uIYcFTjqiu3WO9W1uCTScnTwqd5wGnHbCMreQy28KJHvSlgk21xnPiaTcmgPpssHHNRynm1p7L7HqELLqKIksMTEPKGkTn_fkTYQWxX_J1svqJWmcvuQXB3pJGVUrHwWb0J3W7xW8Q7VU3QGhIxj3IuwsnXT1FTYi3n5d8Cidtb10jy9eubiqq38ROT36u7_1-qoKFVNMRB_Vg_AjpGfjOVqoNc-witIWIufsugZJkLdY94"/>
+</div>
+<div class="ml-stack-md flex-1">
+<h4 class="font-label-md text-body-lg font-bold text-on-surface">Leather Ankle Boot</h4>
+<p class="text-label-sm text-outline uppercase tracking-wider">Footwear • Tan</p>
+</div>
+<button class="text-outline group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right: Action Sidebar -->
+<div class="lg:col-span-4">
+<div class="sticky top-24 space-y-stack-md">
+<div class="p-8 bg-surface-container rounded-lg border border-secondary-container/20 shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-stack-md">Wardrobe Actions</h3>
+<div class="flex flex-col gap-4">
+<!-- Add to Planner -->
+<button class="w-full flex items-center justify-center gap-2 bg-secondary text-on-secondary py-4 rounded-full font-label-md hover:opacity-90 transition-opacity active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+                                ADD TO PLANNER
+                            </button>
+<!-- Regenerate -->
+<button class="w-full flex items-center justify-center gap-2 bg-white text-primary border border-primary-fixed py-4 rounded-full font-label-md hover:bg-primary-container transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]">autorenew</span>
+                                REGENERATE MIX
+                            </button>
+</div>
+<div class="mt-stack-lg pt-stack-md border-t border-outline-variant/30">
+<p class="text-label-sm text-outline mb-stack-sm uppercase tracking-widest">Recommended Occasion</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-4 py-1.5 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-label-sm">Workwear</span>
+<span class="px-4 py-1.5 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-sm">Dinner Date</span>
+</div>
+</div>
+</div>
+<!-- Tips/Curation Note -->
+<div class="p-6 bg-tertiary-container rounded-lg border border-tertiary-fixed-dim/20">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-tertiary">lightbulb</span>
+<div>
+<h4 class="font-label-md text-on-tertiary-container mb-1">Stylist's Tip</h4>
+<p class="text-label-sm text-on-tertiary-container opacity-80 leading-relaxed">Pair this monochrome ensemble with gold minimalist jewelry to elevate the warmth of the oatmeal coat.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mandatory Shared Component) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface/90 dark:bg-surface-container-low/90 backdrop-blur-xl border-t border-secondary-container/30 shadow-[0_-10px_30px_rgba(232,180,184,0.15)] rounded-t-lg pt-2 pb-safe px-4 flex justify-around items-center">
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-primary transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-primary transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm mt-1">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed relative after:content-[''] after:w-1 after:h-1 after:bg-secondary after:rounded-full after:mt-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">checkroom</span>
+<span class="font-label-sm text-label-sm mt-1">Outfits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-primary transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-sm text-label-sm mt-1">Planner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-primary transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-sm text-label-sm mt-1">Favorites</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for clicking "Favorite"
+        const favoriteBtn = document.querySelector('.group .text-primary');
+        if(favoriteBtn) {
+            favoriteBtn.addEventListener('click', function() {
+                const icon = this.querySelector('.material-symbols-outlined');
+                if (icon.innerText === 'favorite') {
+                    icon.innerText = 'favorite';
+                    icon.style.fontVariationSettings = "'FILL' 1";
+                    this.classList.add('text-error');
+                } else {
+                    icon.innerText = 'favorite';
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                    this.classList.remove('text-error');
+                }
+            });
+        }
+
+        // Add to Planner success simulation
+        const plannerBtn = document.querySelector('button:contains("ADD TO PLANNER")') || document.querySelectorAll('button')[2];
+        plannerBtn.addEventListener('click', () => {
+            const originalText = plannerBtn.innerHTML;
+            plannerBtn.innerHTML = '<span class="material-symbols-outlined">check</span> ADDED';
+            plannerBtn.classList.remove('bg-secondary');
+            plannerBtn.classList.add('bg-on-tertiary-container');
+            setTimeout(() => {
+                plannerBtn.innerHTML = originalText;
+                plannerBtn.classList.add('bg-secondary');
+                plannerBtn.classList.remove('bg-on-tertiary-container');
+            }, 2000);
+        });
+    </script>
+</body></html>

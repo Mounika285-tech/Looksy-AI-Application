@@ -1,0 +1,282 @@
+You're already ahead of most people if you've provided:
+
+✅ App Description
+✅ Complete Module List
+✅ Screen List
+✅ UI Screen Images/References
+✅ Navigation Structure
+✅ Design Style Requirements
+✅ Feature Flow
+
+For an AI agent like Anti Gravity, there are a few more things that make a huge difference.
+
+# 1. Give User Flows (Very Important)
+
+AI agents often know the screens but don't know how they connect.
+
+Example:
+
+```text
+Splash
+→ Welcome
+→ Login / Signup
+→ Personalization Setup
+→ Home
+
+Home
+→ Upload Items
+→ AI Detection
+→ Save Item
+→ Home
+
+Home
+→ Outfits
+→ Mix & Match
+→ Outfit Result
+
+Home
+→ Outfits
+→ Weather Styling
+→ Outfit Result
+
+Home
+→ Planner
+→ Custom Planner
+→ Calendar
+
+Home
+→ Favorites
+→ Outfit Details
+```
+
+This prevents the agent from creating disconnected screens.
+
+---
+
+
+
+### Planner
+
+```text
+id
+user_id
+outfit_id
+planned_date
+notification_enabled
+```
+
+This saves days of rework.
+
+---
+
+# 3. Define AI Logic
+
+Don't just say "AI Recommendation."
+
+Tell the agent exactly what should happen.
+
+### Mix & Match
+
+```text
+User selects:
+- Blue Shirt
+
+AI finds:
+- Matching Pants
+- Matching Shoes
+- Matching Watch
+
+Return full outfit.
+```
+
+### Weather Styling
+
+```text
+Fetch weather.
+
+If rainy:
+recommend jackets, boots
+
+If hot:
+recommend light clothes
+
+Use wardrobe items only.
+```
+
+### Color Matching
+
+```text
+User selects item.
+
+AI suggests colors based on
+fashion color harmony rules.
+```
+
+---
+
+# 4. Define MVP vs Future Features
+
+Tell Anti Gravity:
+
+### Build Now
+
+* Authentication
+* Wardrobe
+* AI Detection
+* Outfits
+* Planner
+* Favorites
+
+### Future Versions
+
+* Shopping Integration
+* Social Sharing Community
+* Packing Assistant
+* Laundry Tracking
+* Analytics
+
+Otherwise the agent may start building unnecessary features.
+
+---
+
+# 5. Define Wardrobe Categories
+
+This is something many people forget.
+
+```text
+Top Wear
+- Shirt
+- T-Shirt
+- Polo
+- Jacket
+
+Bottom Wear
+- Jeans
+- Pants
+- Shorts
+
+Footwear
+- Sneakers
+- Formal Shoes
+- Sandals
+
+Accessories
+- Watch
+- Belt
+- Sunglasses
+
+Bags
+
+Jewelry
+```
+
+---
+
+# 6. Define Outfit Rules
+
+Example:
+
+```text
+Outfit should contain:
+
+1 Top Wear
+1 Bottom Wear
+1 Footwear
+
+Optional:
+Watch
+Bag
+Accessory
+```
+
+This helps the AI generate logical outfits.
+
+---
+
+# 7. Define Tech Stack
+
+Example:
+
+```text
+Frontend:
+React Native + Expo
+
+Backend:
+Supabase
+
+Authentication:
+Supabase Auth
+
+Database:
+PostgreSQL (Supabase)
+
+Storage:
+Supabase Storage
+
+Weather:
+OpenWeather API
+
+AI:
+Gemini API
+```
+
+---
+
+# 8. Give Screen Priorities
+
+Tell the agent:
+
+### Phase 1
+
+* Login
+* Upload Items
+* Wardrobe
+
+### Phase 2
+
+* Outfit Generator
+
+### Phase 3
+
+* Planner
+
+### Phase 4
+
+* Favorites
+
+This helps it build in a sensible order.
+
+---
+
+# 9. Create a Product Rules Document
+
+This is the one thing that prevents most mistakes.
+
+Example:
+
+```text
+Rule 1:
+AI should recommend only items that exist in the user's wardrobe.
+
+Rule 2:
+User must review AI detection before saving.
+
+Rule 3:
+Weather styling automatically fetches weather.
+
+Rule 4:
+All outfit result screens must have:
+- Favorite
+- Add to Planner
+- Regenerate
+
+Rule 5:
+Planner reminders are optional.
+
+Rule 6:
+Bottom navigation always contains:
+Home | Upload Items | Outfits | Planner | Favorites
+```
+
+---
+

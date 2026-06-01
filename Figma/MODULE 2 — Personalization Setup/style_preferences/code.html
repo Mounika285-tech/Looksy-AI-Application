@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VESTIAIRE - Define Your Style</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#eeb9bd",
+                    "surface-container-high": "#f0e7df",
+                    "on-background": "#1f1b17",
+                    "on-tertiary-container": "#94686c",
+                    "outline-variant": "#c9c6bd",
+                    "tertiary-fixed": "#ffdadc",
+                    "secondary-fixed": "#fbdbdb",
+                    "on-tertiary-fixed-variant": "#623c40",
+                    "surface": "#fff8f4",
+                    "secondary-fixed-dim": "#debfbf",
+                    "secondary-container": "#f8d8d8",
+                    "tertiary": "#7c5357",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#fffaf9",
+                    "on-surface-variant": "#484740",
+                    "on-secondary-fixed-variant": "#574142",
+                    "surface-bright": "#fff8f4",
+                    "secondary": "#705959",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#281717",
+                    "on-secondary": "#ffffff",
+                    "primary": "#605e58",
+                    "outline": "#79776f",
+                    "surface-container-low": "#fbf2eb",
+                    "surface-variant": "#eae1da",
+                    "inverse-primary": "#c9c6be",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#755d5d",
+                    "primary-container": "#fffbf2",
+                    "background": "#fff8f4",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#e6e2d9",
+                    "on-surface": "#1f1b17",
+                    "inverse-surface": "#34302b",
+                    "surface-tint": "#605e58",
+                    "surface-container": "#f5ece5",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#e1d8d2",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#1c1c17",
+                    "surface-container-highest": "#eae1da",
+                    "primary-fixed-dim": "#c9c6be",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#f8efe8",
+                    "on-tertiary-fixed": "#301216",
+                    "on-primary-fixed-variant": "#484741",
+                    "on-primary-container": "#75736c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-gap": "32px",
+                    "stack-lg": "40px",
+                    "gutter": "16px",
+                    "stack-md": "16px",
+                    "margin-desktop": "64px",
+                    "margin-mobile": "24px",
+                    "unit": "4px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "body-lg": ["DM Sans"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "label-sm": ["DM Sans"],
+                    "headline-lg": ["Playfair Display"],
+                    "label-md": ["DM Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "body-md": ["DM Sans"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(248, 216, 216, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(232, 180, 184, 0.3);
+        }
+        .color-swatch-ring {
+            box-shadow: 0 0 0 2px transparent, 0 0 0 4px transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .color-swatch-ring.active {
+            box-shadow: 0 0 0 2px #fff8f4, 0 0 0 4px #7c5357;
+        }
+        .style-card-active {
+            border: 1px solid #7c5357;
+            background: #fffbf2;
+        }
+        body {
+            background-color: #fff8f4;
+            color: #1f1b17;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md antialiased overflow-x-hidden">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-md">
+<div class="flex justify-between items-center px-margin-mobile py-4 w-full">
+<button aria-label="Go back" class="flex items-center justify-center w-10 h-10 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-display-lg text-headline-md tracking-widest text-primary uppercase">VESTIAIRE</h1>
+<button class="font-label-md text-primary hover:opacity-70 transition-opacity active:scale-95 transition-transform">Skip</button>
+</div>
+</header>
+<main class="mt-24 px-margin-mobile pb-32 max-w-2xl mx-auto">
+<!-- Header Section -->
+<section class="mb-stack-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">Define Your Style</h2>
+<p class="font-body-md text-on-surface-variant">Choose the aesthetics that resonate most with you.</p>
+</section>
+<!-- Style Categories Grid -->
+<section class="grid grid-cols-2 gap-4 mb-stack-lg">
+<!-- Casual -->
+<button class="flex flex-col items-start p-5 glass-card rounded-lg transition-all active:scale-95 text-left group" onclick="toggleSelection(this)">
+<span class="material-symbols-outlined mb-3 text-tertiary transition-transform group-hover:scale-110" data-icon="weekend">weekend</span>
+<span class="font-label-md uppercase tracking-wider text-on-surface">Casual</span>
+<span class="text-xs text-on-surface-variant mt-1">Comfort-first everyday essentials</span>
+</button>
+<!-- Formal -->
+<button class="flex flex-col items-start p-5 glass-card rounded-lg transition-all active:scale-95 text-left group" onclick="toggleSelection(this)">
+<span class="material-symbols-outlined mb-3 text-tertiary transition-transform group-hover:scale-110" data-icon="styler">styler</span>
+<span class="font-label-md uppercase tracking-wider text-on-surface">Formal</span>
+<span class="text-xs text-on-surface-variant mt-1">Tailored elegance for occasions</span>
+</button>
+<!-- Streetwear -->
+<button class="flex flex-col items-start p-5 glass-card rounded-lg transition-all active:scale-95 text-left group" onclick="toggleSelection(this)">
+<span class="material-symbols-outlined mb-3 text-tertiary transition-transform group-hover:scale-110" data-icon="apparel">apparel</span>
+<span class="font-label-md uppercase tracking-wider text-on-surface">Streetwear</span>
+<span class="text-xs text-on-surface-variant mt-1">Urban, bold, and expressive</span>
+</button>
+<!-- Traditional -->
+<button class="flex flex-col items-start p-5 glass-card rounded-lg transition-all active:scale-95 text-left group" onclick="toggleSelection(this)">
+<span class="material-symbols-outlined mb-3 text-tertiary transition-transform group-hover:scale-110" data-icon="history_edu">history_edu</span>
+<span class="font-label-md uppercase tracking-wider text-on-surface">Traditional</span>
+<span class="text-xs text-on-surface-variant mt-1">Timeless heritage and classics</span>
+</button>
+<!-- Minimalist -->
+<button class="flex flex-col items-start p-5 glass-card rounded-lg transition-all active:scale-95 text-left group" onclick="toggleSelection(this)">
+<span class="material-symbols-outlined mb-3 text-tertiary transition-transform group-hover:scale-110" data-icon="clear_all">clear_all</span>
+<span class="font-label-md uppercase tracking-wider text-on-surface">Minimalist</span>
+<span class="text-xs text-on-surface-variant mt-1">Clean lines and intentional palette</span>
+</button>
+<!-- Sporty -->
+<button class="flex flex-col items-start p-5 glass-card rounded-lg transition-all active:scale-95 text-left group" onclick="toggleSelection(this)">
+<span class="material-symbols-outlined mb-3 text-tertiary transition-transform group-hover:scale-110" data-icon="exercise">exercise</span>
+<span class="font-label-md uppercase tracking-wider text-on-surface">Sporty</span>
+<span class="text-xs text-on-surface-variant mt-1">Functional high-performance gear</span>
+</button>
+</section>
+<!-- Preferred Colors Section -->
+<section class="mb-stack-lg">
+<h3 class="font-headline-md text-headline-md mb-6">Preferred Colors</h3>
+<div class="flex justify-between items-center gap-2">
+<!-- Neutrals -->
+<div class="flex flex-col items-center gap-2">
+<button class="w-14 h-14 rounded-full color-swatch-ring bg-gradient-to-br from-[#EAE1DA] via-[#79776F] to-[#1F1B17]" onclick="toggleColor(this)"></button>
+<span class="font-label-sm text-[10px] uppercase text-on-surface-variant">Neutrals</span>
+</div>
+<!-- Pastels -->
+<div class="flex flex-col items-center gap-2">
+<button class="w-14 h-14 rounded-full color-swatch-ring bg-gradient-to-br from-[#F8D8D8] via-[#FFDADC] to-[#E6E2D9]" onclick="toggleColor(this)"></button>
+<span class="font-label-sm text-[10px] uppercase text-on-surface-variant">Pastels</span>
+</div>
+<!-- Bold -->
+<div class="flex flex-col items-center gap-2">
+<button class="w-14 h-14 rounded-full color-swatch-ring bg-gradient-to-br from-[#BA1A1A] via-[#7C5357] to-[#1C1C17]" onclick="toggleColor(this)"></button>
+<span class="font-label-sm text-[10px] uppercase text-on-surface-variant">Bold</span>
+</div>
+<!-- Earth Tones -->
+<div class="flex flex-col items-center gap-2">
+<button class="w-14 h-14 rounded-full color-swatch-ring bg-gradient-to-br from-[#705959] via-[#605E58] to-[#484740]" onclick="toggleColor(this)"></button>
+<span class="font-label-sm text-[10px] uppercase text-on-surface-variant">Earth Tones</span>
+</div>
+</div>
+</section>
+<!-- Visual Inspiration Bento Grid (Style Guidance Integration) -->
+<section class="mb-stack-lg">
+<h3 class="font-label-sm text-on-surface-variant uppercase mb-4 tracking-[0.2em]">Curation Preview</h3>
+<div class="grid grid-cols-12 grid-rows-2 gap-3 h-64">
+<div class="col-span-8 row-span-2 rounded-lg overflow-hidden relative group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A high-end editorial fashion shot of a woman wearing a beige oversized wool coat and silk trousers. The scene is bathed in warm, soft sunlight streaming through a large window of a minimalist studio. The aesthetic is extremely clean and luxurious with a cream and soft rose color palette, evoking a sense of calm and intentional living." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEto-zcR_JFeUX2hUvEffOpXkOBFzxCjKB41vz4YEmXb3ps0FH_tZmuW1S64UiSt4MFsO6LMtP77PIXFAq2qszZgKioxwxKII5_QYhoLw3aY694dK1iOOsnSmzfHFqmNE1QdaO36rBaBkwpl9W-WfaTae1tkbbWSCPCGe28YAaYtoU3k8yX1IYu_1_0TC_4fAOFGJRDLmUIkO1tsW_BeVuliQcHjVZ3PUCDfNlcsrmIH25xvbcooYUctZKvhJBREOwKcDoZut48J8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+</div>
+<div class="col-span-4 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up of premium fabric textures including soft cream cashmere, blush pink silk, and structured gray wool. The lighting is soft and diffused, highlighting the tactile quality of the materials. This represents a minimalist and sophisticated luxury wardrobe, matching the brand's approachable elegance and warm neutral palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBElZ3Tz6QRipxzLX5w9MwlB4dLo4A9Nw2ydjaNaq0GVqpDt9ojtFHMjLtL_SGsa6z-BOuwfFT8ibCednBGyWJ4Ujs5yzpyPoWyYH4xR20GXwF388c6Y_8G-14KcbS7ci2buGlrdGAPxs8wwCXPaEdc0TlIwRdT6wNuhV4VwWJZDvqHZ01y9wmp3ZO99Xqs1R4_HhDCBR5-j_wFQHU3GlSODYd52ot_s87kmrVSG4K5qlfIN80Mhq7G41jCiMvc4uzxhbcrzUlu2Bw"/>
+</div>
+<div class="col-span-4 rounded-lg overflow-hidden bg-tertiary-fixed flex items-center justify-center p-4">
+<p class="font-headline-md text-on-tertiary-fixed-variant text-center text-sm italic">"Your style is a silent conversation."</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Fixed Action Button Footer -->
+<footer class="fixed bottom-0 left-0 w-full p-margin-mobile bg-background/90 backdrop-blur-xl">
+<button class="w-full py-5 bg-tertiary text-on-tertiary font-label-md uppercase tracking-widest rounded-full shadow-xl hover:bg-tertiary/90 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+            Complete Setup
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</footer>
+<script>
+        function toggleSelection(el) {
+            el.classList.toggle('style-card-active');
+            el.classList.toggle('glass-card');
+            
+            // Subtle haptic feel
+            if (window.navigator.vibrate) {
+                window.navigator.vibrate(10);
+            }
+        }
+
+        function toggleColor(el) {
+            // Unselect others if desired, or allow multiple
+            // For this design, let's allow multiple for a rich profile
+            el.classList.toggle('active');
+        }
+
+        // Atmosphere: Subtle parallax or fade-in could go here
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.glass-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
+</body></html>

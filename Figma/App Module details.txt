@@ -1,0 +1,443 @@
+Perfect. Now let's create the app properly for **Google Stitch**.
+
+Since Stitch works best when generating **one module at a time**, I'll give you:
+
+* Module Name
+* Screens Included
+* One master prompt for that module
+* Clean UI instructions
+* Consistent design language
+
+---
+
+# Global Design Prompt (Use for Every Module)
+
+Paste this along with every module prompt:
+
+Design a modern mobile app UI for an AI-powered Digital Wardrobe & Smart Fashion Assistant.
+
+Style Requirements:
+
+* Clean and minimal design
+* Modern fashion/lifestyle app aesthetic
+* Simple layouts with plenty of white space
+* Soft pastel colors
+* Light cream background
+* Soft blush pink accents
+* Soft coral highlights
+* Rounded cards and buttons
+* Modern typography
+* Mobile-first design
+* Easy navigation
+* No complicated dashboards
+* No overcrowded screens
+* Professional and elegant fashion-oriented appearance
+* Consistent design system across all screens
+
+Bottom Navigation:
+Home | Upload Items | Outfits | Planner | Favorites
+
+Target Users:
+Men and Women
+
+Focus on usability and simplicity rather than advanced visual effects.
+
+---
+
+# MODULE 1 — Authentication & Onboarding
+
+### Screens (8)
+
+1. Splash Screen
+2. Welcome Screen
+3. Intro Screen 1
+4. Intro Screen 2
+5. Intro Screen 3
+6. Login Screen
+7. Sign Up Screen
+8. Forgot Password Screen
+
+### Google Stitch Prompt
+
+Create 8 mobile app screens for Authentication and Onboarding.
+
+Screens:
+
+1. Splash Screen
+
+* App logo centered
+* App name
+* Fashion-themed background
+
+2. Welcome Screen
+
+* Welcome headline
+* Sign Up button
+* Login button
+
+3. Intro Screen 1
+   Title:
+   Digital Wardrobe
+
+Description:
+Store and organize your wardrobe digitally.
+
+4. Intro Screen 2
+   Title:
+   AI Outfit Recommendations
+
+Description:
+Receive personalized outfit suggestions.
+
+5. Intro Screen 3
+   Title:
+   Smart Fashion Assistant
+
+Description:
+Plan outfits based on weather and occasions.
+
+6. Login Screen
+
+* Email
+* Password
+* Login button
+* Forgot Password
+* Sign Up link
+
+7. Sign Up Screen
+
+* Name
+* Email
+* Password
+* Confirm Password
+* Create Account button
+
+8. Forgot Password Screen
+
+* Email field
+* Send Reset Link button
+
+Keep layouts clean and modern.
+
+---
+
+# MODULE 2 — Personalization Setup
+
+### Screens (3)
+
+1. Profile Setup
+2. Style Preference
+3. Setup Complete
+
+### Google Stitch Prompt
+
+Create 3 mobile screens for first-time user personalization.
+
+Screen 1:
+Profile Setup
+
+* Profile image upload
+* Name
+* Age
+* Gender selection (Male/Female)
+
+Screen 2:
+Style Preference
+
+* Casual
+* Formal
+* Streetwear
+* Traditional
+* Minimalist
+* Sporty
+* Preferred colors selection
+
+Screen 3:
+Setup Complete
+
+* Success illustration
+* Continue to Home button
+
+Simple, friendly, and welcoming design.
+
+---
+
+# MODULE 3 — Home Dashboard
+
+### Screens (5)
+
+1. Home Dashboard
+2. Weather Details
+3. Today's Outfit
+4. Recent Uploads
+5. AI Suggestions
+
+### Google Stitch Prompt
+
+Create 5 mobile screens for Home Dashboard.
+
+Screen 1:
+Home
+
+* Greeting
+* Current weather card
+* Today's planned outfit
+* Quick upload button
+* AI recommendation card
+
+Screen 2:
+Weather Details
+
+* Temperature
+* Weather condition
+* Outfit suggestion summary
+
+Screen 3:
+Today's Outfit
+
+* Outfit preview
+* Clothing items
+* Favorite button
+* Add to Planner
+
+Screen 4:
+Recent Uploads
+
+* Grid of recently uploaded items
+
+Screen 5:
+AI Suggestions
+
+* Personalized recommendation cards
+
+Clean fashion app layout.
+
+---
+
+# MODULE 4 — Upload Items (Wardrobe)
+
+### Screens (10)
+
+1. Upload Options
+2. Camera Upload
+3. Gallery Upload
+4. AI Scanning
+5. AI Detection Results
+6. Edit Details
+7. Category Selection
+8. Save Item
+9. Wardrobe Grid
+10. Item Details
+
+### Google Stitch Prompt
+
+Create 10 mobile screens for wardrobe management.
+
+Screens:
+
+1. Upload Options
+
+* Camera
+* Gallery
+
+2. Camera Upload
+
+3. Gallery Upload
+
+4. AI Scanning Progress
+
+5. AI Detection Results
+   Detected:
+
+* Category
+* Color
+* Pattern
+* Season
+* Occasion
+
+6. Edit Details
+
+7. Category Selection
+
+8. Save Item Confirmation
+
+9. Wardrobe Grid View
+
+10. Item Details
+
+* Image
+* Category
+* Color
+* Season
+* Edit
+* Delete
+
+Modern wardrobe management UI.
+
+---
+
+# MODULE 5 — Outfits (Core Feature)
+
+### Screens (12)
+
+1. Outfits Home
+2. Mix & Match Start
+3. Select Shirt
+4. Select Pant
+5. Select Accessories
+6. Mix & Match Result
+7. Weather Styling
+8. Occasion Styling
+9. Occasion Input
+10. Color Matching
+11. Outfit Result
+12. Regenerate Outfit
+
+### Google Stitch Prompt
+
+Create 12 mobile screens for Outfit Generation.
+
+Screen 1:
+Outfits Home
+Show 4 cards:
+
+* Mix & Match
+* Weather Styling
+* Occasion Styling
+* Color Matching
+
+Mix & Match Flow:
+
+* Select clothing items
+* AI generated outfit result
+
+Weather Styling:
+
+* Auto weather card
+* Recommended outfit
+
+Occasion Styling:
+
+* Occasion dropdown
+* Event description field
+
+Color Matching:
+
+* Select clothing item
+* Matching suggestions
+
+Result Screens:
+
+* Outfit image
+* Clothing list
+* Favorite
+* Add to Planner
+* Share
+* Regenerate
+
+Minimal and elegant design.
+
+---
+
+# MODULE 6 — Planner
+
+### Screens (8)
+
+1. Planner Home
+2. Planner Type Selection
+3. Custom Planner
+4. Calendar View
+5. AI Planner Setup
+6. AI Planner Result
+7. Notification Settings
+8. Planned Outfit Details
+
+### Google Stitch Prompt
+
+Create 8 mobile screens for outfit planning.
+
+Screen 1:
+Planner Home
+
+Screen 2:
+Choose Planner Type
+
+* Custom Planner
+* AI Recommended Planner
+
+Screen 3:
+Custom Planner
+
+* Date picker
+* Outfit selector
+
+Screen 4:
+Calendar View
+
+Screen 5:
+AI Planner Setup
+Options:
+
+* 3 Days
+* 7 Days
+* 14 Days
+* 30 Days
+* Custom
+
+Screen 6:
+AI Planner Results
+
+Screen 7:
+Notification Settings
+
+Screen 8:
+Planned Outfit Details
+
+Simple scheduling experience.
+
+---
+
+# MODULE 7 — Favorites
+
+### Screens (4)
+
+1. Favorites Home
+2. Favorite Outfits
+3. Favorite Items
+4. Favorite Outfit Details
+
+### Google Stitch Prompt
+
+Create 4 mobile screens for Favorites.
+
+Screens:
+
+* Favorites Home
+* Saved Outfits
+* Saved Clothing Items
+* Outfit Details
+
+Include:
+
+* Remove Favorite
+* Add to Planner
+* Share
+
+Simple grid and card layouts.
+
+---
+
+# Total Screens
+
+| Module          | Screens        |
+| --------------- | -------------- |
+| Authentication  | 8              |
+| Personalization | 3              |
+| Home            | 5              |
+| Upload Items    | 10             |
+| Outfits         | 12             |
+| Planner         | 8              |
+| Favorites       | 4              |
+| **Total**       | **50 Screens** |
+
+This gives you a complete V1 app structure with about **50 clean screens**, ready to generate module-by-module in Google Stitch.

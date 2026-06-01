@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#fff8f4",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#75736c",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#1c1c17",
+                    "inverse-primary": "#c9c6be",
+                    "on-secondary-fixed": "#281717",
+                    "secondary-container": "#f8d8d8",
+                    "surface-dim": "#e1d8d2",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#eae1da",
+                    "on-secondary-container": "#755d5d",
+                    "on-primary-fixed-variant": "#484741",
+                    "on-secondary-fixed-variant": "#574142",
+                    "surface-container": "#f5ece5",
+                    "inverse-on-surface": "#f8efe8",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#301216",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c9c6bd",
+                    "surface-container-low": "#fbf2eb",
+                    "primary-fixed": "#e6e2d9",
+                    "primary-container": "#fffbf2",
+                    "surface-variant": "#eae1da",
+                    "background": "#fff8f4",
+                    "tertiary-fixed-dim": "#eeb9bd",
+                    "tertiary-container": "#fffaf9",
+                    "surface-bright": "#fff8f4",
+                    "tertiary-fixed": "#ffdadc",
+                    "on-surface-variant": "#484740",
+                    "secondary": "#705959",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1f1b17",
+                    "tertiary": "#7c5357",
+                    "inverse-surface": "#34302b",
+                    "outline": "#79776f",
+                    "primary-fixed-dim": "#c9c6be",
+                    "surface-container-high": "#f0e7df",
+                    "on-tertiary-container": "#94686c",
+                    "primary": "#605e58",
+                    "secondary-fixed": "#fbdbdb",
+                    "on-tertiary-fixed-variant": "#623c40",
+                    "surface-tint": "#605e58",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#1f1b17",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#debfbf"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "margin-mobile": "24px",
+                    "margin-desktop": "64px",
+                    "container-gap": "32px",
+                    "gutter": "16px",
+                    "stack-lg": "40px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["DM Sans"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "label-md": ["DM Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "body-lg": ["DM Sans"],
+                    "display-lg": ["Playfair Display"],
+                    "label-sm": ["DM Sans"],
+                    "headline-lg": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body { background-color: #fff8f4; -webkit-font-smoothing: antialiased; }
+      .glass-card { background: rgba(255, 248, 244, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+      .ios-shadow { box-shadow: 0 20px 40px rgba(232, 180, 184, 0.1); }
+      .hide-scrollbar::-webkit-scrollbar { display: none; }
+      .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background min-h-screen pb-32">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 shadow-[0_20px_40px_rgba(232,180,184,0.1)]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform">menu</span>
+</div>
+<h1 class="font-display-lg text-headline-lg-mobile md:text-headline-lg tracking-tighter text-primary">VESTIAIRE</h1>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border border-outline-variant/30">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A high-end editorial portrait of a sophisticated woman with a minimalist aesthetic. She has a serene expression, softly lit by natural light in a bright, airy studio setting. The color palette is composed of soft creams, warm beiges, and muted rose tones, perfectly aligning with a luxury fashion brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvaay0_QSn6KYdgB3lvtQg5Sf_jKWMnoE8PomN5xenDZ_eVV89sV3vSNJGea9b82cY-omYDU4HaIHsAUzm5kPoe7964NPx7cW70TYb8cxg9bjE9-lycKtjQfGSKBRfcZQ5i9khbbAN4fs5vdZt2TEmp8JKEPqymej2SaKIzrQwZuYjYYpJ-tf0LCss4pA_7k2jiC0C_k01DOeQENAqaMuv3fzcHLupSj2c8_2XK9c9FitiVxbOP8Q67MzMixAlA6a4l3wFRK20CfU"/>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-24 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<!-- Weather Summary Section -->
+<section class="mb-stack-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter">
+<div>
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-1">Today's Forecast</p>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-on-surface">Weather Styling</h2>
+</div>
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-body-md text-body-md">London, UK</span>
+</div>
+</div>
+<!-- Main Weather Card -->
+<div class="mt-stack-md glass-card rounded-lg p-8 ios-shadow border border-white/40 flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="flex items-center gap-6">
+<div class="w-20 h-20 md:w-24 md:h-24 bg-tertiary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[48px] md:text-[56px] text-tertiary" style="font-variation-settings: 'FILL' 1;">partly_cloudy_day</span>
+</div>
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-display-lg text-[64px] leading-none text-on-surface">18</span>
+<span class="font-headline-md text-secondary">°C</span>
+</div>
+<p class="font-body-lg text-body-lg text-outline">Partly Cloudy</p>
+</div>
+</div>
+<div class="h-px w-full md:h-16 md:w-px bg-outline-variant/30"></div>
+<div class="flex gap-8 overflow-x-auto hide-scrollbar w-full md:w-auto">
+<div class="flex flex-col items-center min-w-[60px]">
+<span class="font-label-sm text-label-sm text-outline mb-2">14:00</span>
+<span class="material-symbols-outlined text-secondary mb-2">sunny</span>
+<span class="font-body-md text-body-md font-bold">19°</span>
+</div>
+<div class="flex flex-col items-center min-w-[60px]">
+<span class="font-label-sm text-label-sm text-outline mb-2">15:00</span>
+<span class="material-symbols-outlined text-secondary mb-2">partly_cloudy_day</span>
+<span class="font-body-md text-body-md font-bold">18°</span>
+</div>
+<div class="flex flex-col items-center min-w-[60px]">
+<span class="font-label-sm text-label-sm text-outline mb-2">16:00</span>
+<span class="material-symbols-outlined text-secondary mb-2">cloud</span>
+<span class="font-body-md text-body-md font-bold">17°</span>
+</div>
+<div class="flex flex-col items-center min-w-[60px]">
+<span class="font-label-sm text-label-sm text-outline mb-2">17:00</span>
+<span class="material-symbols-outlined text-secondary mb-2">rainy</span>
+<span class="font-body-md text-body-md font-bold">15°</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Recommended Outfit Section -->
+<section class="mb-stack-lg">
+<div class="flex items-center justify-between mb-stack-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">Recommended Outfit</h3>
+<button class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors flex items-center gap-1">
+                    Refresh Look <span class="material-symbols-outlined text-[16px]">autorenew</span>
+</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-container-gap">
+<!-- Large Feature Card -->
+<div class="lg:col-span-7 group relative overflow-hidden rounded-lg bg-surface-container shadow-[0_30px_60px_rgba(112,89,89,0.08)]">
+<img alt="Recommended look" class="w-full h-[500px] md:h-[650px] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A professional fashion editorial featuring a complete autumn outfit. A model stands against a clean, minimal architectural backdrop. She wears a premium camel-colored wool coat over a cream silk blouse and tailored beige trousers. The lighting is soft and golden, emphasizing fabric textures and a luxury mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRhxDqoVBJSq9FTQ42L8CfLsC8svI_uBw9aj5wbqnFng54VF_TNvQTta8la3aswE-yEl86VAJEh9ctaQc-kQzP2TqwTWxXOnfmvcmssVcW5DafnGyPSeNPpovaKVR1XWxfeprFxHtqF4qsm9DxV-8CbEVFQfM4HscArD91R5JlUMc8qcryUkmgURQPW73ooLLq_KTApruMuvpKsEBkJN871BaWoL0Rh_zScsSknOOMlI4BGwkngE8AyJv4HAAnOuNhTRV69G1NPWk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-secondary/40 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<div class="inline-block px-4 py-1 rounded-full bg-tertiary text-on-tertiary font-label-sm text-label-sm mb-4">Perfect for 18°C</div>
+<h4 class="font-display-lg text-white mb-2">Soft Layers &amp; Silk</h4>
+<p class="font-body-md text-white/90 max-w-md">The mild temperature and partial clouds call for light layering. We've paired a medium-weight trench with breathable silk for ultimate comfort.</p>
+</div>
+</div>
+<!-- Breakdown & Selection -->
+<div class="lg:col-span-5 flex flex-col gap-gutter">
+<div class="p-6 rounded-lg bg-white border border-secondary-container/30 ios-shadow flex items-center gap-4 group cursor-pointer active:scale-95 transition-all">
+<div class="w-20 h-20 rounded bg-surface-container overflow-hidden">
+<img alt="Trench Coat" class="w-full h-full object-cover" data-alt="Close-up shot of a luxury beige trench coat laid flat on a white surface. The fabric texture of the high-quality cotton twill is visible, showing precise stitching and tortoiseshell buttons. Minimalist aesthetic with soft, diffused lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHVpIFT5dGtyzj8s0ebTZ4TMq1BHM6uVue9hMJG0j2EjrQZLinMwsmy8ksSYH1s4DO6efQj87KE7t6-zyRwq_83z4FvYbkVfhm-ufK2VFU3JR31Jp9-EWgPW-evaNJt4X5H-Ax-InQnODX-XdiINGv9UdXWKstm2tw2wX3KijZoCfiOPenSlylofnHUCmQ8zsU47YUZV7XvrHh3N02ncJO-tU44wX7jCoCGt3OvuDBgX69Ww7PU0GIGG1qr_jeJaP7tUlnsUKo5TM"/>
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">The Outerwear</p>
+<p class="font-body-lg text-body-lg text-on-surface font-medium">Classic Camel Trench</p>
+<p class="font-label-md text-label-md text-secondary">Burberry Heritage</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">check_circle</span>
+</div>
+<div class="p-6 rounded-lg bg-white border border-secondary-container/30 ios-shadow flex items-center gap-4 group cursor-pointer active:scale-95 transition-all">
+<div class="w-20 h-20 rounded bg-surface-container overflow-hidden">
+<img alt="Silk Blouse" class="w-full h-full object-cover" data-alt="A luxurious ivory silk blouse draped elegantly over a minimal hanger. The soft sheen of the silk reflects gentle studio lighting. The background is a warm cream tone, creating a monochromatic and high-end feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk1Sgr9Pa4_6XLRglzV63ug_apiEBEBCCfRbBRLhw7ZLaoS-cYN2ZRfHWsHcHf0O7s_Vr4JUbJ3sAJsIdHCdqFscS6SHt-5a68N8wXVA5PrI-yUXAZHutdBo0fjpMK4NQY62CIOgYmXyQLhZp2bPUOQt5RlJMGqxNb6Ofp4gpsmgg0EDtbbOR9jMEJA4SnWWUaUAHJoBRrIOHxAQvLBIavskNNZOe6zR6E5a05Rmx6SypGOiSwz5BLS07tRp8ZAKex3v_0NmmG_o4"/>
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">The Base</p>
+<p class="font-body-lg text-body-lg text-on-surface font-medium">Silk Button-Down</p>
+<p class="font-label-md text-label-md text-secondary">The Row</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">check_circle</span>
+</div>
+<div class="p-6 rounded-lg bg-white border border-secondary-container/30 ios-shadow flex items-center gap-4 group cursor-pointer active:scale-95 transition-all">
+<div class="w-20 h-20 rounded bg-surface-container overflow-hidden">
+<img alt="Trousers" class="w-full h-full object-cover" data-alt="Tailored wide-leg trousers in a soft taupe color, hanging in a bright walk-in closet. The crisp pleats and clean lines suggest high-end craftsmanship. Soft morning light fills the frame." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAvJK9ZIe29WPrjgGNxnyxO9U9gqO-AxXrtAslSgPrpmyHjyjApemwBTE9Ii8OJDB6nFGnOvFpGjZ6ZSir9LO9JDXpJGhc46m2LQ8m3Js1pHf8HrNctm7hluJPwMjcGDnCZSkGhwxcp6qFlELZtxv5apg2RjUxCbS654mTL0hhMbpoRMmxG0KMfdA0Sa-Mp0ZOqIKRY_UL7xT7eskCc15t19n8XxEFhbXJoQzM4qwPZMe_Fm5S2YBdM_CYje8xi_NGgr7-KWj_XqE"/>
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">The Bottom</p>
+<p class="font-body-lg text-body-lg text-on-surface font-medium">Wide-Leg Trousers</p>
+<p class="font-label-md text-label-md text-secondary">Jil Sander</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">check_circle</span>
+</div>
+<button class="mt-4 w-full py-5 rounded-full bg-secondary text-on-secondary font-label-md text-label-md uppercase tracking-widest active:scale-95 transition-transform shadow-lg shadow-secondary/20">
+                        Wear This Today
+                    </button>
+</div>
+</div>
+</section>
+<!-- Wardrobe Alternatives -->
+<section class="mb-stack-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Similar Options</h3>
+<div class="flex gap-gutter overflow-x-auto hide-scrollbar pb-8">
+<div class="min-w-[180px] group cursor-pointer">
+<div class="aspect-[3/4] rounded-lg overflow-hidden mb-2 bg-surface-container-high">
+<img alt="Alt 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A minimalist grey cashmere sweater displayed on a wooden table alongside a pair of gold hoop earrings. The aesthetic is clean and cozy, with soft lighting and a warm beige background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVEsPttKsC8bhSMNT7lebf_PfuPGLdyZMyg_haqYYB7voFPqd0Ez7IjLZi4ZJ6DrmePdrdioHVC3w5a10UaBN-CHPj5O4TDLaQc1e86ztz2Pj3FmcCayPgdlq6Hmz7S6kC6DOeB-y28U1K-HOfi2gtgZ8EF2CrB7Rm2f1zlTXRhNzfKZ_7lxg4awfctsTA95CGh-k3h-kai0v-5s4KIwBVUS3c3z9CMHo1ssIwEZUOv7wBTbBfrN7u7AgLWwclAJzFaOP_QVO7apQ"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface">Light Cashmere</p>
+<p class="font-label-sm text-label-sm text-outline">For a cooler breeze</p>
+</div>
+<div class="min-w-[180px] group cursor-pointer">
+<div class="aspect-[3/4] rounded-lg overflow-hidden mb-2 bg-surface-container-high">
+<img alt="Alt 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A chic denim jacket paired with a white cotton dress. The outfit is presented in a bright, modern studio with natural plant shadows dancing on the wall. Minimalist fashion vibes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1MTOGh7H6OSpyrbkMyYBS-s1S6l7bBdeh-GNtYuO0p_O_IJB6DoO_XVDPt-274TkAdvagka48mL-tN6bFOPorfNCnF3C6CuDSxATDueBwkNk4r-Fbc6p31rJAyVwG26U3ajV_SLrRfu_aWdm6oSxzLeWYXOPOc9-nLZl0T4cp_ryYVDgntztYIzENJuqvc4o8JEgbhnkGihQTDWsq3JlkoRmPIHxizhlscy89O9-UCGWr4wOEBNAovSzJuHYn_aX9CwwJbbvVO0I"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface">Structured Denim</p>
+<p class="font-label-sm text-label-sm text-outline">Casual alternative</p>
+</div>
+<div class="min-w-[180px] group cursor-pointer">
+<div class="aspect-[3/4] rounded-lg overflow-hidden mb-2 bg-surface-container-high">
+<img alt="Alt 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A high-quality white poplin shirt with rolled sleeves, accessorized with a luxury leather watch. The lighting is crisp and clear, emphasizing the clean white fabric against a soft rose background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB8unZdcPk-_BggcF1f_i0dj14JRg3mGNiFbGa9vmKnxR6EpyaTbjCx9lIpqBDdw9ert7hgqtHmSnGPoDSb1X6-q4HvOnQk6pIlkcr6RP2m-9mJ02xCFYfkBdEsjTf75ZVPuw5GrZC516T_xImSIxUX4d6OZ02sNDdI1tZ-UcdpSz2a1LcRVCw4PenBvF3Uc7B-VloJnE_YRjuZ5awbNry2yATdyeSGAkSniffplyZ4gclcHSCibOVnTDtEXaoeGWJ5y5FMWgKNOw"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface">Poplin Shirt</p>
+<p class="font-label-sm text-label-sm text-outline">Lunch meeting ready</p>
+</div>
+<div class="min-w-[180px] group cursor-pointer">
+<div class="aspect-[3/4] rounded-lg overflow-hidden mb-2 bg-surface-container-high">
+<img alt="Alt 4" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A tailored black blazer draped over a neutral armchair. The setting is a minimalist apartment with large windows and soft, diffused daylight. Sophisticated and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChVf6hVLNT52dj-RqN0fixFy9d99pxVCoFtUy048hZUNbPAzmFed1N-zDox0Z18igKAxgXPUzK7gKXKm3sqKelzSDHamjOK2trWbB6lS0XgKXf0KhC2AQLE1jO6VzCSiFfLfYy0_xoiiFr15V0nq0og9_Z-3P6UD58VRMv4O3DCzAriTZz2CegBZIFRFVa8jMI2qpRYR-MO00qUOJF-HfSeUgQepwkBqOm5hZv76pS6a9iV5tRpdRopqJDmxh4D2HP4nbMCFksAEY"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface">Evening Blazer</p>
+<p class="font-label-sm text-label-sm text-outline">For sunset events</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center pt-2 pb-safe px-4 bg-surface/90 backdrop-blur-xl z-50 rounded-t-lg border-t border-secondary-container/30 shadow-[0_-10px_30px_rgba(232,180,184,0.15)]">
+<div class="flex flex-col items-center justify-center text-outline hover:text-primary transition-colors cursor-pointer active:scale-90 duration-200">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-outline hover:text-primary transition-colors cursor-pointer active:scale-90 duration-200">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm">Upload</span>
+</div>
+<div class="flex flex-col items-center justify-center text-outline hover:text-primary transition-colors cursor-pointer active:scale-90 duration-200">
+<span class="material-symbols-outlined">checkroom</span>
+<span class="font-label-sm text-label-sm">Outfits</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary relative after:content-[''] after:w-1 after:h-1 after:bg-secondary after:rounded-full after:mt-1 cursor-pointer active:scale-90 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="font-label-sm text-label-sm">Planner</span>
+</div>
+<div class="flex flex-col items-center justify-center text-outline hover:text-primary transition-colors cursor-pointer active:scale-90 duration-200">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-sm text-label-sm">Favorites</span>
+</div>
+</nav>
+<script>
+        // Micro-interactions and hover effects
+        document.querySelectorAll('.group').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                // Subtle feedback could be added here
+            });
+        });
+
+        // Simple animation for weather card on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const weatherCard = document.querySelector('.glass-card');
+            weatherCard.style.opacity = '0';
+            weatherCard.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                weatherCard.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+                weatherCard.style.opacity = '1';
+                weatherCard.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body></html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Outfit Detail - VESTIAIRE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 251, 242, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(232, 180, 184, 0.2);
+        }
+        body {
+            background-color: #fff8f4;
+            color: #1f1b17;
+        }
+        .scroll-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md antialiased overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl flex items-center justify-between px-margin-mobile h-16 w-full">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-display-lg text-headline-md tracking-widest text-on-surface dark:text-on-surface-variant">VESTIAIRE</h1>
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<main class="pt-16 pb-32">
+<!-- Hero Section -->
+<section class="relative w-full h-[530px] md:h-[618px] overflow-hidden bg-surface-container">
+<img alt="Planned Outfit Ensemble" class="w-full h-full object-cover object-center" data-alt="A high-fashion, minimalist editorial shot of a complete ensemble featuring a cream silk blouse paired with high-waisted neutral wool trousers and a structured camel coat. The lighting is soft and diffused, reminiscent of a high-end boutique interior with warm cream tones and blush pink accents. The composition is clean and centered, emphasizing the texture and drape of the luxurious fabrics against a soft, sun-drenched background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaJfY-foYL8jRtiFMbTQn1J4gqXIWhz3vimffavipy4B32yJz0SpPbOg_NJMy5_jqWXExy4GTdp2COrnwEdXsdLUaC4C_new5lk1IL3MPsmrWY-m9IKIKN9M9j2vIGqNp61gT4Kz1VpSWGX4urc_PRoi1gAuSdvYlDwb1dczX2up985Ru8WDHkZjcsvf05ynHiJJCb50LB584-Kkf5Y7r4rliGe1dbmW3_Lt1MjZ5IJCe_wSGbsrcVOZ3fLAdtjkxZcK4J6vqQOmo"/>
+<!-- Date & Event Overlay -->
+<div class="absolute bottom-0 left-0 w-full p-margin-mobile bg-gradient-to-t from-black/40 to-transparent">
+<div class="glass-card p-6 rounded-lg text-on-surface shadow-lg max-w-lg">
+<p class="font-label-sm text-label-sm uppercase tracking-widest text-tertiary mb-2">Saturday, October 14</p>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-headline-lg mb-1">Gala Evening Dinner</h2>
+<div class="flex items-center gap-2 opacity-80">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+<span class="font-body-md text-body-md">19:30 · The Grand Gallery</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Content Area -->
+<div class="max-w-[1440px] mx-auto px-margin-mobile mt-stack-lg">
+<!-- Quick Actions -->
+<div class="flex flex-wrap gap-4 mb-stack-lg">
+<button class="flex-1 md:flex-none px-8 py-4 bg-tertiary text-on-tertiary rounded-full font-label-md text-label-md flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+                    Edit Plan
+                </button>
+<button class="flex-1 md:flex-none px-8 py-4 bg-white border border-secondary-container text-secondary rounded-full font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container-low active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+                    Share
+                </button>
+<button class="w-full md:w-auto px-8 py-4 text-error font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-error-container/20 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="calendar_today" style="font-variation-settings: 'FILL' 0;">calendar_today</span>
+                    Remove from Calendar
+                </button>
+</div>
+<!-- Bento Layout for Details -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-container-gap">
+<!-- Ensemble Breakdown -->
+<div class="md:col-span-8 space-y-gutter">
+<h3 class="font-headline-md text-headline-md border-b border-surface-variant pb-4">Ensemble Items</h3>
+<!-- Item List -->
+<div class="space-y-4">
+<!-- Item 1 -->
+<div class="flex items-center gap-6 p-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
+<div class="w-20 h-24 rounded-md overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="Close up studio shot of a high-quality cream-colored wool coat. The lighting is soft and neutral, emphasizing the premium texture and weave of the fabric. The aesthetic is clean and minimal, following a luxury fashion catalog style with a soft rose-tinted shadow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs4mPZqYCJM5Ps9yLURW-X-Mx_Hfj0o95VSi0PSb-0JRshvxDl5Srx8UeiDFfNFzyfDXvCMPxfUwYHC1Pv5v9HuHOQO1-F68QxY4o0BoWqu5bEpCSdYdaegfFHE616vkyVeFXREIDguI_8psMFFR5G-kTyYb-Wm1CXWtTxwsEhTjQ5RDo246h16WZLg8q7qv20pAhTX8vs8zlqBxJREOosFF0VB7zqvmSt54LMS6lTTM3Tt69zfG5yKbHCmPBZya8MpAuv4zmMtJA"/>
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-label-sm text-tertiary">OUTERWEAR</p>
+<h4 class="font-headline-md text-body-lg">Cashmere Blend Overcoat</h4>
+<p class="text-outline text-label-md">Max Mara · Camel</p>
+</div>
+<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-6 p-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
+<div class="w-20 h-24 rounded-md overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A luxurious white silk button-down blouse presented in a clean, minimalist studio setting. The lighting is bright and high-key, highlighting the soft sheen and elegant drape of the silk. The style is sophisticated and intentional, matching a high-end wardrobe curation app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHshDJGgn4ac3xewOxYefMIafXrmuP9jH7RYC09Lx4ckyT53mpMqw2xRyr66Re8yBQcJSBtgq80jKwZgVq3O5-D_ONVzaLZwc9mrNBwJfhIpN-PMQuPZ5x0eUVlKZY7Vk0m5Gp1ljgkrZRpS1nGPK-Rr55Q8WLLYeUZe2LD-6uA0ko5yk4WSnqwk2zUJ-oYj4-WI4Y6a4MyC5E81b7u_I1IgKGRWEbFo04VyxkNt5ZWY0fEf1yIpNhlgH56OK8XxxhIUcC1Hw9lFc"/>
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-label-sm text-tertiary">TOPS</p>
+<h4 class="font-headline-md text-body-lg">Silk Charmeuse Blouse</h4>
+<p class="text-outline text-label-md">Equipment · Ivory</p>
+</div>
+<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-6 p-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
+<div class="w-20 h-24 rounded-md overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="Pair of designer wide-leg trousers in a soft beige tone. The image is captured with professional studio lighting that creates soft gradients and a sense of physical weightlessness. The aesthetic is modern minimalism with a warm, approachable luxury feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgFhFdbjYvTdRC1asePc8OZp6ulopKYvYED5F-RtMFcWrs9O3ei5BKhAw6pnOfL70OQkpeR8GazgFR1YWFIfJ10SBLqTaEPznkxHoCXKNsS61F9ZFv5GA-cwZOMMqRW-axf46sm3xSLZJkbh_aGZh2aKqzewBY1XTQz2eGiezp3hfssPDfrPVTMUOvfYV-6FkHafitFPQSlSiEIqQhMC5tCEvA9JsU1asqHJsmBuaedwWmwskkJlQXh6BjaZy-scOMo-6fVplMjes"/>
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-label-sm text-tertiary">BOTTOMS</p>
+<h4 class="font-headline-md text-body-lg">High-Rise Tailored Trousers</h4>
+<p class="text-outline text-label-md">Theory · Sand</p>
+</div>
+<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Sidebar Details -->
+<div class="md:col-span-4 space-y-stack-lg">
+<!-- Weather Context -->
+<div class="glass-card p-8 rounded-lg">
+<h5 class="font-label-sm text-label-sm uppercase tracking-widest text-tertiary mb-4">Forecast</h5>
+<div class="flex items-center justify-between">
+<div>
+<p class="font-display-lg text-headline-lg">18°C</p>
+<p class="text-outline font-label-md">Clear Evening</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-5xl" data-icon="clear_night">clear_night</span>
+</div>
+<div class="mt-6 pt-6 border-t border-secondary-container/30">
+<p class="text-body-md text-on-surface-variant italic">"Perfect for the cashmere overcoat. A light breeze is expected by 21:00."</p>
+</div>
+</div>
+<!-- Styling Notes -->
+<div class="p-8 bg-primary-container rounded-lg border border-primary-fixed">
+<h5 class="font-label-sm text-label-sm uppercase tracking-widest text-primary mb-4">Styling Notes</h5>
+<ul class="space-y-4 font-body-md text-on-primary-container">
+<li class="flex gap-3">
+<span class="material-symbols-outlined text-primary scale-75" data-icon="check_circle">check_circle</span>
+                                French tuck the blouse for a sharper silhouette.
+                            </li>
+<li class="flex gap-3">
+<span class="material-symbols-outlined text-primary scale-75" data-icon="check_circle">check_circle</span>
+                                Pair with the gold heirloom earrings.
+                            </li>
+<li class="flex gap-3">
+<span class="material-symbols-outlined text-primary scale-75" data-icon="check_circle">check_circle</span>
+                                Pointed-toe suede pumps for height.
+                            </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl z-50 rounded-t-lg shadow-[0_-10px_40px_rgba(124,83,87,0.1)]">
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant opacity-60 hover:text-secondary-container transition-colors active:scale-90 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="home_app_logo">home_app_logo</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant opacity-60 hover:text-secondary-container transition-colors active:scale-90 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="font-label-sm text-label-sm">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant opacity-60 hover:text-secondary-container transition-colors active:scale-90 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="checkroom">checkroom</span>
+<span class="font-label-sm text-label-sm">Outfits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-secondary after:rounded-full active:scale-90 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-label-sm text-label-sm">Planner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant opacity-60 hover:text-secondary-container transition-colors active:scale-90 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-sm text-label-sm">Favorites</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for item clicks
+        document.querySelectorAll('.group').forEach(item => {
+            item.addEventListener('click', () => {
+                item.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    item.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+
+        // Atmospheric parallax on scroll for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImage = document.querySelector('section img');
+            if (heroImage) {
+                heroImage.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>VESTIAIRE | Favorites</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#1f1b17",
+                    "on-secondary-container": "#755d5d",
+                    "on-primary-container": "#75736c",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#fbdbdb",
+                    "outline": "#79776f",
+                    "on-secondary-fixed": "#281717",
+                    "inverse-primary": "#c9c6be",
+                    "on-tertiary-container": "#94686c",
+                    "on-tertiary-fixed-variant": "#623c40",
+                    "primary-fixed": "#e6e2d9",
+                    "surface-container-low": "#fbf2eb",
+                    "secondary-container": "#f8d8d8",
+                    "tertiary-fixed-dim": "#eeb9bd",
+                    "secondary": "#705959",
+                    "on-primary-fixed": "#1c1c17",
+                    "primary-fixed-dim": "#c9c6be",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fff8f4",
+                    "surface-container-highest": "#eae1da",
+                    "surface-bright": "#fff8f4",
+                    "on-primary-fixed-variant": "#484741",
+                    "surface-dim": "#e1d8d2",
+                    "on-surface-variant": "#484740",
+                    "inverse-surface": "#34302b",
+                    "surface-container-lowest": "#ffffff",
+                    "primary": "#605e58",
+                    "outline-variant": "#c9c6bd",
+                    "tertiary-container": "#fffaf9",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#debfbf",
+                    "inverse-on-surface": "#f8efe8",
+                    "primary-container": "#fffbf2",
+                    "on-tertiary-fixed": "#301216",
+                    "surface-tint": "#605e58",
+                    "surface": "#fff8f4",
+                    "surface-container": "#f5ece5",
+                    "on-background": "#1f1b17",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#ffdadc",
+                    "surface-variant": "#eae1da",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#7c5357",
+                    "surface-container-high": "#f0e7df",
+                    "on-secondary-fixed-variant": "#574142"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "margin-mobile": "24px",
+                    "margin-desktop": "64px",
+                    "stack-sm": "8px",
+                    "container-gap": "32px",
+                    "stack-md": "16px",
+                    "stack-lg": "40px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": ["DM Sans"],
+                    "body-md": ["DM Sans"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "label-md": ["DM Sans"],
+                    "label-sm": ["DM Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        .glass-overlay {
+            background: rgba(232, 180, 184, 0.15);
+            backdrop-filter: blur(4px);
+        }
+        body {
+            background-color: #fff8f4;
+            color: #1f1b17;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-background/80 dark:bg-background/80 backdrop-blur-md flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16 w-full">
+<button class="text-primary dark:text-primary-fixed hover:opacity-70 transition-opacity active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg tracking-widest text-on-surface dark:text-on-surface">VESTIAIRE</h1>
+<button class="text-primary dark:text-primary-fixed hover:opacity-70 transition-opacity active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto min-h-screen">
+<!-- Header Section -->
+<header class="mb-stack-lg">
+<h2 class="font-display-lg text-display-lg text-on-surface mb-2">The Collection</h2>
+<p class="font-body-lg text-body-lg text-outline max-w-lg">Your curated selection of personal style and inspired looks.</p>
+</header>
+<!-- Bento Grid for Favorites -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-container-gap">
+<!-- Saved Outfits Card -->
+<div class="group relative aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-lg cursor-pointer bg-surface-container-high transition-transform duration-500 hover:scale-[1.01] shadow-[0_-10px_40px_rgba(232,180,184,0.05)]">
+<img alt="Saved Outfits" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A sophisticated fashion photograph of a curated outfit hanging on a minimalist brass rail against a soft cream plaster wall. The lighting is warm and directional, creating soft glows. The aesthetic is ultra-clean with a muted palette of blush pink, beige, and soft whites, embodying a premium and intentional luxury wardrobe vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiMzkm8L7IAq-SnRnKFXjzWRfX5OySDfbUCcm5UU-ixsNumORYUOfpCIg3dkEgv7KiMpu9d4eRMa5p2dC4YSgMqTGm51GVIlJkM5ryBBMGc7xV93r90sr-UnbmiN52nOA-z27CSaHo9i-PLHO6RB3NBYPhxu7HUIWwCsYZG9sfod9kPpYA6PGE5mc8jKnyJJ3n5smCYGsGn7ZGv5leccVNo9nQx29RvR8rhU0lx_b7y1cqURJ9ENeEJFeFC6kyQg5G77z5jxPoPPE"/>
+<div class="absolute inset-0 glass-overlay opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+<div class="absolute inset-0 flex flex-col justify-end p-margin-mobile md:p-12">
+<div class="bg-surface/90 backdrop-blur-md p-stack-lg rounded-lg border border-tertiary/10">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest mb-2 block">Curation</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Saved Outfits</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">12 unique combinations created by you.</p>
+<div class="mt-stack-md flex items-center text-primary group-hover:translate-x-2 transition-transform">
+<span class="font-label-md text-label-md mr-2">Explore Gallery</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Saved Items Card -->
+<div class="group relative aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-lg cursor-pointer bg-surface-container-high transition-transform duration-500 hover:scale-[1.01] shadow-[0_-10px_40px_rgba(232,180,184,0.05)]">
+<img alt="Saved Items" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Close-up architectural shot of high-end silk and cashmere garments folded neatly on a textured stone shelf. The atmosphere is serene and high-end, featuring a soft rose and cream color palette. Soft, diffused morning light illuminates the scene, highlighting the textures of the fabrics in a minimalist, boutique-like environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAX30er4tFB236oNpmkd4V73Sa8uBRniG_saop5C1TYE7m6RpQ1YOi6NJtexo2CesapwlffzUnZh8xfPBYILMwKysEn16083OzlX6vnvTCqyknSENElplZQYrE_5RUIMvm0En-7g5O4M_VWQBpQPSaO6d1MNyiu1H0It-FuiQpkM52HP68H1FHtt7GvtCYnaXp558P4rukeKahlxFjB7BpRvJn-qHTEop-9hTy5QdIR-0cxLnQfslDpD97z9zZ2HBLrZLGkvPN3SVU"/>
+<div class="absolute inset-0 glass-overlay opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+<div class="absolute inset-0 flex flex-col justify-end p-margin-mobile md:p-12">
+<div class="bg-surface/90 backdrop-blur-md p-stack-lg rounded-lg border border-tertiary/10">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest mb-2 block">Closet</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Saved Items</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">48 individual pieces awaiting your touch.</p>
+<div class="mt-stack-md flex items-center text-primary group-hover:translate-x-2 transition-transform">
+<span class="font-label-md text-label-md mr-2">View Closet</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity / Stats (Subtle) -->
+<section class="mt-stack-lg grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="p-stack-md rounded-DEFAULT bg-surface-container-low flex items-center">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="history">history</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline">Recently Added</p>
+<p class="font-body-md text-body-md text-on-surface">Silk Midi Skirt</p>
+</div>
+</div>
+<div class="p-stack-md rounded-DEFAULT bg-surface-container-low flex items-center">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-on-tertiary-fixed" data-icon="trending_up" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline">Top Category</p>
+<p class="font-body-md text-body-md text-on-surface">Outerwear</p>
+</div>
+</div>
+<div class="p-stack-md rounded-DEFAULT bg-surface-container-low flex items-center">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-on-primary-fixed" data-icon="inventory_2">inventory_2</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline">Closet Value</p>
+<p class="font-body-md text-body-md text-on-surface">Curated Essentials</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface/80 dark:bg-surface/80 backdrop-blur-xl rounded-t-lg shadow-[0_-10px_40px_rgba(232,180,184,0.1)]">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary transition-colors group active:scale-90 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<!-- Upload -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary transition-colors group active:scale-90 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="font-label-sm text-label-sm mt-1">Upload</span>
+</a>
+<!-- Outfits -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary transition-colors group active:scale-90 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="checkroom">checkroom</span>
+<span class="font-label-sm text-label-sm mt-1">Outfits</span>
+</a>
+<!-- Planner -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary transition-colors group active:scale-90 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm mt-1">Planner</span>
+</a>
+<!-- Favorites (Active) -->
+<a class="flex flex-col items-center justify-center text-on-secondary-container dark:text-on-secondary-fixed-variant relative after:content-[''] after:w-1 after:h-1 after:bg-secondary after:rounded-full after:mt-1 active:scale-90 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined active-icon" data-icon="favorite">favorite</span>
+<span class="font-label-sm text-label-sm mt-1">Favorites</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1.01)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

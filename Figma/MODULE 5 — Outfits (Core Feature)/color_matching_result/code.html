@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 250, 249, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .text-shadow-sm {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        /* Custom scrollbar for minimalist look */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E8B4B8;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#fff8f4",
+                      "error-container": "#ffdad6",
+                      "on-primary-container": "#75736c",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed": "#1c1c17",
+                      "inverse-primary": "#c9c6be",
+                      "on-secondary-fixed": "#281717",
+                      "secondary-container": "#f8d8d8",
+                      "surface-dim": "#e1d8d2",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#eae1da",
+                      "on-secondary-container": "#755d5d",
+                      "on-primary-fixed-variant": "#484741",
+                      "on-secondary-fixed-variant": "#574142",
+                      "surface-container": "#f5ece5",
+                      "inverse-on-surface": "#f8efe8",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed": "#301216",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#c9c6bd",
+                      "surface-container-low": "#fbf2eb",
+                      "primary-fixed": "#e6e2d9",
+                      "primary-container": "#fffbf2",
+                      "surface-variant": "#eae1da",
+                      "background": "#fff8f4",
+                      "tertiary-fixed-dim": "#eeb9bd",
+                      "tertiary-container": "#fffaf9",
+                      "surface-bright": "#fff8f4",
+                      "tertiary-fixed": "#ffdadc",
+                      "on-surface-variant": "#484740",
+                      "secondary": "#705959",
+                      "on-secondary": "#ffffff",
+                      "on-surface": "#1f1b17",
+                      "tertiary": "#7c5357",
+                      "inverse-surface": "#34302b",
+                      "outline": "#79776f",
+                      "primary-fixed-dim": "#c9c6be",
+                      "surface-container-high": "#f0e7df",
+                      "on-tertiary-container": "#94686c",
+                      "primary": "#605e58",
+                      "secondary-fixed": "#fbdbdb",
+                      "on-tertiary-fixed-variant": "#623c40",
+                      "surface-tint": "#605e58",
+                      "on-tertiary": "#ffffff",
+                      "on-background": "#1f1b17",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#debfbf"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "16px",
+                      "stack-sm": "8px",
+                      "margin-mobile": "24px",
+                      "margin-desktop": "64px",
+                      "container-gap": "32px",
+                      "gutter": "16px",
+                      "stack-lg": "40px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "body-md": ["DM Sans"],
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "label-md": ["DM Sans"],
+                      "headline-md": ["Playfair Display"],
+                      "body-lg": ["DM Sans"],
+                      "display-lg": ["Playfair Display"],
+                      "label-sm": ["DM Sans"],
+                      "headline-lg": ["Playfair Display"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-secondary-container">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-[0_20px_40px_rgba(232,180,184,0.1)] flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 transition-transform">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-display-lg text-[24px] md:text-display-lg tracking-tighter text-primary">VESTIAIRE</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-primary hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">search</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-secondary-fixed overflow-hidden ring-2 ring-tertiary/10">
+<img alt="User" data-alt="A professional fashion portrait of a young woman with a serene expression, captured in soft, natural morning light. She has elegant features and is styled with a minimalist aesthetic, reflecting the sophisticated and approachable luxury of a premium wardrobe application. The background is a soft, blurred neutral tone to emphasize her presence and style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-uHnApMlj3jC46_Y3zXxhkz_YLadt5dPlw7yWA6BdnOiKGEhkdK-5Xhfa_xaIY3VWbkUf-KBqgz_bhrhsXfyWh0boEkn4kVs2P3TCZGZpcFCtxXePyz7AkMpJWc2ojqTfsQKSWfNIlybBIJBWgi4KVCsjZAYc8QO_vqzzc16HOOCQa40_5CBJL8iXCnbKIRMMpvpsX0b24lDSXuoXNTTqHFLy8m8MvOrO6CRZQGha_H-5akuL215guM3xJ0GMkpvdz8qvCFRAv1s"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 min-h-screen px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<!-- Results Header -->
+<section class="mb-stack-lg animate-in fade-in slide-in-from-bottom-4 duration-700">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest mb-2 block">Curated Just For You</span>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">The Terra Cotta Ensemble</h2>
+</div>
+<div class="flex gap-2">
+<div class="w-6 h-6 rounded-full bg-[#7C5357] shadow-sm"></div>
+<div class="w-6 h-6 rounded-full bg-[#E6E2D9] shadow-sm"></div>
+<div class="w-6 h-6 rounded-full bg-[#705959] shadow-sm"></div>
+<span class="font-label-md text-label-md text-outline ml-2">Harmonious Palette</span>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter lg:gap-container-gap">
+<!-- Main Fashion Photography (The Look) -->
+<div class="md:col-span-7 lg:col-span-8 group relative overflow-hidden rounded-lg bg-surface-container-low shadow-sm">
+<div class="aspect-[4/5] md:aspect-auto md:h-[700px] w-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" data-alt="A high-fidelity fashion photograph of a woman wearing a sophisticated terra cotta silk blouse paired with high-waisted cream wool trousers. She is standing in a sun-drenched minimalist architectural space with soft shadows casting elegant lines. The lighting is warm and bright, highlighting the textures of the fabrics and creating an atmosphere of quiet luxury and intentional style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYWhk19JaaIn0eBoOJoHhHGVaMrYA36nrFtWFiQJizSweURp2VMNw_dg95fJsd_i5IAzaJPPB48nF6X7fE5HLcSwqy-ifZmw0WK1ZyZwXzrU38qVwNlrGtQ-z31fRhhBc303fECWYrTbW_xKc07fqvMllRgVB3Vbxrj6bhmuJT8wZT6_DB7x3kGEhMVeI8ll-krPQoBqu452jpGG3eZepi7JBDT16JAPu18iaSXQvu0oBxD-CSLiGOygaVjOQr1yHpwrcb-r-Z6FM"/>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-stack-lg bg-gradient-to-t from-black/40 to-transparent">
+<div class="glass-card p-6 rounded-lg inline-flex flex-col gap-1 max-w-xs">
+<span class="font-label-sm text-label-sm text-tertiary">ENSEMBLE SCORE</span>
+<div class="flex items-end gap-2">
+<span class="font-display-lg text-display-lg leading-none text-on-surface">98</span>
+<span class="font-body-md text-body-md text-outline pb-1">/100</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Optimal color contrast and tonal balance for your skin tone.</p>
+</div>
+</div>
+</div>
+<!-- Side Interaction & Items -->
+<div class="md:col-span-5 lg:col-span-4 flex flex-col gap-gutter lg:gap-container-gap">
+<!-- Action Buttons Card -->
+<div class="bg-surface-container rounded-lg p-6 flex flex-col gap-4 shadow-sm border border-secondary-container/20">
+<h3 class="font-headline-md text-headline-md text-on-surface">Plan Your Look</h3>
+<div class="grid grid-cols-1 gap-3">
+<button class="flex items-center justify-center gap-3 bg-tertiary text-on-tertiary py-4 rounded-full font-label-md text-label-md hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-tertiary/10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+                            ADD TO FAVORITES
+                        </button>
+<button class="flex items-center justify-center gap-3 bg-surface-container-highest text-on-surface py-4 rounded-full font-label-md text-label-md hover:bg-secondary-container transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined">calendar_month</span>
+                            ADD TO PLANNER
+                        </button>
+<button class="flex items-center justify-center gap-3 bg-transparent border border-outline/30 text-on-surface py-4 rounded-full font-label-md text-label-md hover:border-tertiary transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined">share</span>
+                            SHARE ENSEMBLE
+                        </button>
+</div>
+</div>
+<!-- Item Breakdown (Inset Grouping style) -->
+<div class="bg-surface-container-low rounded-lg p-6 border border-secondary-container/10 flex flex-col gap-6">
+<h3 class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Outfit Breakdown</h3>
+<ul class="space-y-4">
+<li class="flex items-center gap-4 p-3 bg-surface rounded-lg group cursor-pointer hover:shadow-md transition-shadow">
+<div class="w-16 h-16 rounded-md bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up product shot of a premium terra cotta silk blouse with delicate button detailing. The fabric has a soft sheen and is draped elegantly against a minimalist cream background. The lighting is soft and diffused, emphasizing the high-quality textile and sophisticated color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfmKlxz2QBgegiurmfo4oiCHhYkopTSeRX6yR25O8w1n12t73_xq-AeWeFd8iop-1O19f4TT5HPsfd9wThElK0CPsrNXGacUIzRBFjoOXiTbo0jPZpkfdAUwwrbQZCzj9ot9jyils4JwUkkUWaQ-8kp4vKTWAEiKdScURI1C1qYolReC4_QAP8yVq1dBmiHlhxoda58kzmSfk_I4rB6kwzffWvgXr1vxCDSHjdMErUlrexCjd5prc3m35lgWhsfLlBLnkUyvUHuKs"/>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-on-surface">Silk Drape Blouse</p>
+<p class="font-body-md text-body-md text-outline">Terra Cotta</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-tertiary transition-colors">chevron_right</span>
+</li>
+<li class="flex items-center gap-4 p-3 bg-surface rounded-lg group cursor-pointer hover:shadow-md transition-shadow">
+<div class="w-16 h-16 rounded-md bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A detailed shot of tailored, high-waisted wool trousers in a soft cream shade. The image focuses on the crisp pleats and high-quality stitching, presented in a bright, airy setting that evokes a sense of organized, premium wardrobe curation. The aesthetic is clean and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgDHS1KdpXmO8nRg5mICpzR3zyxwYh0_v52CoeI8ABIIj7sCsM9Qn6ChVwAeIszy8fPOjL4VGuCUzCwaraEUl02yzr6zr37GNxpYqyVpfR8_JUx5DdHtmgxch0bhTPAzkuY6uFuIlxt1UnBqUdpZUke5arN5iP90SjAQ1JcyXRyhBvC73Qvg79zV470gwq1Jbo8DAdJurpXVeC6JeRpYeRJ78J0WvGWLkqynB95JwzaEcug2Q5jaPF-2k2dTgNt7JKU8NlOD7R1hM"/>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-on-surface">Tailored Wool Trouser</p>
+<p class="font-body-md text-body-md text-outline">Oatmeal</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-tertiary transition-colors">chevron_right</span>
+</li>
+<li class="flex items-center gap-4 p-3 bg-surface rounded-lg group cursor-pointer hover:shadow-md transition-shadow">
+<div class="w-16 h-16 rounded-md bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Luxurious minimalist pointed-toe leather heels in a warm mahogany brown. The shoes are placed on a reflective marble surface in a high-end boutique setting with soft, ambient lighting that highlights the quality of the leather and the elegant silhouette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMydEkxoOSKoFCtvLwQtVgBEnHOuzvKVj33ytPN8p-4wsWhRw-aAP6h8GJ2e3sOYHWhXho6Q4750jqjVYXAOL-Ow36DajykqJA1wyvLodGK_0uIVBTpqCgffy86G-4m9lsC1fEtWAexSfjCh3kR3gaooOsIgOuk7-4x2CBNG3fdtR7Rawwe9WczxitoZDH1LxhpZUscSfF6gXig2mRX4-aTXrGhGoweIiY2Q6x4P58SQpkTbQXNdzzkfOzTF5GnqDSSRY_FJU31r4"/>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-on-surface">Pointed Leather Pump</p>
+<p class="font-body-md text-body-md text-outline">Mahogany</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-tertiary transition-colors">chevron_right</span>
+</li>
+</ul>
+</div>
+<!-- Stylist Tip -->
+<div class="bg-secondary-container/30 rounded-lg p-6 relative overflow-hidden">
+<span class="material-symbols-outlined absolute -right-2 -bottom-2 text-6xl text-secondary-container opacity-50">lightbulb</span>
+<h4 class="font-label-md text-label-md text-secondary mb-2 uppercase tracking-wide">Stylist Tip</h4>
+<p class="font-body-md text-body-md text-on-secondary-container italic">"To elevate this look for evening, swap the oatmeal trousers for a charcoal silk midi skirt and add gold statement earrings."</p>
+</div>
+</div>
+</div>
+<!-- Similar Pairings Section -->
+<section class="mt-stack-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Similar Pairings</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="space-y-2 group cursor-pointer">
+<div class="aspect-[3/4] rounded-lg bg-surface-container-high overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A curated outfit flat lay featuring a sage green linen shirt and beige chinos. The arrangement is clean and minimalist, set against a bright cream background with soft shadows. The overall vibe is calm and sophisticated, perfect for a modern fashion app's recommendation section." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD96zwOrTW-ayue7ivt-Brt1U-76KYjPcCMcdhJHQo_CVqADYsJYpAuud-ztYhaysowZNI9uPoa2Xt1F0V1BoUaDcXpFa3JJFUBhtj8NkSqkIhmKgGDBJMqwKVYtLypH1YFT40mjBIIvkgLzP9cL-GokgdIDhbjgKUXbCI8cr1vxLhve8JUZgMH51k6kvoLY3xt5lcZG823Tw3qNdl1Z60XpBPBU9t4gdIOLho_88rttoDMQgp3KFfAc8WsjC70EbeBMKxnnjA2x6Q"/>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant px-1">Soft Sage &amp; Bone</p>
+</div>
+<div class="space-y-2 group cursor-pointer">
+<div class="aspect-[3/4] rounded-lg bg-surface-container-high overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Elegant street style photography showing a woman in a navy cashmere sweater and white silk trousers. The background is a soft-focus Parisian street in the afternoon light. The aesthetic is timeless and high-fashion, emphasizing tonal quality and premium fabrics in a light-mode UI style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIT5ubuLAfHzEHWuTU1sxGSU-9Y5xo616mAxizQ26n0Kfi004GqLDhXRh-j8LshdgsxGtr79zWOxMlSTEhhCj_D_SceeC0dgHJTWEl_62bFfAWE5zqaQD4TN7N4f6z2jr7L9y7LlL71h6-w3lnRT4Uz63dJnjgJdCayqp11CTlQGhfIhiryfpJJI6gRWLF8n5_AUUVBaYeHauIYZAFEixS2WZmqCCz7ajRYDTQm482_ga9GOPnjUUEYO9VyWI3waJl9_VZXTf7uCc"/>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant px-1">Midnight &amp; Pearl</p>
+</div>
+<div class="space-y-2 group cursor-pointer">
+<div class="aspect-[3/4] rounded-lg bg-surface-container-high overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A stylish portrait of a person wearing an oversized charcoal coat over a black turtleneck and tailored gray pants. The lighting is moody but maintains a clean white-space feel around the subject. The style is urban-luxe and minimalist, fitting for a premium wardrobe app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmJbS997d76ujkuptQchTXNigQ4_fhal4NOynGH2ldnP4gk7fyRzaUEALsqtnX28OeET1RoVYpPdGwCkwJf2t1XLPUxQ8E1hpDXEjmoburjmu-Xxq0jNo7E1-gemTj0IXwx6evF_agrYKzMYgecIhsa9btR2mUPypvO_F1KJeUCYvUN-X8SM1uiBTuwWpfR_lLuE8i0495mcT-4BJekSD6onqLMX-Py3IP00dNoA3i9i0f00FfruUhJPL5IzoGXc6RnfDA_KH7I2M"/>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant px-1">Monochrome Slate</p>
+</div>
+<div class="space-y-2 group cursor-pointer">
+<div class="aspect-[3/4] rounded-lg bg-surface-container-high overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beautiful fashion shot of a mustard yellow summer dress paired with a straw hat and tan sandals. The setting is an outdoor garden with dappled sunlight, creating a warm, aspirational feel. The color palette is vibrant yet sophisticated, aligning with the soft minimalism of the brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWEaDDQ6AuXSw9wRG8FCcG46khU8GAo7DqYK9kyMsDpmzhL3HMu2qdrSNL2ziOi_T--VUWuyYdSh3lWg2M0x4LBMs_vn_AXMTgUXM4AqcG4BB4F50IZBt4Y_xjaMk0xXgSZxN4yIk86Hrw5bJlf2ol-euFitL7Ckb4DjOw1GKj58WKA-AjRV73D0b7r4dur9_83u3wmXpHYPIulQRFmVUkX28lbJ3gu7YYpHqIJXtvn1V1-ZLrQmZhibMHhDRVmAIKNbdg0GAxM54"/>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant px-1">Golden Hour Edit</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center pt-2 pb-safe px-4 bg-surface/90 dark:bg-surface-container-low/90 backdrop-blur-xl shadow-[0_-10px_30px_rgba(232,180,184,0.15)] z-50 rounded-t-lg border-t border-secondary-container/30">
+<a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed relative after:content-[''] after:w-1 after:h-1 after:bg-secondary after:rounded-full after:mt-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">checkroom</span>
+<span class="font-label-sm text-label-sm">Outfits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-sm text-label-sm">Planner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-sm text-label-sm">Favorites</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions and hover effects
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'scale(0.96)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = '';
+            });
+        });
+
+        // Simple Fade-in Observer
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section, .grid > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

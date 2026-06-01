@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#fff8f4",
+            "error-container": "#ffdad6",
+            "on-primary-container": "#75736c",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#1c1c17",
+            "inverse-primary": "#c9c6be",
+            "on-secondary-fixed": "#281717",
+            "secondary-container": "#f8d8d8",
+            "surface-dim": "#e1d8d2",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#eae1da",
+            "on-secondary-container": "#755d5d",
+            "on-primary-fixed-variant": "#484741",
+            "on-secondary-fixed-variant": "#574142",
+            "surface-container": "#f5ece5",
+            "inverse-on-surface": "#f8efe8",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed": "#301216",
+            "on-primary": "#ffffff",
+            "outline-variant": "#c9c6bd",
+            "surface-container-low": "#fbf2eb",
+            "primary-fixed": "#e6e2d9",
+            "primary-container": "#fffbf2",
+            "surface-variant": "#eae1da",
+            "background": "#fff8f4",
+            "tertiary-fixed-dim": "#eeb9bd",
+            "tertiary-container": "#fffaf9",
+            "surface-bright": "#fff8f4",
+            "tertiary-fixed": "#ffdadc",
+            "on-surface-variant": "#484740",
+            "secondary": "#705959",
+            "on-secondary": "#ffffff",
+            "on-surface": "#1f1b17",
+            "tertiary": "#7c5357",
+            "inverse-surface": "#34302b",
+            "outline": "#79776f",
+            "primary-fixed-dim": "#c9c6be",
+            "surface-container-high": "#f0e7df",
+            "on-tertiary-container": "#94686c",
+            "primary": "#605e58",
+            "secondary-fixed": "#fbdbdb",
+            "on-tertiary-fixed-variant": "#623c40",
+            "surface-tint": "#605e58",
+            "on-tertiary": "#ffffff",
+            "on-background": "#1f1b17",
+            "on-error": "#ffffff",
+            "secondary-fixed-dim": "#debfbf"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "stack-md": "16px",
+            "stack-sm": "8px",
+            "margin-mobile": "24px",
+            "margin-desktop": "64px",
+            "container-gap": "32px",
+            "gutter": "16px",
+            "stack-lg": "40px",
+            "unit": "4px"
+          },
+          "fontFamily": {
+            "body-md": ["DM Sans"],
+            "headline-lg-mobile": ["Playfair Display"],
+            "label-md": ["DM Sans"],
+            "headline-md": ["Playfair Display"],
+            "body-lg": ["DM Sans"],
+            "display-lg": ["Playfair Display"],
+            "label-sm": ["DM Sans"],
+            "headline-lg": ["Playfair Display"]
+          },
+          "fontSize": {
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+            "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .glass-card {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(232, 180, 184, 0.2);
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      background-color: #fff8f4;
+      color: #1f1b17;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f5ece5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #e8b4b8;
+      border-radius: 10px;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-[0_20px_40px_rgba(232,180,184,0.1)] flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+</button>
+</div>
+<h1 class="font-display-lg text-[24px] md:text-display-lg tracking-tighter text-primary">VESTIAIRE</h1>
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-secondary-container/30">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A professional high-fashion portrait of a serene woman with a soft smile, set against a clean, minimalist cream-colored studio background. The lighting is diffused and warm, emphasizing the soft textures of the image. The overall aesthetic is elegant, premium, and calm, reflecting a curated luxury lifestyle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqiYmJ0-6BQZePcYUJWHjANXHb710Z5ZHext3cOIe2MuAFN4KeQDMr05Fm1aC6P66Pb8XVngpRoFKStIsbEN3qTiMg660rCJHA8PCwzKOxBjbZbezhXYouROGNYo5DA_5E-LEUwd7k6VKCGdPbf4OeOnjSrJAHyJ8NXy9zckKVTW_PzAIWZaFSDZ5lAZdHdvhCGV0YAr6rz-cQviDcHDh69KucFKDDA3GVwmiCi9i3wWyElGRFO9oSTouuL3lvgY-BcJiR71WlN4s"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto min-h-screen">
+<!-- Hero Section -->
+<section class="mb-stack-lg text-center md:text-left">
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-[0.2em] mb-2">AI Generated Suggestion</p>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-stack-sm">Your Curated Look</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Based on your style profile and today's mild weather forecast, we've composed a silhouette that balances modern structure with effortless ease.</p>
+</section>
+<!-- Bento Grid Result Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-container-gap">
+<!-- Primary Outfit View (Large asymmetric card) -->
+<div class="md:col-span-7 lg:col-span-8 group">
+<div class="relative rounded-lg overflow-hidden h-[500px] md:h-[700px] shadow-[0_20px_40px_rgba(232,180,184,0.15)] bg-surface-container-low">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A full-length fashion shot of a sophisticated 3-piece outfit featuring a structured oversized blazer in a warm almond tone, paired with charcoal grey wide-leg trousers and a crisp ivory silk camisole. The model is posed in a brightly lit, minimalist architectural space with large windows and clean lines. Soft morning sunlight creates gentle shadows, evoking a sense of calm and high-end elegance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkbnJYY0ycl1_L5eOZxVPYmmeyW8YnTZbBoPszm_iu62uB9ponl76sX0ggfMB1hbYmogMSTz4j3wgmNCFr6qIQo5_0F1DU8a2zY4QLTYB7PHDKJ4d5sOWkLyWmiCTXNxfzK1NrS4znzkpl1syyANlGGMxuIZ0-ueFuh3jL2gO_Q8xq8DBEqoddpqtuYwDq98FVgsVS2F8ZMni6wtzd2yHlHkmBNioOH9CKpSQ4j7JgJIUmzKbXS3S2SbhRBnqyxewk9q-hlErxVpw"/>
+<!-- Interactive Hotspots -->
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 to-transparent"></div>
+<div class="absolute bottom-10 left-10 text-on-primary">
+<span class="inline-block px-3 py-1 bg-tertiary/20 backdrop-blur-md rounded-full font-label-sm text-label-sm mb-2 border border-white/10">The Urban Sophisticate</span>
+<h3 class="font-headline-md text-headline-md italic">Balanced. Refined. Intentional.</h3>
+</div>
+</div>
+</div>
+<!-- Piece Breakdown (Stacked cards) -->
+<div class="md:col-span-5 lg:col-span-4 flex flex-col gap-gutter md:gap-container-gap">
+<!-- Piece 1: Blazer -->
+<div class="glass-card p-4 rounded-lg flex items-center gap-4 transition-transform hover:-translate-y-1">
+<div class="w-24 h-24 rounded-DEFAULT overflow-hidden bg-white shrink-0">
+<img class="w-full h-full object-cover" data-alt="A close-up high-resolution shot of a luxury almond-colored wool blazer. The fabric texture is visible, showing premium craftsmanship. It is set against a clean, neutral cream background in a soft-lit boutique setting. The mood is sophisticated and minimal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaT4xgFPcmkDozc9elDFlpCvjKdp0WNTIEHpqzHH0mPcvnlOc1sDtA0q85uGE1btOK9u7rPge1NtU6BYl7meEgLlpfjpkFiPQ32Msd06ptzU3711qYPl0OTDGNMbiG1x2TEqXcwxkO7Xkwm8mBdQrV9StJ7fJK9ZPJcnAI2kcdWdEF1uPYCBESKzLF7rGxx07u8WJCYlAzHyGQ5yy0MwVshoZuOxmstUOOt2IXc5KuQI0c6buR-TG7hEx_FUm2Xv0qfc3AV63Ro68"/>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Outerwear</p>
+<h4 class="font-headline-md text-headline-md text-lg">Almond Wool Blazer</h4>
+<p class="text-on-surface-variant text-sm mt-1">Structured shoulders with a relaxed drape.</p>
+</div>
+</div>
+<!-- Piece 2: Trousers -->
+<div class="glass-card p-4 rounded-lg flex items-center gap-4 transition-transform hover:-translate-y-1">
+<div class="w-24 h-24 rounded-DEFAULT overflow-hidden bg-white shrink-0">
+<img class="w-full h-full object-cover" data-alt="Detailed studio shot of dark charcoal grey wide-leg tailored trousers. The fabric has a subtle sheen, suggesting high-quality gabardine. Minimalist presentation with clean folds, soft lighting, and a soft rose tinted background for a premium feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9xIZ26nLJfLPCyAAebyRCeg77vjK30GJGzkYm329bGlr0BOEdv6V5Pw6P7wbYVueAeGgS4pevd6iQVtE_sBteuEJlKBfBEPEEvhYotCW3NXRHngdONhwVI2Q78RoRcnQmTswXlUSYpwZPfZqurH_0dzYlF1d2Vq93WuhNGDVZX5f8Jxtcod2l4gU2h2B5c3odI-qoTqa45xdkmW86hCAOg63hHB9wI95S_G-lpxfWXwIafd6UHR6sGYNbDrfeK2YmVyJHwmdOUgc"/>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Bottoms</p>
+<h4 class="font-headline-md text-headline-md text-lg">Charcoal Wide-Leg</h4>
+<p class="text-on-surface-variant text-sm mt-1">High-waisted fit for an elongated profile.</p>
+</div>
+</div>
+<!-- Piece 3: Top -->
+<div class="glass-card p-4 rounded-lg flex items-center gap-4 transition-transform hover:-translate-y-1">
+<div class="w-24 h-24 rounded-DEFAULT overflow-hidden bg-white shrink-0">
+<img class="w-full h-full object-cover" data-alt="A minimalist overhead shot of an ivory silk camisole top resting on a clean surface. The silk fabric glows under soft, even studio lighting. The color palette is strictly off-white and cream, maintaining the brand's premium soft-minimalism aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkShxcT0nHK-7NJSRrM-CQR7IDLHC2T3WF1K1B9g0cbxyA5vobv6DTFEhHy6EfBjAmTl5bRn8wcWCWup8rj5mHyIICBWKcOJjlRI63oV1QihPVoXHABQPs6hzSrw1XzoGI33WS1P66CJloigp8jsqKt8lPoyGxeDcPo1DZlxjeJrnpAw3Kr1g_sfseJw-X5qcE7OSdlqaSkqoGAPUx3OiVuMfzUtVLwpK7MXeWuqsyAeXBTOl0x9PN09-hH_jwz0WW_kw7bwHAmCQ"/>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Base Layer</p>
+<h4 class="font-headline-md text-headline-md text-lg">Ivory Silk Cami</h4>
+<p class="text-on-surface-variant text-sm mt-1">Breathable silk with a subtle satin sheen.</p>
+</div>
+</div>
+<!-- Styling Advice Section -->
+<div class="bg-secondary-container/20 p-stack-md rounded-lg border border-secondary-container/50">
+<div class="flex items-center gap-2 mb-2 text-secondary">
+<span class="material-symbols-outlined text-[20px]" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Styling Advice</span>
+</div>
+<p class="font-body-md text-body-md italic leading-relaxed text-on-secondary-container">
+            "Contrast the clean lines of the blazer by leaving it unbuttoned. Add a gold chain to highlight the ivory silk neckline, and opt for a pointed-toe mule to maintain the trouser's sharp vertical line."
+          </p>
+<div class="mt-4 flex gap-2">
+<span class="px-3 py-1 bg-surface rounded-full text-[10px] font-bold uppercase tracking-tighter text-secondary border border-secondary-container">#Monochrome</span>
+<span class="px-3 py-1 bg-surface rounded-full text-[10px] font-bold uppercase tracking-tighter text-secondary border border-secondary-container">#OfficeElegant</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="mt-stack-lg flex flex-col md:flex-row items-center justify-center gap-4">
+<button class="w-full md:w-auto px-10 py-4 bg-tertiary text-on-tertiary rounded-full font-label-md text-label-md active:scale-95 transition-all hover:bg-tertiary/90 shadow-lg shadow-tertiary/20">
+        Add to Planner
+      </button>
+<button class="w-full md:w-auto px-10 py-4 bg-white/50 border border-tertiary-fixed-dim text-tertiary rounded-full font-label-md text-label-md active:scale-95 transition-all hover:bg-white/80">
+        Generate New Option
+      </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-xl border-t border-secondary-container/30 shadow-[0_-10px_30px_rgba(232,180,184,0.15)] flex justify-around items-center pt-2 pb-safe px-4 rounded-t-lg">
+<a class="flex flex-col items-center justify-center text-outline transition-colors hover:text-primary active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline transition-colors hover:text-primary active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="font-label-sm text-label-sm">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary relative after:content-[''] after:w-1 after:h-1 after:bg-secondary after:rounded-full after:mt-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="checkroom">checkroom</span>
+<span class="font-label-sm text-label-sm">Outfits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline transition-colors hover:text-primary active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-sm text-label-sm">Planner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline transition-colors hover:text-primary active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-sm text-label-sm">Favorites</span>
+</a>
+</nav>
+<script>
+    // Micro-interaction for piece cards
+    document.querySelectorAll('.glass-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.borderColor = 'rgba(232, 180, 184, 0.6)';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.borderColor = 'rgba(232, 180, 184, 0.2)';
+      });
+    });
+
+    // Simple scroll animation for the hero
+    window.addEventListener('scroll', () => {
+      const scroll = window.scrollY;
+      const hero = document.querySelector('section');
+      if (hero) {
+        hero.style.opacity = 1 - (scroll / 400);
+        hero.style.transform = `translateY(${scroll * 0.1}px)`;
+      }
+    });
+  </script>
+</body></html>

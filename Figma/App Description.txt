@@ -1,0 +1,359 @@
+# LookSy - AI-Powered Digital Wardrobe & Smart Fashion Assistant
+
+## App Overview
+
+LookSy is a mobile application that acts as a personal AI fashion stylist and digital wardrobe organizer.
+
+The app allows users to digitally store their clothes, footwear, accessories, watches, jewelry, handbags, and other fashion items in one place. Using AI, the app helps users generate outfit recommendations based on their wardrobe, weather conditions, occasions, color matching, and style preferences.
+
+The main goal is to help users choose outfits faster, use existing clothes more effectively, and maintain a well-organized digital wardrobe.
+
+---
+
+# Target Users
+
+* Men
+* Women
+* College Students
+* Working Professionals
+* Fashion-Conscious Users
+
+---
+
+# Core Features
+
+## 1. Digital Wardrobe
+
+Users can upload wardrobe items.
+
+Supported Categories:
+
+* Shirts
+* T-Shirts
+* Pants
+* Jeans
+* Shorts
+* Jackets
+* Dresses
+* Sarees
+* Shoes
+* Watches
+* Bags
+* Jewelry
+* Accessories
+
+Upload Methods:
+
+* Camera
+* Gallery
+
+AI automatically detects:
+
+* Category
+* Color
+* Pattern
+* Season
+* Occasion
+
+Users can review and edit details before saving.
+
+---
+
+## 2. AI Outfit Generator
+
+AI creates outfits using only items available in the user's wardrobe.
+
+Features:
+
+### Mix & Match
+
+User selects one or more wardrobe items.
+
+Examples:
+
+* Shirt
+* Pant
+* Shoes
+* Watch
+
+AI suggests matching remaining items and generates a complete outfit.
+
+### Weather Styling
+
+Automatically fetch weather using user location.
+
+Examples:
+
+* Sunny
+* Rainy
+* Cloudy
+* Cold
+
+AI recommends suitable outfits from the user's wardrobe.
+
+### Occasion Styling
+
+User selects or enters an occasion.
+
+Preset options:
+
+* Wedding
+* Office
+* College
+* Party
+* Date
+* Festival
+* Casual Outing
+
+AI generates a complete outfit suitable for the occasion.
+
+### Color Matching
+
+User selects a clothing item.
+
+AI recommends matching:
+
+* Pants
+* Shoes
+* Accessories
+* Watches
+
+based on color harmony and style compatibility.
+
+---
+
+## 3. Outfit Planner
+
+Users can plan outfits in advance.
+
+### Custom Planner
+
+User selects:
+
+* Date
+* Outfit
+
+and saves it.
+
+### AI Recommended Planner
+
+AI generates outfit plans for:
+
+* 3 Days
+* 7 Days
+* 14 Days
+* 30 Days
+* Custom Days
+
+Users receive notifications and reminders.
+
+---
+
+## 4. Favorites
+
+Users can save:
+
+* Favorite Outfits
+* Favorite Clothing Items
+
+Favorite outfits can later be:
+
+* Planned
+* Shared
+* Reused
+
+---
+
+# Navigation Structure
+
+Bottom Navigation:
+
+1. Home
+2. Upload Items
+3. Outfits
+4. Planner
+5. Favorites
+
+---
+
+# Home Screen
+
+Displays:
+
+* Greeting
+* Current Weather
+* Today's Planned Outfit
+* Recently Added Items
+* Quick Upload Button
+* AI Outfit Suggestions
+
+---
+
+# Upload Items Flow
+
+Upload Photo
+→ AI Detection
+→ User Review
+→ Save to Wardrobe
+
+Stored Information:
+
+* Image
+* Category
+* Color
+* Pattern
+* Season
+* Occasion
+* Date Added
+
+---
+
+# Outfits Module Structure
+
+Outfits Screen contains:
+
+1. Mix & Match
+2. Weather Styling
+3. Occasion Styling
+4. Color Matching
+
+Every generated outfit should support:
+
+* Favorite
+* Add to Planner
+* Share
+* Regenerate
+
+---
+
+# Planner Module Structure
+
+Planner Screen contains:
+
+### Custom Planner
+
+Manual outfit scheduling.
+
+### AI Planner
+
+Automatic outfit generation for future days.
+
+Notification reminders should be available.
+
+---
+
+# Personalization Setup
+
+After first login:
+
+Collect:
+
+* Name
+* Age
+* Gender
+
+  * Male
+  * Female
+* Preferred Style
+
+  * Casual
+  * Formal
+  * Streetwear
+  * Traditional
+  * Minimalist
+  * Sporty
+* Preferred Colors
+
+Store preferences for AI recommendations.
+
+---
+
+# Design Requirements
+
+Style:
+
+* Modern
+* Clean
+* Minimal
+* Fashion-focused
+
+Color Palette:
+
+* Light Cream Background
+* Soft Beige
+* Blush Pink
+* Soft Rose
+* Coral Red Highlights
+
+Design Principles:
+
+* Mobile-first
+* Simple navigation
+* Plenty of white space
+* Rounded cards
+* Rounded buttons
+* Elegant typography
+* No cluttered dashboards
+
+---
+
+# Technical Requirements
+
+Frontend:
+
+* React Native with Expo
+
+Backend:
+
+* Supabase or Firebase
+
+Authentication:
+
+* Email Login
+* Email Signup
+* Forgot Password
+
+Storage:
+
+* Cloud image storage for wardrobe items
+
+AI Features:
+
+* Image analysis for wardrobe item detection
+* Outfit recommendation engine
+* Color matching engine
+* Weather-based recommendation system
+
+Notifications:
+
+* Planner reminders
+* Outfit reminders
+
+---
+
+# Version 1 Scope
+
+Must Include:
+
+* Authentication
+* Personalization Setup
+* Home Dashboard
+* Upload Wardrobe Items
+* AI Detection
+* Mix & Match
+* Weather Styling
+* Occasion Styling
+* Color Matching
+* Planner
+* Favorites
+
+Do NOT Include Yet:
+
+* Social Community
+* Shopping Integration
+* Travel Packing Assistant
+* Laundry Tracking
+* Cost Per Wear Analytics
+* Advanced Fashion Analytics
+
+These can be added in future versions.

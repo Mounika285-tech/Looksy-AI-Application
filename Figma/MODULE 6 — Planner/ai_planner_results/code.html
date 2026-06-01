@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vestiaire | Weekly Planner</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#eae1da",
+                    "inverse-surface": "#34302b",
+                    "background": "#fff8f4",
+                    "tertiary-fixed": "#ffdadc",
+                    "secondary-fixed-dim": "#debfbf",
+                    "primary-container": "#fffbf2",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#f8d8d8",
+                    "on-tertiary-fixed": "#301216",
+                    "surface-container-high": "#f0e7df",
+                    "on-primary-fixed": "#1c1c17",
+                    "surface-container-highest": "#eae1da",
+                    "on-surface-variant": "#484740",
+                    "tertiary-container": "#fffaf9",
+                    "surface": "#fff8f4",
+                    "surface-dim": "#e1d8d2",
+                    "tertiary-fixed-dim": "#eeb9bd",
+                    "on-secondary-container": "#755d5d",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#c9c6be",
+                    "primary-fixed": "#e6e2d9",
+                    "on-primary-fixed-variant": "#484741",
+                    "on-tertiary-fixed-variant": "#623c40",
+                    "secondary-fixed": "#fbdbdb",
+                    "on-tertiary-container": "#94686c",
+                    "surface-bright": "#fff8f4",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#75736c",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#605e58",
+                    "on-secondary-fixed-variant": "#574142",
+                    "surface-container": "#f5ece5",
+                    "secondary": "#705959",
+                    "outline-variant": "#c9c6bd",
+                    "surface-container-low": "#fbf2eb",
+                    "primary": "#605e58",
+                    "outline": "#79776f",
+                    "on-background": "#1f1b17",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#7c5357",
+                    "on-surface": "#1f1b17",
+                    "on-secondary-fixed": "#281717",
+                    "inverse-primary": "#c9c6be",
+                    "inverse-on-surface": "#f8efe8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "40px",
+                    "unit": "4px",
+                    "gutter": "16px",
+                    "margin-mobile": "24px",
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "margin-desktop": "64px",
+                    "container-gap": "32px"
+            },
+            "fontFamily": {
+                    "label-sm": ["DM Sans"],
+                    "body-md": ["DM Sans"],
+                    "body-lg": ["DM Sans"],
+                    "display-lg": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "label-md": ["DM Sans"],
+                    "headline-lg": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 248, 244, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scroll-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scroll-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-container selection:text-on-secondary-container min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl flex items-center justify-between px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<h1 class="font-display-lg text-headline-md tracking-widest text-on-surface">VESTIAIRE</h1>
+<div class="flex items-center gap-4">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<main class="pt-24 px-margin-mobile max-w-2xl mx-auto space-y-stack-lg">
+<!-- Header Section -->
+<header class="space-y-stack-sm fade-in">
+<p class="font-label-sm text-label-sm text-outline tracking-widest uppercase">Weekly Curation</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Your Upcoming Plans</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">A 5-day vision based on your calendar and local micro-climates.</p>
+</header>
+<!-- Timeline -->
+<div class="relative space-y-stack-lg border-l border-outline-variant ml-4 pl-8">
+<!-- Day 1: Today -->
+<section class="relative fade-in" style="animation-delay: 0.1s;">
+<!-- Timeline Dot -->
+<div class="absolute -left-[41px] top-4 w-4 h-4 bg-tertiary rounded-full ring-4 ring-background"></div>
+<div class="flex items-center justify-between mb-stack-md">
+<div>
+<h3 class="font-headline-md text-headline-md">Monday, Oct 23</h3>
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-[18px]">wb_sunny</span>
+<span class="font-label-md text-label-md">68°F • Sunny</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-lg overflow-hidden border border-outline-variant/30 group">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A high-fashion luxury outfit photography featuring a woman in a structured beige wool trench coat and wide-leg cream trousers. The aesthetic is clean and minimalist, set against a soft architectural background with warm afternoon sunlight. The image uses a soft rose and cream color palette with deep earthy tones, evoking a sense of calm sophistication and premium closet curation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEp-TUnd8mIWPRM8bmLlorMlmwdf7xpJkg-M-MUJzFUQKcd-10REHJx7DJKrI3-FuK0ymyTGe8t8hXh945JqyUVbop8iUWnI2-Jgr7_ouXo65RO5Ihs60otawwi-E5toH4hkgzOvjZnXP8ClRWpO2Qy0xvRuaDaU4G4hmROzG3GLolPYqDJK3J7fwW6nft1yyPhDj3n63UZUEhRYYGmS8D3htNfO5-7XdNPmSODBIHv_ROOZ3XF666fIUxPJdHL0QtWCHm6j993fI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+<span class="text-white font-label-md text-label-md">View details</span>
+</div>
+</div>
+<div class="p-6 space-y-stack-md bg-surface-container-low">
+<div class="flex items-start gap-4">
+<div class="p-3 rounded-full bg-secondary-container text-on-secondary-container">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<div class="space-y-1">
+<p class="font-label-sm text-label-sm uppercase tracking-tighter text-secondary">Stylist Note</p>
+<p class="font-body-md text-body-md text-on-surface-variant italic">"A monochromatic approach for your boardroom meeting. The lightweight wool keeps you insulated against the morning breeze while maintaining a crisp silhouette."</p>
+</div>
+</div>
+<div class="pt-4 flex gap-3">
+<button class="flex-1 bg-secondary text-on-secondary py-4 rounded-full font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all shadow-sm">
+                                Confirm Plan
+                            </button>
+<button class="px-6 border border-outline-variant rounded-full text-on-surface hover:bg-surface-variant transition-colors active:scale-95">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Day 2: Tuesday -->
+<section class="relative fade-in" style="animation-delay: 0.2s;">
+<div class="absolute -left-[41px] top-4 w-4 h-4 bg-outline-variant rounded-full ring-4 ring-background"></div>
+<div class="flex items-center justify-between mb-stack-md">
+<div>
+<h3 class="font-headline-md text-headline-md">Tuesday, Oct 24</h3>
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-[18px]">cloud</span>
+<span class="font-label-md text-label-md">62°F • Overcast</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-lg overflow-hidden border border-outline-variant/30 group">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A detailed fashion shot of a dark charcoal cashmere sweater paired with a silk midi skirt in soft rose. The textures are rich and visible, captured in soft, diffused indoor light. The mood is cozy and intentional, following a soft minimalist aesthetic with warm neutral backgrounds and high-quality fabric focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbWOQwmhsEw00qHk3QV9CGQ5rx8PZlrW12TKBHWNgCgPJhav0fDqmxh6AckwmXkAHGyjwPkoQQ6-kJPYXl7NIvVwK_-ougrchCl9rGI3-0AdIkbrPUg2wjp3kIbFj46PwDkRO74SOTWDSQaxb-whFuB6nGLtJFNu2mgVJbQYUxQYYNGtKTU7BrTrN_SvLYk0sB-6UfuZx50JbY3Oo19ndKv7LGYS3NgO2dAQbQFr0TaVEA-0lD6HtCZh5B14HO3DQSeVjnhRPUmLg"/>
+</div>
+<div class="p-6 space-y-stack-md bg-surface-container-low">
+<div class="flex items-start gap-4">
+<div class="p-3 rounded-full bg-tertiary-container text-on-tertiary-container">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<div class="space-y-1">
+<p class="font-label-sm text-label-sm uppercase tracking-tighter text-tertiary">Stylist Note</p>
+<p class="font-body-md text-body-md text-on-surface-variant italic">"Cloudy skies call for tactile comfort. We've paired the charcoal cashmere with a silk base to balance temperature and texture for your evening gallery opening."</p>
+</div>
+</div>
+<div class="pt-4 flex gap-3">
+<button class="flex-1 bg-secondary text-on-secondary py-4 rounded-full font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all shadow-sm">
+                                Confirm Plan
+                            </button>
+<button class="px-6 border border-outline-variant rounded-full text-on-surface hover:bg-surface-variant transition-colors active:scale-95">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Day 3: Wednesday (Condensed Preview) -->
+<section class="relative fade-in opacity-80" style="animation-delay: 0.3s;">
+<div class="absolute -left-[41px] top-4 w-4 h-4 bg-outline-variant rounded-full ring-4 ring-background"></div>
+<div class="flex items-center justify-between p-4 bg-surface-container-high rounded-lg border border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-md overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close up of a white tailored blazer and gold jewelry laid out on a cream marble surface. Soft, elegant lighting enhances the premium texture of the fabric and the shine of the accessories, maintaining a light-drenched and sophisticated luxury brand vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCME20lxncFbbKiaDna8lS_xY_qnz4_y3LykVtzOsIEUtwJHBZGV7FBsIS1TLxoluNVWkgrsmmIIDndsvw1ofsmzgsfAlE3YGdUMEUB949EJGfPdRPLOV173YFqfhemqhVxMm4lYpPT1xsoks_j14AKlbiGV3xIdYciEX_UMlqz4VDCKLXxxHDpP1CdLEdbaRCwfI0wAwfUIEuAiXAfN-HW5ALdKGQgghtC1yqr3-0lMn21WjCKTuj6v0WZXHzUK3GuxGf03F6cUWI"/>
+</div>
+<div>
+<h4 class="font-label-md text-label-md">Wednesday, Oct 25</h4>
+<p class="text-on-surface-variant text-sm">72°F • Light Rain Predicted</p>
+</div>
+</div>
+<button class="p-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full bg-surface/80 dark:bg-surface/80 backdrop-blur-xl flex justify-around items-center px-4 pb-6 pt-3 z-50 rounded-t-lg shadow-[0_-10px_40px_rgba(124,83,87,0.1)]">
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant opacity-60 hover:text-secondary-container transition-colors active:scale-90 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">home_app_logo</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant opacity-60 hover:text-secondary-container transition-colors active:scale-90 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant opacity-60 hover:text-secondary-container transition-colors active:scale-90 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">checkroom</span>
+<span class="font-label-sm text-label-sm">Outfits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-secondary after:rounded-full active:scale-90 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-sm text-label-sm">Planner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant opacity-60 hover:text-secondary-container transition-colors active:scale-90 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-sm text-label-sm">Favorites</span>
+</a>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if(this.innerText === 'Confirm Plan') {
+                    const originalText = this.innerText;
+                    this.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span>';
+                    this.style.opacity = '0.7';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = '<div class="flex items-center justify-center gap-2"><span class="material-symbols-outlined">check_circle</span> Plan Confirmed</div>';
+                        this.classList.remove('bg-secondary');
+                        this.classList.add('bg-green-600');
+                        this.style.opacity = '1';
+                    }, 1200);
+                }
+            });
+        });
+    </script>
+</body></html>

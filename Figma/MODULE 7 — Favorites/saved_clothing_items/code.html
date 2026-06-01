@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#1f1b17",
+                      "on-secondary-container": "#755d5d",
+                      "on-primary-container": "#75736c",
+                      "on-primary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed": "#fbdbdb",
+                      "outline": "#79776f",
+                      "on-secondary-fixed": "#281717",
+                      "inverse-primary": "#c9c6be",
+                      "on-tertiary-container": "#94686c",
+                      "on-tertiary-fixed-variant": "#623c40",
+                      "primary-fixed": "#e6e2d9",
+                      "surface-container-low": "#fbf2eb",
+                      "secondary-container": "#f8d8d8",
+                      "tertiary-fixed-dim": "#eeb9bd",
+                      "secondary": "#705959",
+                      "on-primary-fixed": "#1c1c17",
+                      "primary-fixed-dim": "#c9c6be",
+                      "error": "#ba1a1a",
+                      "on-tertiary": "#ffffff",
+                      "background": "#fff8f4",
+                      "surface-container-highest": "#eae1da",
+                      "surface-bright": "#fff8f4",
+                      "on-primary-fixed-variant": "#484741",
+                      "surface-dim": "#e1d8d2",
+                      "on-surface-variant": "#484740",
+                      "inverse-surface": "#34302b",
+                      "surface-container-lowest": "#ffffff",
+                      "primary": "#605e58",
+                      "outline-variant": "#c9c6bd",
+                      "tertiary-container": "#fffaf9",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#debfbf",
+                      "inverse-on-surface": "#f8efe8",
+                      "primary-container": "#fffbf2",
+                      "on-tertiary-fixed": "#301216",
+                      "surface-tint": "#605e58",
+                      "surface": "#fff8f4",
+                      "surface-container": "#f5ece5",
+                      "on-background": "#1f1b17",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#ffdadc",
+                      "surface-variant": "#eae1da",
+                      "on-error-container": "#93000a",
+                      "tertiary": "#7c5357",
+                      "surface-container-high": "#f0e7df",
+                      "on-secondary-fixed-variant": "#574142"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "margin-mobile": "24px",
+                      "margin-desktop": "64px",
+                      "stack-sm": "8px",
+                      "container-gap": "32px",
+                      "stack-md": "16px",
+                      "stack-lg": "40px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "body-lg": ["DM Sans"],
+                      "body-md": ["DM Sans"],
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "label-md": ["DM Sans"],
+                      "label-sm": ["DM Sans"],
+                      "headline-md": ["Playfair Display"],
+                      "display-lg": ["Playfair Display"],
+                      "headline-lg": ["Playfair Display"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-background/80 dark:bg-background/80 backdrop-blur-md">
+<div class="flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16 w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-70 transition-opacity active:scale-95 duration-200">menu</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg tracking-widest text-on-surface">VESTIAIRE</h1>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-70 transition-opacity active:scale-95 duration-200">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop min-h-screen">
+<!-- Header Section -->
+<section class="mb-container-gap">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface-variant mb-2">My Treasures</h2>
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<span class="px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm whitespace-nowrap">All Items (12)</span>
+<span class="px-4 py-2 rounded-full border border-outline-variant text-outline font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container transition-colors cursor-pointer">Outerwear</span>
+<span class="px-4 py-2 rounded-full border border-outline-variant text-outline font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container transition-colors cursor-pointer">Silk &amp; Satin</span>
+<span class="px-4 py-2 rounded-full border border-outline-variant text-outline font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container transition-colors cursor-pointer">Footwear</span>
+</div>
+</section>
+<!-- Bento-inspired Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-gutter md:gap-container-gap">
+<!-- Item 1 -->
+<div class="group relative flex flex-col gap-3">
+<div class="aspect-[3/4] rounded-lg overflow-hidden relative bg-surface-container-low transition-transform duration-500 group-hover:-translate-y-1">
+<img class="w-full h-full object-cover" data-alt="A luxurious, high-end heavy-weight wool coat in a soft camel color, hanging against a minimalist cream-colored wall in a bright, sun-drenched atelier. The lighting is soft and directional, highlighting the premium texture of the wool. The overall aesthetic is calm, sophisticated, and evokes a sense of quiet luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA87xBQBHnaFIznREqk-EGGL0hptt0HFW1ykStQouapC377pgm-k4S-IWKYtvAvTtw8cERgcGpshAopr3WFFfoqxzXP6QnKzBbJqr_ZSNdmbJx8QSEo0rrACqsiDXBdeq1ScWTqgcjsN6C4NyvLbHhrh2G6UE-5wepPBkLoRBVLboS--irfqorScZXKkMfHAcdHvSAYdFF2YTK9V5UhvK1rZl3OYCBiseeko8tuImi73mKER-kp0nnKJ6DyPCfUE5Qte5uLbrfdC9M"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/60 backdrop-blur-md flex items-center justify-center text-tertiary active:scale-90 transition-all hover:bg-background">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Outerwear</p>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface">Double-Breasted Wool Coat</h3>
+<p class="font-body-md text-on-surface-variant mt-1">€890.00</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="group relative flex flex-col gap-3">
+<div class="aspect-[3/4] rounded-lg overflow-hidden relative bg-surface-container-low transition-transform duration-500 group-hover:-translate-y-1">
+<img class="w-full h-full object-cover" data-alt="A close-up shot of a delicate, shimmering champagne-colored silk blouse with elegant button details. The garment is draped gracefully over a minimalist wooden mannequin, bathed in warm, soft-focus afternoon sunlight. The palette is dominated by creams, soft roses, and warm highlights, creating an atmosphere of ethereal beauty and intentional living." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoHSA_C9C5PXhAhCQ8RTFRj_uWPGwUsJFFV8OS5wVimphpCntO8NKTs9G-6aoun9Mf71M8gFFxIxkM942Ze5G0VhKTwEmoABz3s9xF0CrrdTTvLfJEit_wxMhArHsHz3hdEga8jo3X_z7LO5juz-Fqsyyxd2ndsNysziiVrt9TnnldPcWyX61RM2npBDYmM8q73T-6WjKANojO1U1MzVkKaXWAVqex8wIjfgifzyq-aMoz3RFqURi-8tP29_-Ero-WSJp_eZ9TNJU"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/60 backdrop-blur-md flex items-center justify-center text-tertiary active:scale-90 transition-all hover:bg-background">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Tops</p>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface">Pure Silk Drape Blouse</h3>
+<p class="font-body-md text-on-surface-variant mt-1">€320.00</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="group relative flex flex-col gap-3">
+<div class="aspect-[3/4] rounded-lg overflow-hidden relative bg-surface-container-low transition-transform duration-500 group-hover:-translate-y-1">
+<img class="w-full h-full object-cover" data-alt="Premium polished black leather boots with a sleek pointed toe, standing on a light marble floor in a high-end designer boutique. The lighting is crisp and modern, creating sharp but soft reflections on the leather surface. The environment is uncluttered and minimalist, emphasizing the craftsmanship and structural elegance of the footwear." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpbWujgnCik7CBraBkSvhvZ7yatuTM_nQqBe-sNyafoSTCov_-T50DOrExB2V4kQffuYXk6dkQkKvOd07NqHG_34NtWfqpKOJKq_PzA9Dj20t2pXc3K8lbNyLHKv3jXuD8Hx7QRm2vn4MCyww1YJk9moO_am_3sBj2IS2ZpLVU4mn4B-FLVLd-7sS86EDZPxvlpmldvfufZ_pZY99IQXiGzBx0VmlHeBdi8xt8sSU4iGer5fnwo_os4BjPaO_zh0sRS2wK8bB6efY"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/60 backdrop-blur-md flex items-center justify-center text-tertiary active:scale-90 transition-all hover:bg-background">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Shoes</p>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface">Architectural Heel Boots</h3>
+<p class="font-body-md text-on-surface-variant mt-1">€550.00</p>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="group relative flex flex-col gap-3">
+<div class="aspect-[3/4] rounded-lg overflow-hidden relative bg-surface-container-low transition-transform duration-500 group-hover:-translate-y-1">
+<img class="w-full h-full object-cover" data-alt="A high-resolution photograph of a minimalist cream cashmere sweater folded neatly on a textured linen surface. The soft morning light emphasizes the delicate fibers and the premium, cozy nature of the knitwear. The color palette is monochromatic and warm, reinforcing a peaceful, luxurious lifestyle aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC_A-P5FRoM_b89uKhuMNCdAcD_-4F-kjDMKZhszrJzqXRwr-nQaTb3Fgv4O5tgI3osTP_Q-1zySY6k6CmsfZqMc7lpeF57AdYf6k3RFIY-wcm8Vl3GZ18J_1PiqjBdwYWWs5ZJRMjMG3Y_2FqzfCu-bXBzMBV73fDPsRFwWoHF3P_E1rqmnklIxd_CinXvSV_fnGh2WR-IPPdZt_2EsTD7u_L8zOprO7YWNZcqQK72e4cgm9WW62btJXf57OeWrtPWCEMDyOfEqE"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/60 backdrop-blur-md flex items-center justify-center text-tertiary active:scale-90 transition-all hover:bg-background">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Knitwear</p>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface">Loro Piana Cashmere Knit</h3>
+<p class="font-body-md text-on-surface-variant mt-1">€1,200.00</p>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="group relative flex flex-col gap-3">
+<div class="aspect-[3/4] rounded-lg overflow-hidden relative bg-surface-container-low transition-transform duration-500 group-hover:-translate-y-1">
+<img class="w-full h-full object-cover" data-alt="A pair of high-waisted, perfectly tailored wide-leg trousers in a soft ivory shade, displayed in a minimalist closet setting. The fabric has a subtle sheen and a heavy drape, suggesting high-quality crepe. The lighting is diffused and even, creating a clean, high-fashion editorial look that celebrates minimalist form and function." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw7SShdydzV-usjtmNim6xcvujkeuhxcXygVUzeaE15loj9WdYCQxu5qCDzZXq30YlzMnDGgtHEA58hc16l5KVLEwJ8MXChm6T4q-rErWRkS9hVOKI79nVtHkYlkA3pY93wKStnTT25Ds0EZX4nkKcq7sSKYG_3ePZJHctSBfzhw_9bf-uVZlb1wMBjV14Xzn5zX9ApynI9fg7C3bIBaYN8pUuaR15eHqAeykbY2tKH-wZ55Toq7cJa1bTIpeZUHGxtDPUYe1DyJA"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/60 backdrop-blur-md flex items-center justify-center text-tertiary active:scale-90 transition-all hover:bg-background">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Trousers</p>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface">Tailored Wide-Leg Ivory</h3>
+<p class="font-body-md text-on-surface-variant mt-1">€410.00</p>
+</div>
+</div>
+<!-- Item 6 -->
+<div class="group relative flex flex-col gap-3">
+<div class="aspect-[3/4] rounded-lg overflow-hidden relative bg-surface-container-low transition-transform duration-500 group-hover:-translate-y-1">
+<img class="w-full h-full object-cover" data-alt="A luxury structured leather handbag in a deep mahogany brown, sitting on a floating white shelf against a blush-pink textured wall. The handbag's gold hardware catches the soft ambient light, creating tiny sparkles. The scene is sophisticated and evokes an orderly, well-curated wardrobe of an intentional fashion enthusiast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP4tlrscsUXFqQj3xzoBdO28ut6Lc3JxK3wXVww--9fd1NGLBImGBOlwiZxbIGEc8O-xkQ-UDarcoituecddygsNqzxOS3skPu3t6WVa-kWcem9NVjumoqUv9qRaopDzNKZFlE4oPs0ZuRZ3Ep5SzfZfuRUIACeN8UmJNFvWQNLlpJAhsW-DjFFdkVnm5kBcFf-jumFvyYI84sMaToHMbmhDZO5_8OPniyZfcY7lsAn4Enp8cngRizD-QNiQozx_gmccMvH3jzY4s"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/60 backdrop-blur-md flex items-center justify-center text-tertiary active:scale-90 transition-all hover:bg-background">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Accessories</p>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface">Sculptural Tote Large</h3>
+<p class="font-body-md text-on-surface-variant mt-1">€1,450.00</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface/80 dark:bg-surface/80 backdrop-blur-xl shadow-[0_-10px_40px_rgba(232,180,184,0.1)] rounded-t-lg">
+<a class="flex flex-col items-center justify-center text-outline transition-colors hover:text-secondary group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-secondary transition-transform group-active:scale-90 duration-300">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline transition-colors hover:text-secondary group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-secondary transition-transform group-active:scale-90 duration-300">add_circle</span>
+<span class="font-label-sm text-label-sm mt-1">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline transition-colors hover:text-secondary group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-secondary transition-transform group-active:scale-90 duration-300">checkroom</span>
+<span class="font-label-sm text-label-sm mt-1">Outfits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline transition-colors hover:text-secondary group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-secondary transition-transform group-active:scale-90 duration-300">calendar_today</span>
+<span class="font-label-sm text-label-sm mt-1">Planner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-container relative after:content-[''] after:w-1 after:h-1 after:bg-secondary after:rounded-full after:mt-1 group" href="#">
+<span class="material-symbols-outlined text-secondary transition-transform group-active:scale-90 duration-300" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-sm text-label-sm mt-1">Favorites</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for the heart icons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const icon = this.querySelector('.material-symbols-outlined');
+                if (icon.style.fontVariationSettings.includes("'FILL' 1")) {
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                    this.classList.remove('text-tertiary');
+                    this.classList.add('text-outline');
+                } else {
+                    icon.style.fontVariationSettings = "'FILL' 1";
+                    this.classList.add('text-tertiary');
+                    this.classList.remove('text-outline');
+                }
+            });
+        });
+
+        // Simple parallax or float effect on cards
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.aspect-[3/4]');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardX = rect.left + rect.width / 2;
+                const cardY = rect.top + rect.height / 2;
+                
+                // Very subtle rotation based on mouse position if card is in view
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const rotX = (mouseY - 0.5) * 4;
+                    const rotY = (mouseX - 0.5) * -4;
+                    // Note: We don't want to actually rotate it heavily, just a hint of response
+                    // card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+                }
+            });
+        });
+    </script>
+</body></html>

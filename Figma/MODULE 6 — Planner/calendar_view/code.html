@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 251, 242, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#eae1da",
+                        "inverse-surface": "#34302b",
+                        "background": "#fff8f4",
+                        "tertiary-fixed": "#ffdadc",
+                        "secondary-fixed-dim": "#debfbf",
+                        "primary-container": "#fffbf2",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#f8d8d8",
+                        "on-tertiary-fixed": "#301216",
+                        "surface-container-high": "#f0e7df",
+                        "on-primary-fixed": "#1c1c17",
+                        "surface-container-highest": "#eae1da",
+                        "on-surface-variant": "#484740",
+                        "tertiary-container": "#fffaf9",
+                        "surface": "#fff8f4",
+                        "surface-dim": "#e1d8d2",
+                        "tertiary-fixed-dim": "#eeb9bd",
+                        "on-secondary-container": "#755d5d",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#c9c6be",
+                        "primary-fixed": "#e6e2d9",
+                        "on-primary-fixed-variant": "#484741",
+                        "on-tertiary-fixed-variant": "#623c40",
+                        "secondary-fixed": "#fbdbdb",
+                        "on-tertiary-container": "#94686c",
+                        "surface-bright": "#fff8f4",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#75736c",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#605e58",
+                        "on-secondary-fixed-variant": "#574142",
+                        "surface-container": "#f5ece5",
+                        "secondary": "#705959",
+                        "outline-variant": "#c9c6bd",
+                        "surface-container-low": "#fbf2eb",
+                        "primary": "#605e58",
+                        "outline": "#79776f",
+                        "on-background": "#1f1b17",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#7c5357",
+                        "on-surface": "#1f1b17",
+                        "on-secondary-fixed": "#281717",
+                        "inverse-primary": "#c9c6be",
+                        "inverse-on-surface": "#f8efe8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "40px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "margin-mobile": "24px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "margin-desktop": "64px",
+                        "container-gap": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["DM Sans"],
+                        "body-md": ["DM Sans"],
+                        "body-lg": ["DM Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "label-md": ["DM Sans"],
+                        "headline-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen font-body-md selection:bg-secondary-container">
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl flex items-center justify-between px-margin-mobile h-16 w-full">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-display-lg text-headline-md tracking-widest text-on-surface">VESTIAIRE</h1>
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile max-w-lg mx-auto">
+<!-- Calendar Header -->
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">October</h2>
+<p class="font-label-md text-label-md text-outline">2023</p>
+</div>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Days of Week -->
+<div class="calendar-grid mb-4">
+<div class="text-center font-label-sm text-label-sm text-outline uppercase">Mon</div>
+<div class="text-center font-label-sm text-label-sm text-outline uppercase">Tue</div>
+<div class="text-center font-label-sm text-label-sm text-outline uppercase">Wed</div>
+<div class="text-center font-label-sm text-label-sm text-outline uppercase">Thu</div>
+<div class="text-center font-label-sm text-label-sm text-outline uppercase">Fri</div>
+<div class="text-center font-label-sm text-label-sm text-outline uppercase">Sat</div>
+<div class="text-center font-label-sm text-label-sm text-outline uppercase">Sun</div>
+</div>
+<!-- Calendar Dates -->
+<div class="calendar-grid gap-y-6" id="calendar-dates">
+<!-- Empty slots for alignment -->
+<div class="h-12"></div><div class="h-12"></div><div class="h-12"></div><div class="h-12"></div><div class="h-12"></div><div class="h-12"></div>
+<!-- Generate Dates (Simulated) -->
+<script>
+                const datesContainer = document.getElementById('calendar-dates');
+                const markedDates = [5, 12, 13, 14, 21, 25, 28];
+                const selectedDate = 14;
+
+                for (let i = 1; i <= 31; i++) {
+                    const dateBtn = document.createElement('div');
+                    dateBtn.className = `flex flex-col items-center justify-center h-12 relative cursor-pointer group`;
+                    
+                    const isSelected = i === selectedDate;
+                    const isMarked = markedDates.includes(i);
+
+                    dateBtn.innerHTML = `
+                        <span class="z-10 font-body-md text-body-md ${isSelected ? 'text-on-secondary' : 'text-on-surface'} transition-colors">${i}</span>
+                        ${isSelected ? '<div class="absolute inset-0 m-auto w-10 h-10 bg-secondary rounded-full -z-0"></div>' : ''}
+                        ${isMarked && !isSelected ? '<div class="absolute bottom-0 w-1 h-1 bg-tertiary rounded-full"></div>' : ''}
+                    `;
+                    
+                    dateBtn.onclick = () => updatePreview(i);
+                    datesContainer.appendChild(dateBtn);
+                }
+            </script>
+</div>
+<!-- Bottom Preview Card -->
+<div class="fixed bottom-24 left-margin-mobile right-margin-mobile z-40 transform transition-all duration-500 ease-out translate-y-0 opacity-100" id="outfit-preview">
+<div class="glass-card rounded-lg p-4 shadow-[0_20px_50px_rgba(124,83,87,0.15)] flex items-center gap-4 border border-white/40">
+<div class="w-20 h-24 rounded-md overflow-hidden flex-shrink-0 bg-surface-container">
+<img alt="Planned Outfit" class="w-full h-full object-cover" data-alt="A meticulously curated high-fashion outfit flat lay against a soft cream background. The look features a silk champagne-colored slip dress layered with a light beige cashmere oversized blazer. A small gold pendant necklace and minimalist nude leather sandals are placed nearby. The scene is bathed in soft, diffused morning sunlight, creating a warm and luxurious aesthetic typical of a premium fashion closet app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClUt9smkceQg3PQXl21oCzkXAkhJOGM6ZJs60oToSt8COYF35GF9294xd4UUyAalE_1k9HPS2OjtStfVVTkh0brs5WMmFKPhpAFX7N0zZ6TYuo0wa5Gu41uCfH_Fm3fKaucHqC6TeF5KCam2DYdfQc-hX-lLoN0HaVlvi5BJpbwEfeKN7Mg1LdJKMqm80ynToeOyUeqdWIq_MvgtBMGj6Vh0tvrjk-5gKkzmAZbhPaqZgev2ppFWn_yG-2RV37S7Hgc_8YO-hJftY"/>
+</div>
+<div class="flex-grow">
+<span class="font-label-sm text-label-sm text-tertiary block mb-1">PLANNED FOR OCT 14</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Effortless Evening</h3>
+<p class="font-body-md text-label-md text-outline">Gala Dinner at The Met</p>
+</div>
+<button class="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="checkroom">checkroom</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-surface/80 backdrop-blur-xl z-50 rounded-t-lg shadow-[0_-10px_40px_rgba(124,83,87,0.1)]">
+<a class="flex flex-col items-center justify-center text-outline opacity-60 hover:text-secondary-container transition-colors active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home_app_logo">home_app_logo</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline opacity-60 hover:text-secondary-container transition-colors active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="font-label-sm text-label-sm">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline opacity-60 hover:text-secondary-container transition-colors active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="checkroom">checkroom</span>
+<span class="font-label-sm text-label-sm">Outfits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-secondary after:rounded-full active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm">Planner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline opacity-60 hover:text-secondary-container transition-colors active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-sm text-label-sm">Favorites</span>
+</a>
+</nav>
+<script>
+        function updatePreview(day) {
+            const preview = document.getElementById('outfit-preview');
+            const markedDates = [5, 12, 13, 14, 21, 25, 28];
+            
+            // Re-render calendar highlight logic (simple swap for demo)
+            const allDates = document.getElementById('calendar-dates').children;
+            for(let i = 0; i < allDates.length; i++) {
+                const dateElem = allDates[i];
+                const text = dateElem.querySelector('span');
+                if(!text) continue;
+                
+                const val = parseInt(text.innerText);
+                const bg = dateElem.querySelector('.bg-secondary');
+                
+                if(val === day) {
+                    if(!bg) {
+                        const newBg = document.createElement('div');
+                        newBg.className = "absolute inset-0 m-auto w-10 h-10 bg-secondary rounded-full -z-0";
+                        dateElem.appendChild(newBg);
+                        text.classList.remove('text-on-surface');
+                        text.classList.add('text-on-secondary');
+                    }
+                } else {
+                    if(bg) bg.remove();
+                    text.classList.add('text-on-surface');
+                    text.classList.remove('text-on-secondary');
+                }
+            }
+
+            // Show/Hide preview card
+            if (markedDates.includes(day)) {
+                preview.style.transform = 'translateY(0)';
+                preview.style.opacity = '1';
+                // Update day text
+                preview.querySelector('.text-tertiary').innerText = `PLANNED FOR OCT ${day}`;
+            } else {
+                preview.style.transform = 'translateY(20px)';
+                preview.style.opacity = '0';
+            }
+        }
+    </script>
+</body></html>

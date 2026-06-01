@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 250, 249, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(232, 180, 184, 0.2);
+        }
+        body {
+            background-color: #fff8f4;
+            color: #1f1b17;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#1f1b17",
+                        "on-secondary-container": "#755d5d",
+                        "on-primary-container": "#75736c",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#fbdbdb",
+                        "outline": "#79776f",
+                        "on-secondary-fixed": "#281717",
+                        "inverse-primary": "#c9c6be",
+                        "on-tertiary-container": "#94686c",
+                        "on-tertiary-fixed-variant": "#623c40",
+                        "primary-fixed": "#e6e2d9",
+                        "surface-container-low": "#fbf2eb",
+                        "secondary-container": "#f8d8d8",
+                        "tertiary-fixed-dim": "#eeb9bd",
+                        "secondary": "#705959",
+                        "on-primary-fixed": "#1c1c17",
+                        "primary-fixed-dim": "#c9c6be",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fff8f4",
+                        "surface-container-highest": "#eae1da",
+                        "surface-bright": "#fff8f4",
+                        "on-primary-fixed-variant": "#484741",
+                        "surface-dim": "#e1d8d2",
+                        "on-surface-variant": "#484740",
+                        "inverse-surface": "#34302b",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#605e58",
+                        "outline-variant": "#c9c6bd",
+                        "tertiary-container": "#fffaf9",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#debfbf",
+                        "inverse-on-surface": "#f8efe8",
+                        "primary-container": "#fffbf2",
+                        "on-tertiary-fixed": "#301216",
+                        "surface-tint": "#605e58",
+                        "surface": "#fff8f4",
+                        "surface-container": "#f5ece5",
+                        "on-background": "#1f1b17",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdadc",
+                        "surface-variant": "#eae1da",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#7c5357",
+                        "surface-container-high": "#f0e7df",
+                        "on-secondary-fixed-variant": "#574142"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-mobile": "24px",
+                        "margin-desktop": "64px",
+                        "stack-sm": "8px",
+                        "container-gap": "32px",
+                        "stack-md": "16px",
+                        "stack-lg": "40px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["DM Sans"],
+                        "body-md": ["DM Sans"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "label-md": ["DM Sans"],
+                        "label-sm": ["DM Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-background selection:bg-tertiary-fixed">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 w-full z-50 bg-background/80 dark:bg-background/80 backdrop-blur-md flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16 w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer hover:opacity-70 transition-opacity">menu</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile tracking-widest text-on-surface dark:text-on-surface uppercase">VESTIAIRE</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer hover:opacity-70 transition-opacity">account_circle</span>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<!-- Header Section -->
+<section class="mb-stack-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-stack-md">
+<div class="space-y-unit">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-tertiary">Personal Collection</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Saved Outfits</h2>
+</div>
+<div class="flex gap-stack-sm overflow-x-auto hide-scrollbar">
+<button class="px-6 py-2 rounded-full border border-tertiary/20 text-label-md font-label-md bg-surface-container-low hover:bg-surface-container-highest transition-colors whitespace-nowrap">All Seasons</button>
+<button class="px-6 py-2 rounded-full border border-tertiary/20 text-label-md font-label-md bg-surface-container-low hover:bg-surface-container-highest transition-colors whitespace-nowrap">Occasions</button>
+<button class="px-6 py-2 rounded-full border border-tertiary/20 text-label-md font-label-md bg-surface-container-low hover:bg-surface-container-highest transition-colors whitespace-nowrap">Minimalist</button>
+</div>
+</div>
+</section>
+<!-- Outfits Feed -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-container-gap">
+<!-- Outfit Card 1 -->
+<article class="group relative bg-surface-container-lowest rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
+<div class="aspect-[3/4] overflow-hidden">
+<img alt="Parisian Evening" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A sophisticated woman walking through a dimly lit Parisian street at dusk, wearing a draped black silk slip dress and a tailored oversized blazer. The lighting is warm and cinematic, catching the sheen of the fabric and the cobblestone textures. The mood is chic, intentional, and high-fashion, with soft bokeh of city lights in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBxDXninJrE6p3dcXIh1PZ4TgmMb9K51QQ_mzBWbHUKwGqcXwqcA5bNqrySbqSK3IgO3EOWTf_Exl5bqwJciS1_TcTaikUSa6R5Wx2oeXy_BB8g3_lj_zHGsP_k4so02L6pAkCzRZPU_rm-K45GYWV3uhqNpjE46PkJd1a920MmRXB95IYM9eV6jKdnMulTrleEP4Lx3DCNQ1W0TEH6wmSXH_45CQzjfcmLcrQPctSl8BkTJFx2VkmzTUcYt56MKPxR9JZy8l9qe0"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="p-stack-md glass-card absolute bottom-4 left-4 right-4 rounded-lg flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Parisian Evening</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">3 Items • Evening Wear</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-stack-sm pt-stack-sm border-t border-tertiary/10">
+<div class="flex gap-4">
+<button aria-label="Remove from favorites" class="flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-secondary group-hover/btn:text-error transition-colors" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<button aria-label="Add to Planner" class="flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/btn:text-secondary transition-colors">calendar_today</span>
+</button>
+<button aria-label="Share" class="flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/btn:text-secondary transition-colors">share</span>
+</button>
+</div>
+<button class="text-label-md font-label-md text-tertiary hover:underline">View Details</button>
+</div>
+</div>
+</article>
+<!-- Outfit Card 2 -->
+<article class="group relative bg-surface-container-lowest rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
+<div class="aspect-[3/4] overflow-hidden">
+<img alt="Silk Monochrome" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A clean, minimalist studio shot of a monochrome outfit featuring an ivory silk blouse tucked into wide-leg cream wool trousers. The lighting is bright and diffused, creating soft shadows that emphasize the high-quality textures of the fabric. The aesthetic is extremely light-drenched, sophisticated, and calm, epitomizing quiet luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTbrORlWGVzo1k_gkRuolmLFWU3gIY62UNHaNvV8-QimwBUFtFWKjjsmDSXuPjv6Ddedg3wwbULh3RJMYZBF8vY2vm7IfjDWKAMFo84aIHPdcDJfI-NN76pCH2IuTYecxhIWbV9QOUomO47YDrNkMZob8NGUNGg_q5PFdCZdH7N7jW1qk_h3ISOd8yyUUD9wiol0ydsNiA8zV_cRVQO2E7NCovD4Mcft4KyVu2XK3yhr0e91hfcqsaj4-t6OAa_b0jwc5m-jvb_Ss"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="p-stack-md glass-card absolute bottom-4 left-4 right-4 rounded-lg flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Silk Monochrome</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">2 Items • Workwear</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-stack-sm pt-stack-sm border-t border-tertiary/10">
+<div class="flex gap-4">
+<button aria-label="Remove from favorites" class="flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-secondary group-hover/btn:text-error transition-colors" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<button aria-label="Add to Planner" class="flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/btn:text-secondary transition-colors">calendar_today</span>
+</button>
+<button aria-label="Share" class="flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/btn:text-secondary transition-colors">share</span>
+</button>
+</div>
+<button class="text-label-md font-label-md text-tertiary hover:underline">View Details</button>
+</div>
+</div>
+</article>
+<!-- Outfit Card 3 -->
+<article class="group relative bg-surface-container-lowest rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
+<div class="aspect-[3/4] overflow-hidden">
+<img alt="Weekend Gallery" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A creative professional in a contemporary art gallery, wearing an architectural navy knit sweater and pleated trousers. The setting is a vast white space with soft natural lighting and sculptural elements in the background. The visual style is modern, breathable, and artistic, focusing on structural silhouettes and a muted, calm color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqKnpmgEpq0kmJz6abcwIvGoCY8qQ5IieIJZ8y3CEo73ZFp0RZ-stLTT7zfUbLxf3E-SA9oQw8iYDcOR9zJsZGmkWACxCK0xgCh86eiKx04PIcJ1uYceXcdg7UGYdYAaH4oa0JkNVNnDreXFNqw646HUZFYK_JHtu2dyPSKP1eujWSbh5DIFVB63ccQ-8aFh-DKaLUk0eEao_Fh5Aa6uclQkmqS21ud11rZyX9VpQWU1fgnSz6WViK1w4jG-smSaB1mWjEFp9nxnM"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="p-stack-md glass-card absolute bottom-4 left-4 right-4 rounded-lg flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Weekend Gallery</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">4 Items • Casual</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-stack-sm pt-stack-sm border-t border-tertiary/10">
+<div class="flex gap-4">
+<button aria-label="Remove from favorites" class="flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-secondary group-hover/btn:text-error transition-colors" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<button aria-label="Add to Planner" class="flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/btn:text-secondary transition-colors">calendar_today</span>
+</button>
+<button aria-label="Share" class="flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/btn:text-secondary transition-colors">share</span>
+</button>
+</div>
+<button class="text-label-md font-label-md text-tertiary hover:underline">View Details</button>
+</div>
+</div>
+</article>
+<!-- Outfit Card 4 (Bento Style Variation) -->
+<article class="group relative bg-surface-container-lowest rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 lg:col-span-2">
+<div class="grid grid-cols-1 md:grid-cols-5 h-full">
+<div class="md:col-span-3 aspect-[3/2] md:aspect-auto overflow-hidden">
+<img alt="Coastal Retreat" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An elegant woman standing on a wooden terrace overlooking the Mediterranean sea at golden hour. She wears a lightweight linen wrap dress in a soft coral shade. The lighting is warm and amber-hued, creating a romantic and serene atmosphere. The overall style is light-drenched, aspirational, and deeply connected to nature and relaxation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnkFcVyVxxmJ4Qn6ysMnQiDftcXDKbnSGjGjMqo06l5TfScjhn3WiAPiSY82NZcRlQKw7GK5KHj52LMqiJ0yFc5CM_Hp6G0lAbLD_teGJWD_VNeqAAwrx2ri7Thgo0-ikb4BnkTk1990dj0wxYjNb-eU2lByfwgExaCsBzWyW-gU1kNnUuoAmPtx16BZqhplWlf3gbr2zm23isCiuBugWDj6mDEHq1Z43qSMFxmdr_Qa3Llvt8FIdi4eWh9iLhu1dDglmeuUDSo40"/>
+</div>
+<div class="md:col-span-2 p-stack-lg flex flex-col justify-center bg-secondary-container/20">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest mb-2">Editor's Pick</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-stack-sm">Coastal Retreat</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-md leading-relaxed">A curated selection of breathable linens and gold accents, perfect for seaside lunches and sunset walks.</p>
+<div class="flex items-center gap-stack-md">
+<button class="flex items-center justify-center w-12 h-12 rounded-full bg-tertiary text-on-tertiary hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">calendar_today</span>
+</button>
+<button class="px-8 py-3 rounded-full bg-on-surface text-background font-label-md hover:bg-on-surface-variant transition-colors">Schedule Trip</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Outfit Card 5 -->
+<article class="group relative bg-surface-container-lowest rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2">
+<div class="aspect-[3/4] overflow-hidden">
+<img alt="Alpine Minimal" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A cozy, high-end mountain cabin interior with a soft fire burning. A wool cashmere turtleneck and heavy tailored trousers are laid out on a plush sheepskin rug. The lighting is dim and intimate, focusing on the rich textures of the natural wool and the warm glow of the room. The mood is luxurious, quiet, and warm." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQo6SsQdhmNPP1_cXY88l9c6WyoglBk9W0XEbz7TB6QxXmRYfwTQSnGP0rSmW3LOw0wKpn4GcXfdAZDqRB4tlsxWjnm2eHamkeDCHwLzOvh1jcO_NuLQ-owdVC48v9P80R-u8mVCbAkhi_ERsUT4y-c6pu6v1HSvlxKmKNic9v6nNhTYgQEvXdasKdyqxT7i1I5jL370X4h1rGKRQsLuLkNl9UFn41VFq0QoL3NKpDRP6SbLw400fsM0WU4qyvNzccBlEsXkX_2VM"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="p-stack-md glass-card absolute bottom-4 left-4 right-4 rounded-lg flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Alpine Minimal</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">3 Items • Winter</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-stack-sm pt-stack-sm border-t border-tertiary/10">
+<div class="flex gap-4">
+<button aria-label="Remove from favorites" class="flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-secondary group-hover/btn:text-error transition-colors" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<button aria-label="Add to Planner" class="flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/btn:text-secondary transition-colors">calendar_today</span>
+</button>
+<button aria-label="Share" class="flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/btn:text-secondary transition-colors">share</span>
+</button>
+</div>
+<button class="text-label-md font-label-md text-tertiary hover:underline">View Details</button>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface/80 dark:bg-surface/80 backdrop-blur-xl shadow-[0_-10px_40px_rgba(232,180,184,0.1)] rounded-t-lg">
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-container dark:text-on-secondary-fixed-variant relative after:content-[''] after:w-1 after:h-1 after:bg-secondary after:rounded-full after:mt-1" href="#">
+<span class="material-symbols-outlined">checkroom</span>
+<span class="font-label-sm text-label-sm">Outfits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-sm text-label-sm">Planner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary transition-colors" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-sm text-label-sm">Favorites</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for heart buttons
+        document.querySelectorAll('button[aria-label="Remove from favorites"]').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const icon = this.querySelector('.material-symbols-outlined');
+                const isFilled = icon.style.fontVariationSettings.includes("'FILL' 1");
+                
+                if (isFilled) {
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                    icon.classList.remove('text-secondary');
+                    icon.classList.add('text-on-surface-variant');
+                } else {
+                    icon.style.fontVariationSettings = "'FILL' 1";
+                    icon.classList.add('text-secondary');
+                    icon.classList.remove('text-on-surface-variant');
+                }
+                
+                // Active state animation
+                this.classList.add('scale-90');
+                setTimeout(() => this.classList.remove('scale-90'), 200);
+            });
+        });
+
+        // Add to planner animation
+        document.querySelectorAll('button[aria-label="Add to Planner"]').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.add('scale-90');
+                setTimeout(() => this.classList.remove('scale-90'), 300);
+                // Simple feedback would go here
+            });
+        });
+    </script>
+</body></html>
