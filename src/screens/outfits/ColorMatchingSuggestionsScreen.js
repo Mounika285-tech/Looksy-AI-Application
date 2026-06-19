@@ -7,16 +7,20 @@ import {
   ScrollView,
   Image,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../theme/colors';
 import { Feather } from '@expo/vector-icons';
+import { generateColorHarmonyInsight } from '../../utils/geminiService';
 
 const { width } = Dimensions.get('window');
 
 export const ColorMatchingSuggestionsScreen = ({ navigation, route }) => {
   const { baseItem } = route.params;
   const [selectedHarmony, setSelectedHarmony] = useState('');
+  const [harmonyInsight, setHarmonyInsight] = useState(null);
+  const [isLoadingInsight, setIsLoadingInsight] = useState(false);
 
   const harmonies = [
     {
@@ -38,6 +42,20 @@ export const ColorMatchingSuggestionsScreen = ({ navigation, route }) => {
       tones: ['#D2B48C', '#F8DCCB', '#EFE5DD', '#6E6B64'],
     },
   ];
+
+  const handleSelectHarmony = async (harmonyValue) => {
+    setSelectedHarmony(harmonyValue);
+    setHarmonyInsight(null);
+    setIsLoadingInsight(true);
+    try {
+      const insight = await generateColorHarmonyInsight(baseItem, harmonyValue);
+      setHarmonyInsight(insight);
+    } catch (e) {
+      console.error('Failed to fetch color harmony insight:', e);
+    } finally {
+      setIsLoadingInsight(false);
+    }
+  };
 
   const handleCreate = () => {
     if (!selectedHarmony) return;
@@ -91,7 +109,7 @@ export const ColorMatchingSuggestionsScreen = ({ navigation, route }) => {
             return (
               <TouchableOpacity
                 key={item.value}
-                onPress={() => setSelectedHarmony(item.value)}
+                onPress={() => handleSelectHarmony(item.value)}
                 activeOpacity={0.9}
                 style={[
                   styles.harmonyCard,
@@ -107,16 +125,46 @@ export const ColorMatchingSuggestionsScreen = ({ navigation, route }) => {
                   )}
                 </View>
                 <Text style={styles.cardDesc}>{item.desc}</Text>
-                
-                {/* Visual tone dots */}
+
+                {/* Show AI palette if this card is selected, else static tone dots */}
                 <View style={styles.dotsWrapper}>
-                  {item.tones.map((color, idx) => (
+                  {(isSelected && harmonyInsight?.palette ? harmonyInsight.palette : item.tones).map((color, idx) => (
                     <View key={idx} style={[styles.toneDot, { backgroundColor: color }]} />
                   ))}
                 </View>
               </TouchableOpacity>
             );
           })}
+
+          {/* AI Insight Panel — shown after harmony selection */}
+          {selectedHarmony && (
+            <View style={styles.insightPanel}>
+              {isLoadingInsight ? (
+                <View style={styles.insightLoader}>
+                  <ActivityIndicator size="small" color={colors.primary} />
+                  <Text style={styles.insightLoadingText}>LookSy AI is analyzing your palette...</Text>
+                </View>
+              ) : harmonyInsight ? (
+                <>
+                  <View style={styles.insightHeader}>
+                    <Feather name="cpu" size={14} color={colors.primary} style={{ marginRight: 6 }} />
+                    <Text style={styles.insightLabel}>AI Color Insight</Text>
+                  </View>
+                  <Text style={styles.insightText}>{harmonyInsight.insight}</Text>
+
+                  {/* Style Tips */}
+                  <View style={styles.tipsWrapper}>
+                    {harmonyInsight.tips.map((tip, idx) => (
+                      <View key={idx} style={styles.tipRow}>
+                        <View style={styles.tipBullet} />
+                        <Text style={styles.tipText}>{tip}</Text>
+                      </View>
+                    ))}
+                  </View>
+                </>
+              ) : null}
+            </View>
+          )}
         </View>
 
         {/* Generate Button */}
@@ -286,6 +334,7 @@ const styles = StyleSheet.create({
   },
   dotsWrapper: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   toneDot: {
     width: 20,
@@ -294,6 +343,69 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
     marginRight: 6,
+    marginBottom: 4,
+  },
+  insightPanel: {
+    backgroundColor: colors.surface,
+    borderRadius: 20,
+    borderWidth: 1.5,
+    borderColor: colors.border,
+    padding: 18,
+    marginTop: 4,
+    marginBottom: 16,
+  },
+  insightLoader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 8,
+  },
+  insightLoadingText: {
+    marginLeft: 10,
+    fontSize: 12,
+    fontWeight: '600',
+    color: colors.textSecondary,
+  },
+  insightHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  insightLabel: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: colors.primary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+  },
+  insightText: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    lineHeight: 18,
+    fontWeight: '600',
+    marginBottom: 14,
+  },
+  tipsWrapper: {
+    marginTop: 0,
+  },
+  tipRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 6,
+  },
+  tipBullet: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: colors.primary,
+    marginTop: 5,
+    marginRight: 8,
+  },
+  tipText: {
+    fontSize: 12,
+    color: colors.text,
+    fontWeight: '600',
+    flex: 1,
+    lineHeight: 17,
   },
   actionBtn: {
     marginHorizontal: 24,

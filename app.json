@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "looksy-app",
+    "name": "Looksy AI",
     "slug": "looksy-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,7 +15,8 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+      },
+      "package": "com.mounikamouni12.looksyapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
