@@ -308,9 +308,18 @@ export const HomeScreen = ({ navigation }) => {
           contentContainerStyle={styles.aiSlider}
         >
           {(aiSuggestions.length > 0 ? aiSuggestions : staticSuggestions).map((suggestion, idx) => {
-            // AI suggestions from geminiService have `items` array — use it as desc if desc missing
-            const descText = suggestion.desc
-              || (Array.isArray(suggestion.items) ? suggestion.items.join(' · ') : '');
+            // AI suggestions from geminiService have items object or array — extract item names dynamically
+            let descText = suggestion.desc;
+            if (!descText && suggestion.items) {
+              if (Array.isArray(suggestion.items)) {
+                descText = suggestion.items.join(' · ');
+              } else if (typeof suggestion.items === 'object') {
+                descText = Object.values(suggestion.items)
+                  .filter(Boolean)
+                  .map((item) => item.name)
+                  .join(' · ');
+              }
+            }
             const ICONS = ['award', 'star', 'zap', 'sun', 'coffee', 'heart'];
             return (
               <TouchableOpacity

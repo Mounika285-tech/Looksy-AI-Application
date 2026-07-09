@@ -7,11 +7,12 @@ import {
   ScrollView,
   Image,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../theme/colors';
 import { useAuth } from '../../context/AuthContext';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, push, set, remove } from 'firebase/database';
 import { database } from '../../config/firebase';
 import { Feather } from '@expo/vector-icons';
 import { generateSuggestions } from '../../utils/geminiService';
@@ -22,6 +23,7 @@ export const AISuggestionsScreen = ({ navigation }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [suggestedOutfits, setSuggestedOutfits] = useState([]);
+  const [favoriteOutfits, setFavoriteOutfits] = useState([]);
 
   useEffect(() => {
     if (!user) {
@@ -31,7 +33,9 @@ export const AISuggestionsScreen = ({ navigation }) => {
 
     // Subscribe to wardrobe items in real-time
     const wardrobeRef = ref(database, `users/${user.uid}/wardrobe`);
-    const unsub = onValue(wardrobeRef, async (snapshot) => {
+    const favRef = ref(database, `users/${user.uid}/favorite_outfits`);
+
+    const unsubWardrobe = onValue(wardrobeRef, async (snapshot) => {
       const data = snapshot.val();
       const closetItems = data 
         ? Object.keys(data).map((key) => ({ id: key, ...data[key] }))
@@ -47,8 +51,84 @@ export const AISuggestionsScreen = ({ navigation }) => {
       }
     });
 
-    return () => unsub();
+    const unsubFavorites = onValue(favRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const parsedFavs = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key],
+        }));
+        setFavoriteOutfits(parsedFavs);
+      } else {
+        setFavoriteOutfits([]);
+      }
+    });
+
+    return () => {
+      unsubWardrobe();
+      unsubFavorites();
+    };
   }, [user, profile]);
+
+  const isOutfitFavorited = (outfitName) => {
+    return favoriteOutfits.some((fav) => fav.name === outfitName);
+  };
+
+  const handleFavoriteToggle = async (outfit) => {
+    if (!user) {
+      Alert.alert('Authentication required', 'Please sign in to favorite outfits.');
+      return;
+    }
+
+    const favorited = isOutfitFavorited(outfit.name);
+    try {
+      if (favorited) {
+        const existing = favoriteOutfits.find((fav) => fav.name === outfit.name);
+        if (existing) {
+          const deleteRef = ref(database, `users/${user.uid}/favorite_outfits/${existing.id}`);
+          await remove(deleteRef);
+          Alert.alert('Removed!', 'Outfit removed from favorites.');
+        }
+      } else {
+        const favRef = ref(database, `users/${user.uid}/favorite_outfits`);
+        const newFavRef = push(favRef);
+
+        const itemsData = {};
+        Object.keys(outfit.items || {}).forEach((key) => {
+          const item = outfit.items[key];
+          if (item) {
+            itemsData[key] = {
+              id: item.id,
+              name: item.name,
+              imageUrl: item.imageUrl,
+              category: item.category,
+              colorHex: item.colorHex || '#CCCCCC',
+            };
+          }
+        });
+
+        await set(newFavRef, {
+          name: outfit.name,
+          type: outfit.category || 'Outfit suggestion',
+          createdAt: Date.now(),
+          items: itemsData,
+        });
+
+        Alert.alert('Favorited!', 'Outfit added to your saved gallery.');
+      }
+    } catch (e) {
+      console.error('Error toggling favorite:', e);
+      Alert.alert('Oops!', 'Could not update favorite. Please try again.');
+    }
+  };
+
+  const handleViewDetails = (outfit) => {
+    // Navigate to OutfitsTab stack navigator screen OutfitDetails
+    navigation.navigate('OutfitsTab', {
+      screen: 'OutfitDetails',
+      params: { outfit },
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -84,40 +164,60 @@ export const AISuggestionsScreen = ({ navigation }) => {
 
           {/* Suggestion list */}
           <View style={styles.list}>
-            {suggestedOutfits.map((outfit) => (
-              <View key={outfit.id} style={styles.outfitCard}>
-                <View style={styles.cardHeader}>
-                  <View style={[styles.styleBadge, { backgroundColor: outfit.color || colors.accent }]}>
-                    <Text style={styles.styleBadgeText}>{outfit.category}</Text>
+            {suggestedOutfits.map((outfit, index) => {
+              const favorited = isOutfitFavorited(outfit.name);
+              const itemsList = Object.values(outfit.items || {}).filter(Boolean);
+
+              return (
+                <View key={outfit.id || index} style={styles.outfitCard}>
+                  <View style={styles.cardHeader}>
+                    <View style={[styles.styleBadge, { backgroundColor: outfit.color || colors.accent }]}>
+                      <Text style={styles.styleBadgeText}>{outfit.category}</Text>
+                    </View>
+                    <TouchableOpacity
+                      onPress={() => handleFavoriteToggle(outfit)}
+                      style={styles.favoriteBtn}
+                      activeOpacity={0.7}
+                    >
+                      <Feather
+                        name={favorited ? 'heart' : 'heart'}
+                        size={18}
+                        color={favorited ? colors.primary : colors.textSecondary}
+                        style={favorited && styles.heartFilled}
+                      />
+                    </TouchableOpacity>
                   </View>
-                  <TouchableOpacity style={styles.favoriteBtn} activeOpacity={0.7}>
-                    <Feather name="heart" size={18} color={colors.primary} />
+
+                  <Text style={styles.outfitName}>{outfit.name}</Text>
+                  
+                  <View style={styles.compositionDivider} />
+
+                  {/* Horizontal flatlay thumbnails */}
+                  <View style={styles.thumbnailsContainer}>
+                    {itemsList.map((item, idx) => (
+                      <View key={item.id || idx} style={styles.thumbnailWrapper}>
+                        <Text style={styles.thumbnailCategory} numberOfLines={1}>
+                          {item.category?.replace(' Wear', '') || 'Garment'}
+                        </Text>
+                        <Image source={{ uri: item.imageUrl }} style={styles.thumbnailImage} />
+                        <Text style={styles.thumbnailLabel} numberOfLines={1}>
+                          {item.name}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+
+                  <TouchableOpacity
+                    onPress={() => handleViewDetails(outfit)}
+                    style={styles.tryOnBtn}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={styles.tryOnBtnText}>View Styling Details</Text>
+                    <Feather name="chevron-right" size={16} color={colors.white} />
                   </TouchableOpacity>
                 </View>
-
-                <Text style={styles.outfitName}>{outfit.name}</Text>
-                
-                <View style={styles.compositionDivider} />
-
-                <View style={styles.itemsWrapper}>
-                  {outfit.items.map((item, idx) => (
-                    <View key={idx} style={styles.itemRow}>
-                      <View style={styles.itemBullet} />
-                      <Text style={styles.itemLabel}>{item}</Text>
-                    </View>
-                  ))}
-                </View>
-
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('TodaysOutfit')}
-                  style={styles.tryOnBtn}
-                  activeOpacity={0.8}
-                >
-                  <Text style={styles.tryOnBtnText}>View Styling Details</Text>
-                  <Feather name="chevron-right" size={16} color={colors.white} />
-                </TouchableOpacity>
-              </View>
-            ))}
+              );
+            })}
           </View>
         </ScrollView>
       )}
@@ -208,6 +308,9 @@ const styles = StyleSheet.create({
   favoriteBtn: {
     padding: 4,
   },
+  heartFilled: {
+    // Styling when heart is favorited (if any specific style is needed)
+  },
   outfitName: {
     fontSize: 18,
     fontWeight: '800',
@@ -219,25 +322,43 @@ const styles = StyleSheet.create({
     backgroundColor: colors.border,
     marginBottom: 14,
   },
-  itemsWrapper: {
-    marginBottom: 20,
-  },
-  itemRow: {
+  thumbnailsContainer: {
     flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginBottom: 20,
+    gap: 8,
+  },
+  thumbnailWrapper: {
+    flex: 1,
     alignItems: 'center',
-    marginBottom: 8,
+    backgroundColor: colors.surface,
+    borderRadius: 16,
+    padding: 8,
+    borderWidth: 1,
+    borderColor: colors.border,
+    maxWidth: '25%',
   },
-  itemBullet: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: colors.accentDark,
-    marginRight: 10,
-  },
-  itemLabel: {
-    fontSize: 13,
-    fontWeight: '600',
+  thumbnailCategory: {
+    fontSize: 8,
+    fontWeight: '700',
     color: colors.textSecondary,
+    textTransform: 'uppercase',
+    marginBottom: 4,
+    textAlign: 'center',
+  },
+  thumbnailImage: {
+    width: '100%',
+    height: 52,
+    borderRadius: 8,
+    backgroundColor: colors.surface,
+    resizeMode: 'cover',
+    marginBottom: 6,
+  },
+  thumbnailLabel: {
+    fontSize: 9,
+    fontWeight: '700',
+    color: colors.text,
+    textAlign: 'center',
   },
   tryOnBtn: {
     height: 48,
@@ -267,3 +388,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+

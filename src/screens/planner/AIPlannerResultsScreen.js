@@ -193,14 +193,16 @@ export const AIPlannerResultsScreen = ({ navigation, route }) => {
         {/* 7 day list breakdown */}
         <View style={styles.draftList}>
           {weeklyDrafts.map((draft) => {
-            const thumbnails = Object.values(draft.items || {}).map((i) => i.imageUrl);
+            const itemsList = Object.values(draft.items || {}).filter(Boolean);
+            const thumbnails = itemsList.map((i) => i.imageUrl).filter(Boolean);
+            const itemNames = itemsList.map((i) => i.name).filter(Boolean).join(' & ');
             return (
               <View key={draft.id} style={styles.draftRow}>
                 <View style={styles.draftMeta}>
                   <Text style={styles.draftDayText}>{draft.label}</Text>
                   <Text style={styles.draftNameText}>{draft.name}</Text>
                   <Text style={styles.draftStyleText} numberOfLines={1}>
-                    {Object.values(draft.items).map(i => i.name).join(' & ')}
+                    {itemNames || 'Empty Outfit'}
                   </Text>
                 </View>
                 <View style={styles.thumbsWrapper}>

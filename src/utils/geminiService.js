@@ -1,5 +1,5 @@
 import { GEMINI_API_KEY, GEMINI_ENDPOINT } from '../config/gemini';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DIAGNOSTIC: Logs the real HTTP error from Gemini (401/403/429/500 etc.)
@@ -214,23 +214,32 @@ export const generateSuggestions = async (closetItems, stylePreferences) => {
       User's Closet items:
       ${JSON.stringify(closetItems)}
       
-      Generate exactly 4 distinct outfit suggestion compositions. Each outfit must have:
-      - "name": descriptive premium name (e.g. "Chill Streetwear Fit", "Clean Minimalist Day")
-      - "category": which style aesthetic it belongs to (Casual, Formal, Streetwear, Minimalist, Sporty, etc.)
-      - "items": array of exactly 3 descriptive garment name strings
-      - "color": a light pastel hex color (e.g. '#F8DCCB', '#FFFFFF', '#F5EFEB', '#EFE5DD')
-
-      If wardrobe items exist, base suggestions on items they own.
+      Analyze the user's closet items and generate exactly 4 distinct outfit suggestion compositions.
+      
+      Styling Rules:
+      1. Each outfit must mix and match available clothing items to generate personalized suggestions based on styling moods (such as Casual, Streetwear, Formal, Minimalist, Sporty, etc.).
+      2. CRITICAL: You must recommend clothing items ONLY from the user's wardrobe (User's Closet items above). Do not recommend items that are not in their closet.
+      3. If the user's closet contains no items in a category (e.g. they have no "Footwear" or "Accessories"), select one of these premium fallback items to complete the look:
+         * Top Wear fallback: name: 'Ivory Silk Button-Down', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAk1Sgr9Pa4_6XLRglzV63ug_apiEBEBCCfRbBRLhw7ZLaoS-cYN2ZRfHWsHcHf0O7s_Vr4JUbJ3sAJsIdHCdqFscS6SHt-5a68N8wXVA5PrI-yUXAZHutdBo0fjpMK4NQY62CIOgYmXyQLhZp2bPUOQt5RlJMGqxNb6Ofp4gpsmgg0EDtbbOR9jMEJA4SnWWUaUAHJoBRrIOHxAQvLBIavskNNZOe6zR6E5a05Rmx6SypGOiSwz5BLS07tRp8ZAKex3v_0NmmG_o4', id: 'fb_sug_t', category: 'Top Wear'
+         * Bottom Wear fallback: name: 'Tailored Wide-Leg Trousers', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDAvJK9ZIe29WPrjgGNxnyxO9U9gqO-AxXrtAslSgPrpmyHjyjApemwBTE9Ii8OJDB6nFGnOvFpGjZ6ZSir9LO9JDXpJGhc46m2LQ8m3Js1pHf8HrNctm7hluJPwMjcGDnCZSkGhwxcp6qFlELZtxv5apg2RjUxCbS654mTL0hhMbpoRMmxG0KMfdA0Sa-Mp0ZOqIKRY_UL7xT7eskCc15t19n8XxEFhbXJoQzM4qwPZMe_Fm5S2YBdM_CYje8xi_NGgr7-KWj_XqE', id: 'fb_sug_b', category: 'Bottom Wear'
+         * Footwear fallback: name: 'Pointed Leather Pumps', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA6xM_c1ZnQnGYmDB6mTSmlJis3BoNGNOicxm2ybXbW-x5qqSoMYJEtpV1AzZDR3CDkIrX6G3lhRZQxjHF2RgMjt4B2q_rKScN1hX3fyBzFdcmDtW0PZJ0rJMywMWEKovppWBE3bqKJ38O_cz26MmTnm9sCqNaDK36aSIhaO_yn59aLYfcQKAlZ-6xAiMYkiGv2e8ze8odJh989VtMbtyp9nVfaiKOQOe2TEOzw-kP5RtJu91ariljYpYBfFcpgRoIXnLb-MrQULYY', id: 'fb_sug_f', category: 'Footwear'
+         * Accessories fallback: name: 'Classic Camel Trench Coat', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBHVpIFT5dGtyzj8s0ebTZ4TMq1BHM6uVue9hMJG0j2EjrQZLinMwsmy8ksSYH1s4DO6efQj87KE7t6-zyRwq_83z4FvYbkVfhm-ufK2VFU3JR31Jp9-EWgPW-evaNJt4X5H-Ax-InQnODX-XdiINGv9UdXWKstm2tx2wX3KijZoCfiOPenSlylofnHUCmQ8zsU47YUZV7XvrHh3N02ncJO-tU44wX7jCoCGt3OvuDBgX69Ww7PU0GIGG1qr_jeJaP7tUlnsUKo5TM', id: 'fb_sug_a', category: 'Accessories'
 
       You must respond with ONLY a valid raw JSON array of exactly 4 objects. No markdown, no backticks.
       
+      The JSON array format must match exactly:
       [
         {
           "id": "outfit_s1",
-          "name": "Outfit Name",
-          "category": "Streetwear",
-          "items": ["Item 1", "Item 2", "Item 3"],
-          "color": "#F8DCCB"
+          "name": "A premium outfit name (e.g. Chill Streetwear Fit, Business Casual Smart, Warm Weather Casual, Relaxed Weekend Vibe)",
+          "category": "Aesthetic category name (e.g. Streetwear, Formal, Minimalist, Casual, Sporty)",
+          "color": "A light pastel hex color (e.g. #F8DCCB, #F5EFEB)",
+          "items": {
+            "top": { "id": "itemId", "name": "Item Name", "imageUrl": "Image URL", "category": "Top Wear" },
+            "bottom": { "id": "itemId", "name": "Item Name", "imageUrl": "Image URL", "category": "Bottom Wear" },
+            "footwear": { "id": "itemId", "name": "Item Name", "imageUrl": "Image URL", "category": "Footwear" },
+            "accessory": { "id": "itemId", "name": "Item Name", "imageUrl": "Image URL", "category": "Accessories" }
+          }
         },
         ...
       ]
@@ -358,20 +367,30 @@ const getFallbackSuggestions = (closetItems, stylePreferences) => {
   const tops = (closetItems || []).filter(i => i.category === 'Top Wear');
   const bottoms = (closetItems || []).filter(i => i.category === 'Bottom Wear');
   const shoes = (closetItems || []).filter(i => i.category === 'Footwear');
+  const accessories = (closetItems || []).filter(i => i.category === 'Accessories');
+
+  const fbTop = { id: 'fb_sug_t', name: 'Ivory Silk Button-Down', category: 'Top Wear', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAk1Sgr9Pa4_6XLRglzV63ug_apiEBEBCCfRbBRLhw7ZLaoS-cYN2ZRfHWsHcHf0O7s_Vr4JUbJ3sAJsIdHCdqFscS6SHt-5a68N8wXVA5PrI-yUXAZHutdBo0fjpMK4NQY62CIOgYmXyQLhZp2bPUOQt5RlJMGqxNb6Ofp4gpsmgg0EDtbbOR9jMEJA4SnWWUaUAHJoBRrIOHxAQvLBIavskNNZOe6zR6E5a05Rmx6SypGOiSwz5BLS07tRp8ZAKex3v_0NmmG_o4' };
+  const fbBottom = { id: 'fb_sug_b', name: 'Tailored Wide-Leg Trousers', category: 'Bottom Wear', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDAvJK9ZIe29WPrjgGNxnyxO9U9gqO-AxXrtAslSgPrpmyHjyjApemwBTE9Ii8OJDB6nFGnOvFpGjZ6ZSir9LO9JDXpJGhc46m2LQ8m3Js1pHf8HrNctm7hluJPwMjcGDnCZSkGhwxcp6qFlELZtxv5apg2RjUxCbS654mTL0hhMbpoRMmxG0KMfdA0Sa-Mp0ZOqIKRY_UL7xT7eskCc15t19n8XxEFhbXJoQzM4qwPZMe_Fm5S2YBdM_CYje8xi_NGgr7-KWj_XqE' };
+  const fbShoe = { id: 'fb_sug_f', name: 'Pointed Leather Pumps', category: 'Footwear', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA6xM_c1ZnQnGYmDB6mTSmlJis3BoNGNOicxm2ybXbW-x5qqSoMYJEtpV1AzZDR3CDkIrX6G3lhRZQxjHF2RgMjt4B2q_rKScN1hX3fyBzFdcmDtW0PZJ0rJMywMWEKovppWBE3bqKJ38O_cz26MmTnm9sCqNaDK36aSIhaO_yn59aLYfcQKAlZ-6xAiMYkiGv2e8ze8odJh989VtMbtyp9nVfaiKOQOe2TEOzw-kP5RtJu91ariljYpYBfFcpgRoIXnLb-MrQULYY' };
+  const fbAcc = { id: 'fb_sug_a', name: 'Classic Camel Trench Coat', category: 'Accessories', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBHVpIFT5dGtyzj8s0ebTZ4TMq1BHM6uVue9hMJG0j2EjrQZLinMwsmy8ksSYH1s4DO6efQj87KE7t6-zyRwq_83z4FvYbkVfhm-ufK2VFU3JR31Jp9-EWgPW-evaNJt4X5H-Ax-InQnODX-XdiINGv9UdXWKstm2tx2wX3KijZoCfiOPenSlylofnHUCmQ8zsU47YUZV7XvrHh3N02ncJO-tU44wX7jCoCGt3OvuDBgX69Ww7PU0GIGG1qr_jeJaP7tUlnsUKo5TM' };
 
   const baseOutfits = [
-    { id: 'outfit_s1', name: 'Chill Streetwear Fit', category: 'Streetwear', items: ['Oversized Graf Tee', 'Baggy Chino Pants', 'Classic Dunks'], color: '#F8DCCB' },
-    { id: 'outfit_s2', name: 'Clean Minimalist Day', category: 'Minimalist', items: ['Plain White Tee', 'Dark Indigo Jeans', 'Leather Court Shoes'], color: '#FFFFFF' },
-    { id: 'outfit_s3', name: 'Business Casual Smart', category: 'Formal', items: ['Oatmeal Blazer', 'Tailored Beige Pants', 'Suede Loafers'], color: '#F5EFEB' },
-    { id: 'outfit_s4', name: 'Warm Weather Casual', category: 'Casual', items: ['Polo Knit Top', 'Drawstring Shorts', 'Espadrilles Slipons'], color: '#EFE5DD' },
+    { id: 'outfit_s1', name: 'Chill Streetwear Fit', category: 'Streetwear', color: '#F8DCCB' },
+    { id: 'outfit_s2', name: 'Clean Minimalist Day', category: 'Minimalist', color: '#FFFFFF' },
+    { id: 'outfit_s3', name: 'Business Casual Smart', category: 'Formal', color: '#F5EFEB' },
+    { id: 'outfit_s4', name: 'Warm Weather Casual', category: 'Casual', color: '#EFE5DD' },
   ];
 
   return baseOutfits.map((outfit, idx) => {
-    const updatedItems = [...outfit.items];
-    if (tops[idx]) updatedItems[0] = tops[idx].name;
-    if (bottoms[idx]) updatedItems[1] = bottoms[idx].name;
-    if (shoes[idx]) updatedItems[2] = shoes[idx].name;
-    return { ...outfit, items: updatedItems };
+    return {
+      ...outfit,
+      items: {
+        top: tops[idx % Math.max(tops.length, 1)] || fbTop,
+        bottom: bottoms[idx % Math.max(bottoms.length, 1)] || fbBottom,
+        footwear: shoes[idx % Math.max(shoes.length, 1)] || fbShoe,
+        accessory: accessories[idx % Math.max(accessories.length, 1)] || fbAcc,
+      }
+    };
   });
 };
 
