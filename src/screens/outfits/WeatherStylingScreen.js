@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,10 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+  TextInput,
+  ActivityIndicator,
 } from 'react-native';
+import { fetchLocationByIP, fetchLocationByCity, fetchWeather } from '../../utils/weatherService';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../theme/colors';
 import { Feather } from '@expo/vector-icons';
@@ -16,14 +19,42 @@ const { width } = Dimensions.get('window');
 export const WeatherStylingScreen = ({ navigation }) => {
   const [temperature, setTemperature] = useState(18);
   const [condition, setCondition] = useState('Partly Cloudy');
+  const [weatherIconName, setWeatherIconName] = useState('cloud');
+  const [weatherLocation, setWeatherLocation] = useState('Current Location');
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchCity, setSearchCity] = useState('');
+  const [showLocationInput, setShowLocationInput] = useState(false);
 
-  const hourlyForecast = [
-    { time: '14:00', temp: '19°', icon: 'sun', color: '#F2A03D' },
-    { time: '15:00', temp: '18°', icon: 'cloud-rain', color: colors.primary },
-    { time: '16:00', temp: '17°', icon: 'cloud', color: colors.textSecondary },
-    { time: '17:00', temp: '15°', icon: 'cloud-lightning', color: colors.text },
-    { time: '18:00', temp: '14°', icon: 'wind', color: colors.textSecondary },
-  ];
+  const loadWeather = async (cityName = '') => {
+    setIsLoading(true);
+    try {
+      let coords;
+      let locName = 'Mumbai, India';
+      
+      if (cityName) {
+        coords = await fetchLocationByCity(cityName);
+        locName = `${coords.city}, ${coords.country}`;
+        setWeatherLocation(locName);
+      } else {
+        coords = await fetchLocationByIP();
+        locName = `${coords.city}, ${coords.country}`;
+        setWeatherLocation('Current Location');
+      }
+
+      const forecast = await fetchWeather(coords.latitude, coords.longitude);
+      setTemperature(forecast.temp);
+      setCondition(forecast.condition);
+      setWeatherIconName(forecast.icon);
+    } catch (error) {
+      console.error('Error loading weather on styling screen:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadWeather();
+  }, []);
 
   const handleCurate = () => {
     navigation.navigate('WeatherStylingResult', { temp: temperature, cond: condition });
@@ -47,37 +78,113 @@ export const WeatherStylingScreen = ({ navigation }) => {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Location Row */}
         <View style={styles.locationContainer}>
-          <View>
+          <View style={{ flex: 1 }}>
             <Text style={styles.sectionLabel}>Today's Forecast</Text>
-            <Text style={styles.pageTitle}>London, UK</Text>
+            <Text style={styles.pageTitle} numberOfLines={1}>{weatherLocation}</Text>
           </View>
-          <View style={styles.locationBadge}>
-            <Feather name="map-pin" size={14} color={colors.primary} style={styles.pinIcon} />
-            <Text style={styles.locationBadgeText}>London, UK</Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => setShowLocationInput(!showLocationInput)}
+            style={styles.locationBadge}
+            activeOpacity={0.7}
+          >
+            <Feather name="edit-2" size={12} color={colors.primary} style={styles.pinIcon} />
+            <Text style={styles.locationBadgeText}>Change City</Text>
+          </TouchableOpacity>
         </View>
+
+        {showLocationInput && (
+          <View style={{ marginHorizontal: 24, marginBottom: 16, flexDirection: 'row', alignItems: 'center' }}>
+            <TextInput
+              style={{
+                flex: 1,
+                height: 40,
+                backgroundColor: colors.white,
+                borderRadius: 12,
+                paddingHorizontal: 16,
+                fontSize: 13,
+                borderWidth: 1.5,
+                borderColor: colors.border,
+                color: colors.text,
+                fontWeight: '600',
+              }}
+              value={searchCity}
+              onChangeText={setSearchCity}
+              placeholder="Search city (e.g. London)"
+              placeholderTextColor={colors.textSecondary}
+              onSubmitEditing={() => {
+                if (searchCity.trim()) {
+                  loadWeather(searchCity.trim());
+                  setShowLocationInput(false);
+                  setSearchCity('');
+                }
+              }}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                if (searchCity.trim()) {
+                  loadWeather(searchCity.trim());
+                  setShowLocationInput(false);
+                  setSearchCity('');
+                }
+              }}
+              style={{
+                backgroundColor: colors.primary,
+                height: 40,
+                paddingHorizontal: 16,
+                borderRadius: 12,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginLeft: 8,
+              }}
+            >
+              <Text style={{ color: colors.white, fontSize: 12, fontWeight: '700' }}>Search</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                loadWeather();
+                setShowLocationInput(false);
+              }}
+              style={{
+                backgroundColor: colors.white,
+                height: 40,
+                width: 40,
+                borderRadius: 12,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginLeft: 8,
+                borderWidth: 1.5,
+                borderColor: colors.border,
+              }}
+            >
+              <Feather name="navigation" size={16} color={colors.primary} />
+            </TouchableOpacity>
+          </View>
+        )}
 
         {/* Main Weather Visual Card */}
         <View style={styles.weatherCard}>
-          <View style={styles.weatherLeft}>
-            <View style={styles.tempWrapper}>
-              <Text style={styles.tempNum}>{temperature}</Text>
-              <Text style={styles.tempSymbol}>°C</Text>
+          {isLoading ? (
+            <View style={{ flex: 1, height: 120, justifyContent: 'center', alignItems: 'center' }}>
+              <ActivityIndicator size="small" color={colors.primary} />
+              <Text style={{ fontSize: 12, color: colors.textSecondary, marginTop: 8, fontWeight: '600' }}>
+                Fetching live climate data...
+              </Text>
             </View>
-            <Text style={styles.conditionText}>{condition}</Text>
-          </View>
-
-          <View style={styles.dividerLine} />
-
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.hourlyList}>
-            {hourlyForecast.map((item, idx) => (
-              <View key={idx} style={styles.hourlyItem}>
-                <Text style={styles.hourlyTime}>{item.time}</Text>
-                <Feather name={item.icon} size={18} color={item.color} style={styles.hourlyIcon} />
-                <Text style={styles.hourlyTemp}>{item.temp}</Text>
+          ) : (
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={styles.weatherLeft}>
+                <View style={styles.tempWrapper}>
+                  <Text style={styles.tempNum}>{temperature}</Text>
+                  <Text style={styles.tempSymbol}>°C</Text>
+                </View>
+                <Text style={styles.conditionText}>{condition}</Text>
               </View>
-            ))}
-          </ScrollView>
+
+              <View style={{ justifyContent: 'center', alignItems: 'center', paddingHorizontal: 16 }}>
+                <Feather name={weatherIconName} size={48} color={colors.primary} />
+              </View>
+            </View>
+          )}
         </View>
 
         {/* Weather styling rule detail box */}
@@ -94,10 +201,11 @@ export const WeatherStylingScreen = ({ navigation }) => {
         {/* Big Action button */}
         <TouchableOpacity
           onPress={handleCurate}
-          style={styles.actionBtn}
+          disabled={isLoading}
+          style={[styles.actionBtn, isLoading && { opacity: 0.65 }]}
           activeOpacity={0.85}
         >
-          <Text style={styles.actionBtnText}>Curate Layered Look</Text>
+          <Text style={styles.actionBtnText}>Curate Outfit Suggestion</Text>
           <Feather name="magic-pen" size={16} color={colors.white} style={styles.btnIcon} />
         </TouchableOpacity>
       </ScrollView>

@@ -16,17 +16,7 @@ import { Feather } from '@expo/vector-icons';
 const { width } = Dimensions.get('window');
 
 export const OccasionStylingScreen = ({ navigation }) => {
-  const [selectedOccasion, setSelectedOccasion] = useState('');
   const [description, setDescription] = useState('');
-
-  const occasions = [
-    { value: 'wedding', label: 'Wedding Event' },
-    { value: 'business', label: 'Business Professional' },
-    { value: 'casual', label: 'Smart Casual' },
-    { value: 'date-night', label: 'Date Night' },
-    { value: 'gala', label: 'Evening Gala' },
-    { value: 'vacation', label: 'Resort & Vacation' },
-  ];
 
   const hashtags = [
     '#BeachWedding',
@@ -38,16 +28,11 @@ export const OccasionStylingScreen = ({ navigation }) => {
 
   const handleHashtagPress = (tag) => {
     setDescription(`Curating styling for a ${tag.replace('#', '').replace(/([A-Z])/g, ' $1').trim()}. Needs to feel elegant, modern, and perfectly coordinated.`);
-    if (tag === '#BeachWedding') setSelectedOccasion('wedding');
-    else if (tag === '#BlackTieGala') setSelectedOccasion('gala');
-    else if (tag === '#TechConference') setSelectedOccasion('business');
-    else if (tag === '#FirstDate') setSelectedOccasion('date-night');
-    else if (tag === '#ArtGalleryOpening') setSelectedOccasion('casual');
   };
 
   const handleGetSuggestions = () => {
-    if (!selectedOccasion) return;
-    navigation.navigate('OccasionStylingResult', { occasion: selectedOccasion, desc: description });
+    if (!description.trim()) return;
+    navigation.navigate('OccasionStylingResult', { desc: description });
   };
 
   return (
@@ -76,34 +61,6 @@ export const OccasionStylingScreen = ({ navigation }) => {
 
         {/* Input Form */}
         <View style={styles.formContainer}>
-          {/* Dropdown Options */}
-          <Text style={styles.inputLabel}>What's the setting?</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.dropdownSlider}>
-            {occasions.map((item) => {
-              const isSelected = selectedOccasion === item.value;
-              return (
-                <TouchableOpacity
-                  key={item.value}
-                  onPress={() => setSelectedOccasion(item.value)}
-                  style={[
-                    styles.occBadge,
-                    isSelected && styles.occBadgeSelected,
-                  ]}
-                  activeOpacity={0.8}
-                >
-                  <Text
-                    style={[
-                      styles.occBadgeText,
-                      isSelected && styles.occBadgeTextSelected,
-                    ]}
-                  >
-                    {item.label}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView>
-
           {/* Description Text Box */}
           <Text style={[styles.inputLabel, { marginTop: 24 }]}>Event Description</Text>
           <TextInput
@@ -163,10 +120,10 @@ export const OccasionStylingScreen = ({ navigation }) => {
         {/* Action button */}
         <TouchableOpacity
           onPress={handleGetSuggestions}
-          disabled={!selectedOccasion}
+          disabled={!description.trim()}
           style={[
             styles.actionBtn,
-            !selectedOccasion && styles.actionBtnDisabled,
+            !description.trim() && styles.actionBtnDisabled,
           ]}
           activeOpacity={0.85}
         >

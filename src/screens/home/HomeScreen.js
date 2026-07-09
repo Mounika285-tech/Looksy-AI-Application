@@ -9,6 +9,7 @@ import {
   Dimensions,
   ActivityIndicator,
   Animated,
+  TextInput,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../theme/colors';
@@ -17,16 +18,82 @@ import { ref, onValue } from 'firebase/database';
 import { database } from '../../config/firebase';
 import { Feather } from '@expo/vector-icons';
 import { generateSuggestions } from '../../utils/geminiService';
+import { fetchLocationByIP, fetchLocationByCity, fetchWeather } from '../../utils/weatherService';
 
 const { width } = Dimensions.get('window');
-
-const WEATHER = { temp: 28, condition: 'Partly Cloudy', icon: 'cloud' };
 
 const getGreeting = () => {
   const h = new Date().getHours();
   if (h < 12) return 'Good Morning';
   if (h < 17) return 'Good Afternoon';
   return 'Good Evening';
+};
+
+const getPlanStatus = (plan) => {
+  if (!plan.createdAt) return 'expired';
+  const createdDate = new Date(plan.createdAt);
+  const today = new Date();
+  
+  // Reset time components for accurate date comparisons
+  const createdZero = new Date(createdDate.getFullYear(), createdDate.getMonth(), createdDate.getDate());
+  const todayZero = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  
+  const diffDays = Math.round((todayZero - createdZero) / (1000 * 60 * 60 * 24));
+  
+  const dateStr = plan.plannedDate?.toUpperCase();
+  
+  if (dateStr === 'TODAY') {
+    if (diffDays === 0) return 'today';
+    if (diffDays > 0) return 'expired';
+    return 'future';
+  }
+  
+  if (dateStr === 'TOMORROW') {
+    if (diffDays === 1) return 'today';
+    if (diffDays > 1) return 'expired';
+    return 'future';
+  }
+  
+  if (dateStr === 'THIS WEEKEND') {
+    // Weekend is Saturday (6) and Sunday (0)
+    const todayDay = today.getDay();
+    const isTodayWeekend = todayDay === 0 || todayDay === 6;
+    
+    // Check if same week
+    const getWeekNumber = (d) => {
+      const onejan = new Date(d.getFullYear(), 0, 1);
+      return Math.ceil((((d - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+    };
+    const sameYear = createdDate.getFullYear() === today.getFullYear();
+    const sameWeek = sameYear && getWeekNumber(createdDate) === getWeekNumber(today);
+    
+    if (sameWeek && isTodayWeekend) return 'today';
+    if (sameWeek && !isTodayWeekend && diffDays <= 0) return 'future';
+    return 'expired';
+  }
+  
+  const weekDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  
+  if (weekDays.includes(dateStr)) {
+    const getWeekNumber = (d) => {
+      const onejan = new Date(d.getFullYear(), 0, 1);
+      return Math.ceil((((d - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+    };
+    const sameYear = createdDate.getFullYear() === today.getFullYear();
+    const sameWeek = sameYear && getWeekNumber(createdDate) === getWeekNumber(today);
+    
+    if (sameWeek) {
+      const planDayIndex = weekDays.indexOf(dateStr);
+      const todayDayIndex = today.getDay();
+      
+      if (planDayIndex === todayDayIndex) return 'today';
+      if (planDayIndex > todayDayIndex) return 'future';
+      return 'expired';
+    }
+    return 'expired';
+  }
+  
+  return 'expired';
 };
 
 export const HomeScreen = ({ navigation }) => {
@@ -40,6 +107,13 @@ export const HomeScreen = ({ navigation }) => {
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [isLoadingAI, setIsLoadingAI] = useState(false);
   const pulseAnim = useRef(new Animated.Value(1)).current;
+
+  // Real-time dynamic weather states
+  const [weather, setWeather] = useState({ temp: 28, condition: 'Partly Cloudy', icon: 'cloud', location: 'Mumbai, India', humidity: '72%', wind: '12 km/h', visibility: '8 km', feelsLike: '31°C' });
+  const [isLoadingWeather, setIsLoadingWeather] = useState(true);
+  const [weatherLocation, setWeatherLocation] = useState('Current Location');
+  const [searchCity, setSearchCity] = useState('');
+  const [showLocationInput, setShowLocationInput] = useState(false);
 
   // Pulse animation for AI loading
   useEffect(() => {
@@ -57,28 +131,54 @@ export const HomeScreen = ({ navigation }) => {
     }
   }, [isLoadingAI]);
 
-  // High-fidelity static fallback suggestions
-  const staticSuggestions = [
+  // High-fidelity static fallback suggestions based on gender
+  const isMale = profile?.gender?.toLowerCase() === 'male';
+  const staticSuggestions = isMale ? [
     {
       id: 'sug_1',
-      name: `${prefStyle} Essentials`,
-      desc: `A curated combination perfectly tailored for your ${prefStyle} aesthetic.`,
-      style: prefStyle,
+      name: 'Navy Blue Casual Look',
+      desc: 'Relaxed polo shirt with classic chinos.',
+      style: 'Casual',
       color: colors.accent,
       icon: 'award',
     },
     {
       id: 'sug_2',
-      name: 'Smart Office Formal',
-      desc: 'Minimal blazer with tailored neutral trousers — classic authority.',
+      name: 'Office Ready Outfit',
+      desc: 'Tailored button-up shirt with formal trousers.',
       style: 'Formal',
       color: '#E8E2DC',
       icon: 'briefcase',
     },
     {
       id: 'sug_3',
-      name: 'Weekend Minimalist',
-      desc: 'Comfortable essentials styled with premium classic textures.',
+      name: 'Weekend Comfort Fit',
+      desc: 'Comfortable basic t-shirt with casual shorts.',
+      style: 'Minimalist',
+      color: colors.surfaceAlt,
+      icon: 'sun',
+    },
+  ] : [
+    {
+      id: 'sug_1',
+      name: 'Elegant Summer Style',
+      desc: 'Breezy linen top with matching midi skirt.',
+      style: 'Casual',
+      color: colors.accent,
+      icon: 'award',
+    },
+    {
+      id: 'sug_2',
+      name: 'Formal Office Look',
+      desc: 'Tailored blazer with tapered ankle trousers.',
+      style: 'Formal',
+      color: '#E8E2DC',
+      icon: 'briefcase',
+    },
+    {
+      id: 'sug_3',
+      name: 'Casual Chic Outfit',
+      desc: 'Sleek blouse paired with high-waisted denim.',
       style: 'Minimalist',
       color: colors.surfaceAlt,
       icon: 'sun',
@@ -118,18 +218,11 @@ export const HomeScreen = ({ navigation }) => {
     return () => { unsubWardrobe(); unsubPlanner(); };
   }, [user]);
 
-  // Fetch AI suggestions once wardrobe items load
-  useEffect(() => {
-    if (!isLoadingData && user) {
-      fetchAISuggestions();
-    }
-  }, [isLoadingData, wardrobeItems.length]);
-
-  const fetchAISuggestions = async () => {
+  const fetchAISuggestions = async (activeWeather = weather) => {
     setIsLoadingAI(true);
     try {
       const stylePrefs = profile?.stylePreferences || [prefStyle];
-      const suggestions = await generateSuggestions(wardrobeItems, stylePrefs);
+      const suggestions = await generateSuggestions(wardrobeItems, stylePrefs, profile?.gender, activeWeather);
       if (suggestions && suggestions.length > 0) {
         setAiSuggestions(suggestions.slice(0, 4));
       } else {
@@ -143,27 +236,89 @@ export const HomeScreen = ({ navigation }) => {
     }
   };
 
-  // Today's outfit from planner
-  const todayPlanned = plannedOutfits.find((o) => o.plannedDate === 'Today') || plannedOutfits[0];
-  const activeItems = todayPlanned
-    ? Object.values(todayPlanned.items || {}).filter(Boolean).slice(0, 3)
+  const loadWeather = async (cityName = '') => {
+    setIsLoadingWeather(true);
+    try {
+      let coords;
+      let locName = 'Mumbai, India';
+      
+      if (cityName) {
+        coords = await fetchLocationByCity(cityName);
+        locName = `${coords.city}, ${coords.country}`;
+        setWeatherLocation(locName);
+      } else {
+        coords = await fetchLocationByIP();
+        locName = `${coords.city}, ${coords.country}`;
+        setWeatherLocation('Current Location');
+      }
+
+      const forecast = await fetchWeather(coords.latitude, coords.longitude);
+      const newWeather = {
+        ...forecast,
+        location: locName,
+      };
+      setWeather(newWeather);
+      
+      if (!isLoadingData && wardrobeItems.length > 0) {
+        setIsLoadingAI(true);
+        const stylePrefs = profile?.stylePreferences || [prefStyle];
+        const suggestions = await generateSuggestions(wardrobeItems, stylePrefs, profile?.gender, newWeather);
+        if (suggestions && suggestions.length > 0) {
+          setAiSuggestions(suggestions.slice(0, 4));
+        } else {
+          setAiSuggestions(staticSuggestions);
+        }
+        setIsLoadingAI(false);
+      }
+    } catch (error) {
+      console.error('Error loading weather on home:', error);
+    } finally {
+      setIsLoadingWeather(false);
+    }
+  };
+
+  // Fetch AI suggestions once wardrobe items load
+  useEffect(() => {
+    if (!isLoadingData && user) {
+      fetchAISuggestions(weather);
+    }
+  }, [isLoadingData, wardrobeItems.length]);
+
+  // Load live weather on startup
+  useEffect(() => {
+    if (user) {
+      loadWeather();
+    }
+  }, [user]);
+
+  // Dynamic active/future plan from planner
+  const getActivePlan = () => {
+    const todayPlan = plannedOutfits.find(o => getPlanStatus(o) === 'today');
+    if (todayPlan) {
+      return { plan: todayPlan, isToday: true };
+    }
+    
+    const futurePlans = plannedOutfits.filter(o => getPlanStatus(o) === 'future');
+    if (futurePlans.length > 0) {
+      // Sort future plans to find the closest upcoming one
+      futurePlans.sort((a, b) => {
+        const dateA = a.plannedDate?.toUpperCase();
+        const dateB = b.plannedDate?.toUpperCase();
+        if (dateA === 'TOMORROW' && dateB !== 'TOMORROW') return -1;
+        if (dateB === 'TOMORROW' && dateA !== 'TOMORROW') return 1;
+        return a.createdAt - b.createdAt;
+      });
+      return { plan: futurePlans[0], isToday: false };
+    }
+    return { plan: null, isToday: false };
+  };
+
+  const { plan: activePlan, isToday: isActiveToday } = getActivePlan();
+  const displayOutfitItems = activePlan
+    ? Object.values(activePlan.items || {}).filter(Boolean).slice(0, 3)
     : [];
 
   const recentGridItems = wardrobeItems.slice(0, 4);
-
-  // Default outfit fallback
-  const defaultOutfitItems = [
-    { id: 'fb1', category: 'Top Wear', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAk1Sgr9Pa4_6XLRglzV63ug_apiEBEBCCfRbBRLhw7ZLaoS-cYN2ZRfHWsHcHf0O7s_Vr4JUbJ3sAJsIdHCdqFscS6SHt-5a68N8wXVA5PrI-yUXAZHutdBo0fjpMK4NQY62CIOgYmXyQLhZp2bPUOQt5RlJMGqxNb6Ofp4gpsmgg0EDtbbOR9jMEJA4SnWWUaUAHJoBRrIOHxAQvLBIavskNNZOe6zR6E5a05Rmx6SypGOiSwz5BLS07tRp8ZAKex3v_0NmmG_o4' },
-    { id: 'fb2', category: 'Bottom Wear', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDAvJK9ZIe29WPrjgGNxnyxO9U9gqO-AxXrtAslSgPrpmyHjyjApemwBTE9Ii8OJDB6nFGnOvFpGjZ6ZSir9LO9JDXpJGhc46m2LQ8m3Js1pHf8HrNctm7hluJPwMjcGDnCZSkGhwxcp6qFlELZtxv5apg2RjUxCbS654mTL0hhMbpoRMmxG0KMfdA0Sa-Mp0ZOqIKRY_UL7xT7eskCc15t19n8XxEFhbXJoQzM4qwPZMe_Fm5S2YBdM_CYje8xi_NGgr7-KWj_XqE' },
-    { id: 'fb3', category: 'Footwear', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA6xM_c1ZnQnGYmDB6mTSmlJis3BoNGNOicxm2ybXbW-x5qqSoMYJEtpV1AzZDR3CDkIrX6G3lhRZQxjHF2RgMjt4B2q_rKScN1hX3fyBzFdcmDtW0PZJ0rJMywMWEKovppWBE3bqKJ38O_cz26MmTnm9sCqNaDK36aSIhaO_yn59aLYfcQKAlZ-6xAiMYkiGv2e8ze8odJh989VtMbtyp9nVfaiKOQOe2TEOzw-kP5RtJu91ariljYpYBfFcpgRoIXnLb-MrQULYY' },
-  ];
-
-  const displayOutfitItems = activeItems.length > 0 ? activeItems : defaultOutfitItems;
-
-  const handleOutfitCardPress = () => {
-    if (todayPlanned) navigation.navigate('PlannerTab');
-    else navigation.navigate('TodaysOutfit');
-  };
 
   if (isLoadingData) {
     return (
@@ -219,20 +374,114 @@ export const HomeScreen = ({ navigation }) => {
 
         {/* Weather Card */}
         <TouchableOpacity
-          onPress={() => navigation.navigate('WeatherDetails')}
+          onPress={() => navigation.navigate('WeatherDetails', { weatherData: weather })}
           activeOpacity={0.9}
           style={styles.weatherCard}
         >
-          <View style={styles.weatherInfo}>
-            <View style={styles.weatherTextGroup}>
-              <Text style={styles.weatherTemp}>{WEATHER.temp}°C</Text>
-              <Text style={styles.weatherStatus}>{WEATHER.condition}</Text>
+          {isLoadingWeather ? (
+            <View style={{ height: 60, justifyContent: 'center', alignItems: 'center' }}>
+              <ActivityIndicator size="small" color={colors.primary} />
+              <Text style={{ fontSize: 11, color: colors.textSecondary, marginTop: 6, fontWeight: '600' }}>
+                Fetching live forecast...
+              </Text>
             </View>
-            <View style={styles.weatherRight}>
-              <Feather name={WEATHER.icon} size={36} color={colors.primary} />
-              <Text style={styles.weatherTapHint}>Tap for tips →</Text>
+          ) : (
+            <View style={styles.weatherInfo}>
+              <View style={styles.weatherTextGroup}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 2 }}>
+                  <Feather name="map-pin" size={10} color={colors.primary} style={{ marginRight: 3 }} />
+                  <Text style={{ fontSize: 10, fontWeight: '700', color: colors.primary, textTransform: 'uppercase' }} numberOfLines={1}>
+                    {weather.location}
+                  </Text>
+                </View>
+                <Text style={styles.weatherTemp}>{weather.temp}°C</Text>
+                <Text style={styles.weatherStatus}>{weather.condition}</Text>
+              </View>
+              <View style={styles.weatherRight}>
+                <Feather name={weather.icon} size={36} color={colors.primary} />
+                <TouchableOpacity 
+                  onPress={() => setShowLocationInput(!showLocationInput)}
+                  style={{ paddingVertical: 4, paddingHorizontal: 6, marginTop: 4, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, borderRadius: 8, borderWidth: 1, borderColor: colors.border }}
+                  activeOpacity={0.7}
+                >
+                  <Feather name="edit-2" size={9} color={colors.primary} style={{ marginRight: 2 }} />
+                  <Text style={{ fontSize: 9, fontWeight: '700', color: colors.primary }}>Change City</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          )}
+
+          {showLocationInput && (
+            <View style={{ marginTop: 12, borderTopWidth: 1, borderTopColor: colors.border, paddingTop: 12 }} onStartShouldSetResponder={() => true}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <TextInput
+                  style={{
+                    flex: 1,
+                    height: 36,
+                    backgroundColor: colors.surface,
+                    borderRadius: 8,
+                    paddingHorizontal: 12,
+                    fontSize: 12,
+                    borderWidth: 1,
+                    borderColor: colors.border,
+                    color: colors.text,
+                    fontWeight: '600',
+                  }}
+                  value={searchCity}
+                  onChangeText={setSearchCity}
+                  placeholder="Enter city (e.g. London)"
+                  placeholderTextColor={colors.textSecondary}
+                  onSubmitEditing={() => {
+                    if (searchCity.trim()) {
+                      loadWeather(searchCity.trim());
+                      setShowLocationInput(false);
+                      setSearchCity('');
+                    }
+                  }}
+                />
+                <TouchableOpacity
+                  onPress={() => {
+                    if (searchCity.trim()) {
+                      loadWeather(searchCity.trim());
+                      setShowLocationInput(false);
+                      setSearchCity('');
+                    }
+                  }}
+                  style={{
+                    backgroundColor: colors.primary,
+                    height: 36,
+                    paddingHorizontal: 12,
+                    borderRadius: 8,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginLeft: 8,
+                  }}
+                >
+                  <Text style={{ color: colors.white, fontSize: 11, fontWeight: '700' }}>Search</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    loadWeather();
+                    setShowLocationInput(false);
+                  }}
+                  style={{
+                    backgroundColor: colors.surface,
+                    height: 36,
+                    width: 36,
+                    borderRadius: 8,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginLeft: 8,
+                    borderWidth: 1,
+                    borderColor: colors.border,
+                  }}
+                >
+                  <Feather name="navigation" size={14} color={colors.primary} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+
           <View style={styles.weatherTipDivider} />
           <Text style={styles.weatherTip}>
             💡 Perfect day for a <Text style={styles.boldTip}>{prefStyle}</Text> look! Comfort meets style.
@@ -242,50 +491,65 @@ export const HomeScreen = ({ navigation }) => {
         {/* Today's Outfit Section */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>
-            {todayPlanned ? "Today's Scheduled Look" : "Suggested Look"}
+            {activePlan ? (isActiveToday ? "Today's Scheduled Look" : "Upcoming Scheduled Look") : "Today's Scheduled Look"}
           </Text>
-          <TouchableOpacity onPress={handleOutfitCardPress} activeOpacity={0.7}>
+          <TouchableOpacity onPress={() => navigation.navigate('PlannerTab')} activeOpacity={0.7}>
             <Text style={styles.viewAllBtn}>
-              {todayPlanned ? 'View Planner' : 'See Details'}
+              {activePlan ? 'View Planner' : 'Plan Look'}
             </Text>
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity
-          onPress={handleOutfitCardPress}
-          activeOpacity={0.9}
-          style={styles.outfitCard}
-        >
-          <View style={styles.outfitHeader}>
-            <Text style={styles.outfitName} numberOfLines={1}>
-              {todayPlanned?.name || 'Summer Casual Chic'}
-            </Text>
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>
-                {todayPlanned ? 'PLAN' : 'AI PICK'}
+        {activePlan ? (
+          <TouchableOpacity
+            onPress={() => navigation.navigate('PlannerTab')}
+            activeOpacity={0.9}
+            style={styles.outfitCard}
+          >
+            <View style={styles.outfitHeader}>
+              <Text style={styles.outfitName} numberOfLines={1}>
+                {activePlan.name}
               </Text>
-            </View>
-          </View>
-          <View style={styles.outfitItemsRow}>
-            {displayOutfitItems.slice(0, 3).map((item, index) => (
-              <View key={item.id || index} style={styles.outfitItemDotWrapper}>
-                {item.imageUrl ? (
-                  <Image source={{ uri: item.imageUrl }} style={styles.outfitItemThumbnail} />
-                ) : (
-                  <View style={[styles.outfitItemThumbnail, { backgroundColor: colors.surface }]} />
-                )}
-                <Text style={styles.outfitItemType} numberOfLines={1}>
-                  {item.category || 'Garment'}
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>
+                  {activePlan.plannedDate}
                 </Text>
               </View>
-            ))}
-          </View>
-          {todayPlanned && (
+            </View>
+            <View style={styles.outfitItemsRow}>
+              {displayOutfitItems.map((item, index) => (
+                <View key={item.id || index} style={styles.outfitItemDotWrapper}>
+                  {item.imageUrl ? (
+                    <Image source={{ uri: item.imageUrl }} style={styles.outfitItemThumbnail} />
+                  ) : (
+                    <View style={[styles.outfitItemThumbnail, { backgroundColor: colors.surface }]} />
+                  )}
+                  <Text style={styles.outfitItemType} numberOfLines={1}>
+                    {item.category || 'Garment'}
+                  </Text>
+                </View>
+              ))}
+            </View>
             <Text style={styles.plannedDateText}>
-              <Feather name="clock" size={11} color={colors.textSecondary} /> Scheduled: {todayPlanned.plannedDate}
+              <Feather name="clock" size={11} color={colors.textSecondary} /> Scheduled: {activePlan.plannedDate}
             </Text>
-          )}
-        </TouchableOpacity>
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.emptyTodayCard}>
+            <View style={styles.emptyTodayIconCircle}>
+              <Feather name="calendar" size={24} color={colors.textSecondary} />
+            </View>
+            <Text style={styles.emptyTodayTitle}>No Outfit Scheduled</Text>
+            <Text style={styles.emptyTodayText}>No outfit scheduled for today. Add a schedule to see it here.</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('PlannerTab')}
+              style={styles.scheduleBtn}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.scheduleBtnText}>Plan Outfit Now</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         {/* AI Recommendations Slider */}
         <View style={styles.sectionHeader}>
@@ -332,7 +596,7 @@ export const HomeScreen = ({ navigation }) => {
                   <Feather name={suggestion.icon || ICONS[idx % ICONS.length]} size={20} color={colors.primary} />
                 </View>
                 <Text style={styles.suggestionTitle}>{suggestion.name}</Text>
-                <Text style={styles.suggestionDesc} numberOfLines={3}>{descText}</Text>
+                <Text style={styles.suggestionDesc} numberOfLines={1}>{descText}</Text>
                 <View style={styles.suggestionFooter}>
                   <Text style={styles.suggestionStyle}>{suggestion.category || suggestion.style}</Text>
                   <Feather name="arrow-right" size={14} color={colors.primary} />
@@ -498,4 +762,60 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15, shadowRadius: 8, elevation: 3,
   },
   addGarmentBtnText: { fontSize: 13, fontWeight: '700', color: colors.white },
+
+  emptyTodayCard: {
+    marginHorizontal: 24,
+    backgroundColor: colors.white,
+    borderRadius: 24,
+    padding: 24,
+    alignItems: 'center',
+    borderWidth: 1.5,
+    borderColor: colors.border,
+    borderStyle: 'dashed',
+    marginBottom: 28,
+  },
+  emptyTodayIconCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: colors.surface,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  emptyTodayTitle: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: colors.text,
+    marginBottom: 4,
+  },
+  emptyTodayText: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    lineHeight: 18,
+    marginBottom: 16,
+    paddingHorizontal: 12,
+    fontWeight: '600',
+  },
+  scheduleBtn: {
+    height: 38,
+    paddingHorizontal: 18,
+    borderRadius: 19,
+    backgroundColor: colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  scheduleBtnText: {
+    color: colors.white,
+    fontWeight: '700',
+    fontSize: 12,
+  },
 });

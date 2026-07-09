@@ -126,13 +126,22 @@ export const PlannedOutfitDetailsScreen = ({ navigation, route }) => {
           <Feather name="arrow-left" size={20} color={colors.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Planned Look Details</Text>
-        <TouchableOpacity
-          onPress={handleDeletePlan}
-          style={styles.deleteBtn}
-          activeOpacity={0.7}
-        >
-          <Feather name="trash-2" size={18} color={colors.primary} />
-        </TouchableOpacity>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('CustomPlannerSetup', { editPlanId: planId, currentPlan: plan })}
+            style={styles.editBtn}
+            activeOpacity={0.7}
+          >
+            <Feather name="edit-2" size={18} color={colors.primary} style={{ marginRight: 12 }} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleDeletePlan}
+            style={styles.deleteBtn}
+            activeOpacity={0.7}
+          >
+            <Feather name="trash-2" size={18} color={colors.primary} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
@@ -222,6 +231,9 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   deleteBtn: {
+    padding: 8,
+  },
+  editBtn: {
     padding: 8,
   },
   scrollContent: {

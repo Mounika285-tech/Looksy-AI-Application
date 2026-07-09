@@ -18,7 +18,7 @@ import { Feather } from '@expo/vector-icons';
 import { curateOutfit } from '../../utils/geminiService';
 
 export const OccasionStylingResultScreen = ({ navigation, route }) => {
-  const { occasion, desc } = route.params;
+  const { desc } = route.params;
   const { user } = useAuth();
   const [curatedOutfit, setCuratedOutfit] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +39,7 @@ export const OccasionStylingResultScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     curateOccasionOutfit();
-  }, [occasion]);
+  }, [desc]);
 
   const curateOccasionOutfit = async () => {
     try {
@@ -84,7 +84,7 @@ export const OccasionStylingResultScreen = ({ navigation, route }) => {
       const outputOutfit = await curateOutfit(
         closetItems,
         baseGarment,
-        `Occasion Label: ${getOccasionLabel(occasion)}, Context: ${desc}`,
+        `Occasion/Vibe Description: ${desc}`,
         'Occasion Styling'
       );
 
@@ -99,7 +99,7 @@ export const OccasionStylingResultScreen = ({ navigation, route }) => {
 
   const createFallbackOutfit = () => {
     return {
-      name: getOccasionLabel(occasion),
+      name: 'Occasion Outfit',
       type: 'Occasion Styling',
       items: {
         top: null,
@@ -269,7 +269,7 @@ export const OccasionStylingResultScreen = ({ navigation, route }) => {
           <View style={styles.gradientOverlay} />
           <View style={styles.heroTextContainer}>
             <View style={styles.badge}>
-              <Text style={styles.badgeText}>{getOccasionLabel(occasion)}</Text>
+              <Text style={styles.badgeText}>Occasion Styling</Text>
             </View>
             <Text style={styles.heroTitleText}>{curatedOutfit.name}</Text>
             <Text style={styles.heroDesc} numberOfLines={3}>

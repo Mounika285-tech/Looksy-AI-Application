@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,32 +11,36 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../theme/colors';
 import { Feather } from '@expo/vector-icons';
+import { useAuth } from '../../context/AuthContext';
+import { ref, onValue } from 'firebase/database';
+import { database } from '../../config/firebase';
 
 const { width } = Dimensions.get('window');
 
 export const OutfitsHomeScreen = ({ navigation }) => {
-  const inspirations = [
-    {
-      id: 'insp1',
-      title: 'Autumn Casual',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAp39xhSjcpPAJHgf_SL6MUEdxK_LMvhkS5dgGPkjVklRolqorqUIRdmMekgwxqwJErE0kQ0WGuriSfjFrriOHJZSKmz2GrS8EYWSF_D5yOHeyU9wOwt-ADEI44Q13Qz4whD5c51LrKD6RcsgKcORl10oEc-wHI2YDTeygG2C2RocmMD26xyxp0R1MCzCvIk6ha1O-d2bpFkxLd5fqDnMAYL8NKthvDsKFaXgMaVNwHfdl94Xyir9qRVagyDpiPPpK242-NVnDpB4w',
-    },
-    {
-      id: 'insp2',
-      title: 'Business Luxe',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCe62gzHcVSTZULYcFAs2BEUHYugoTy0Y2ibZBWnxzH1qEWftjhQeKxa4G7ch33StckXQxOz88cxXbDKT0r_VQUFh3Utsqqwyk6hjpj3F6UWap6M1sep2QoaePHY5FJGw9iZhPPnijvRlgVggTFdDJQ2xlw1EMD9M5ukI_Pav_9phE6gPqcAh8PPmLEBs1p2jju5W5AwdG1Ji2X_rUK8LX11rQqreRfuYugqrwJOQaEk2ubQhiOSOBPFFogw9k-BBPTaSumWncfy_g',
-    },
-    {
-      id: 'insp3',
-      title: 'Summer Gala',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBZIUaqO27a8a_F9HevYqwt2_Fu136kGWHjayFZCMskDany6aaLMo6F1XdPAyhL3LHWimGAdzeL_Mj2QboNqM7_toxlyRrhlRlEiCnt8E7DhbXPWJsGjqK2lmWOaCShjNHOACG-6AsLCqyQrxhpOtVbdLxtnkgrBAfpaRxRw1LL9omxpwvEi_S32IqVqjD6x71aFani9-Yv3Ps8Pdb-ETEy1eLXvlKzd3aGSEBYqjm7GNLlDPIQ1UaoiSLaAucEO0guPt_KolVAydE',
-    },
-    {
-      id: 'insp4',
-      title: 'Winter Layering',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBa8gJQOInDvmg62jM1PsSVDOsTbrR74pvNrqqwjKQfWNRPEg95QuiASpkhs7IvgmqjbBSgH3-vDc4HIcd6-6Yee6trEx8LYiNHYyNhvHpDW_mEd2EDunw8kjWSqfhw3X1X-bu3Mi4ATFIaIqf9riMGsq0IcDVzsz-Jm-SpxpWKkQnk3gw_258XvD955HxjFUCnlrN92OiSf2Edfjpq92Gc1QDimqXFGsFf2v49P1Bz2oJK2yRXk_2wUWsB14J25kucX6hHjhp9vCM',
-    },
-  ];
+  const { user, profile } = useAuth();
+  const [recentViewed, setRecentViewed] = useState([]);
+
+  useEffect(() => {
+    if (!profile || !user) return;
+
+    const recentRef = ref(database, `users/${user.uid}/recently_viewed_outfits`);
+    const unsubscribe = onValue(recentRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const parsed = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key],
+        }));
+        parsed.sort((a, b) => (b.viewedAt || 0) - (a.viewedAt || 0));
+        setRecentViewed(parsed.slice(0, 5));
+      } else {
+        setRecentViewed([]);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [user, profile]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -149,25 +153,43 @@ export const OutfitsHomeScreen = ({ navigation }) => {
           </View>
         </View>
 
-        {/* Recent Inspirations Section */}
+        {/* Recently Viewed Outfits Section */}
         <View style={styles.inspSection}>
           <View style={styles.inspHeader}>
-            <Text style={styles.inspTitle}>Recent Inspirations</Text>
-            <TouchableOpacity activeOpacity={0.7}>
-              <Text style={styles.viewAllText}>View All</Text>
-            </TouchableOpacity>
+            <Text style={styles.inspTitle}>Recently Viewed Outfits</Text>
           </View>
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.inspScroll}>
-            {inspirations.map((item) => (
-              <View key={item.id} style={styles.inspCard}>
-                <View style={styles.inspImageWrapper}>
-                  <Image source={{ uri: item.imageUrl }} style={styles.inspImage} />
-                </View>
-                <Text style={styles.inspName}>{item.title}</Text>
-              </View>
-            ))}
-          </ScrollView>
+          {recentViewed.length > 0 ? (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.inspScroll}>
+              {recentViewed.map((item) => {
+                const itemValues = Object.values(item.items || {}).filter(Boolean);
+                const thumbnailUri = itemValues[0]?.imageUrl || 'https://lh3.googleusercontent.com/aida-public/AB6AXuAp39xhSjcpPAJHgf_SL6MUEdxK_LMvhkS5dgGPkjVklRolqorqUIRdmMekgwxqwJErE0kQ0WGuriSfjFrriOHJZSKmz2GrS8EYWSF_D5yOHeyU9wOwt-ADEI44Q13Qz4whD5c51LrKD6RcsgKcORl10oEc-wHI2YDTeygG2C2RocmMD26xyxp0R1MCzCvIk6ha1O-d2bpFkxLd5fqDnMAYL8NKthvDsKFaXgMaVNwHfdl94Xyir9qRVagyDpiPPpK242-NVnDpB4w';
+                
+                return (
+                  <TouchableOpacity
+                    key={item.id}
+                    onPress={() => navigation.navigate('OutfitDetails', { outfit: item })}
+                    activeOpacity={0.8}
+                    style={styles.inspCard}
+                  >
+                    <View style={styles.inspImageWrapper}>
+                      <Image source={{ uri: thumbnailUri }} style={styles.inspImage} />
+                    </View>
+                    <Text style={styles.inspName} numberOfLines={1}>{item.name}</Text>
+                    <Text style={styles.inspType} numberOfLines={1}>{item.type || 'Custom Curation'}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+          ) : (
+            <View style={styles.emptyViewedContainer}>
+              <Feather name="layers" size={28} color={colors.textSecondary} style={{ marginBottom: 8 }} />
+              <Text style={styles.emptyViewedText}>No recently viewed outfits yet.</Text>
+              <Text style={styles.emptyViewedSubtext}>
+                Generate looks using Mix & Match or Weather styling to view details.
+              </Text>
+            </View>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -335,5 +357,37 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: colors.textSecondary,
     textAlign: 'center',
+  },
+  inspType: {
+    fontSize: 9,
+    fontWeight: '600',
+    color: colors.textSecondary,
+    textAlign: 'center',
+    marginTop: 2,
+  },
+  emptyViewedContainer: {
+    backgroundColor: colors.white,
+    borderRadius: 20,
+    borderWidth: 1.5,
+    borderColor: colors.border,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderStyle: 'dashed',
+    marginTop: 10,
+    marginHorizontal: 8,
+  },
+  emptyViewedText: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: colors.text,
+    marginBottom: 4,
+  },
+  emptyViewedSubtext: {
+    fontSize: 11,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    lineHeight: 16,
+    fontWeight: '600',
   },
 });

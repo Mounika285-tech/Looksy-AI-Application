@@ -222,10 +222,15 @@ export const generateWeeklyPlanner = async (closetItems, vibe, climate) => {
 /**
  * 4. Generate dynamic outfit suggestions based on style preferences and wardrobe
  */
-export const generateSuggestions = async (closetItems, stylePreferences) => {
+export const generateSuggestions = async (closetItems, stylePreferences, gender, weather) => {
   try {
+    const weatherContext = weather 
+      ? `The current weather condition is: ${weather.condition}, Temperature: ${weather.temp}°C.` 
+      : '';
     const prompt = `
       You are LookSy's elite Personal AI Stylist. The user's style preferences are: ${JSON.stringify(stylePreferences)}.
+      The user's gender is: ${gender || 'Unspecified'}.
+      ${weatherContext}
       
       User's Closet items:
       ${JSON.stringify(closetItems)}
@@ -234,10 +239,14 @@ export const generateSuggestions = async (closetItems, stylePreferences) => {
       
       Styling Rules:
       1. Each outfit must mix and match available clothing items to generate personalized suggestions based on styling moods (such as Casual, Streetwear, Formal, Minimalist, Sporty, etc.).
-      2. CRITICAL: You must recommend clothing items ONLY from the user's wardrobe (User's Closet items above). Do not recommend items that are not in their closet.
-      3. If the user's closet contains no items in a category (e.g. they have no "Footwear" or "Accessories"), set that category key to null in the "items" object. Do NOT use placeholder or dummy items.
-      4. For any category set to null in the "items" object, write a text suggestion for a missing item in the "suggestedAdditions" object (e.g. "classic black leather shoes" or "black leather belt"). If the category is NOT missing, set its key in "suggestedAdditions" to null.
-      5. Ensure the item IDs matched in your response exactly correspond to the "id" fields of the items in the "User's Closet items" list.
+      2. The suggestions must be tailored specifically to the user's gender (${gender || 'Unspecified'}), the weather conditions if provided (${weatherContext}), and the user's wardrobe.
+      3. For a Male user, generate names like "Navy Blue Casual Look", "Office Ready Outfit", "Weekend Comfort Fit".
+      4. For a Female user, generate names like "Elegant Summer Style", "Casual Chic Outfit", "Formal Office Look".
+      5. The "desc" field MUST be a single, short, concise line of description (maximum 8 words). Do not include long paragraphs or explanations.
+      6. CRITICAL: You must recommend clothing items ONLY from the user's wardrobe (User's Closet items above). Do not recommend items that are not in their closet.
+      7. If the user's closet contains no items in a category (e.g. they have no "Footwear" or "Accessories"), set that category key to null in the "items" object. Do NOT use placeholder or dummy items.
+      8. For any category set to null in the "items" object, write a text suggestion for a missing item in the "suggestedAdditions" object (e.g. "classic black leather shoes" or "black leather belt"). If the category is NOT missing, set its key in "suggestedAdditions" to null.
+      9. Ensure the item IDs matched in your response exactly correspond to the "id" fields of the items in the "User's Closet items" list.
 
       You must respond with ONLY a valid raw JSON array of exactly 4 objects. No markdown, no backticks.
       
@@ -245,7 +254,8 @@ export const generateSuggestions = async (closetItems, stylePreferences) => {
       [
         {
           "id": "outfit_s1",
-          "name": "A premium outfit name (e.g. Chill Streetwear Fit, Business Casual Smart, Warm Weather Casual, Relaxed Weekend Vibe)",
+          "name": "Creative Premium Gender-Tailored Title",
+          "desc": "One short concise line (max 8 words) describing the outfit",
           "category": "Aesthetic category name (e.g. Streetwear, Formal, Minimalist, Casual, Sporty)",
           "color": "A light pastel hex color (e.g. #F8DCCB, #F5EFEB)",
           "items": {
@@ -273,7 +283,7 @@ export const generateSuggestions = async (closetItems, stylePreferences) => {
     return await callGemini(payload);
   } catch (error) {
     console.error('Gemini Suggestions failed. Using fallback:', error);
-    return getFallbackSuggestions(closetItems, stylePreferences);
+    return getFallbackSuggestions(closetItems, stylePreferences, gender);
   }
 };
 
@@ -401,7 +411,7 @@ const getFallbackWeeklyPlanner = (closetItems, vibe) => {
   });
 };
 
-const getFallbackSuggestions = (closetItems, stylePreferences) => {
+const getFallbackSuggestions = (closetItems, stylePreferences, gender) => {
   const closet = closetItems || [];
   const tops = closet.filter(i => i.category === 'Top Wear');
   const bottoms = closet.filter(i => i.category === 'Bottom Wear');
@@ -410,11 +420,18 @@ const getFallbackSuggestions = (closetItems, stylePreferences) => {
 
   const getRand = (arr) => arr.length > 0 ? arr[Math.floor(Math.random() * arr.length)] : null;
 
-  const baseOutfits = [
-    { id: 'outfit_s1', name: 'Chill Streetwear Fit', category: 'Streetwear', color: '#F8DCCB' },
-    { id: 'outfit_s2', name: 'Clean Minimalist Day', category: 'Minimalist', color: '#FFFFFF' },
-    { id: 'outfit_s3', name: 'Business Casual Smart', category: 'Formal', color: '#F5EFEB' },
-    { id: 'outfit_s4', name: 'Warm Weather Casual', category: 'Casual', color: '#EFE5DD' },
+  const isMale = gender?.toLowerCase() === 'male';
+
+  const baseOutfits = isMale ? [
+    { id: 'outfit_s1', name: 'Navy Blue Casual Look', desc: 'Relaxed polo shirt with classic chinos.', category: 'Casual', color: '#EFE5DD' },
+    { id: 'outfit_s2', name: 'Office Ready Outfit', desc: 'Tailored button-up shirt with formal trousers.', category: 'Formal', color: '#F5EFEB' },
+    { id: 'outfit_s3', name: 'Weekend Comfort Fit', desc: 'Comfortable basic tee with casual shorts.', category: 'Minimalist', color: '#FFFFFF' },
+    { id: 'outfit_s4', name: 'Streetwear Cool Look', desc: 'Graphic hoodie paired with clean joggers.', category: 'Streetwear', color: '#F8DCCB' },
+  ] : [
+    { id: 'outfit_s1', name: 'Elegant Summer Style', desc: 'Breezy linen top with matching midi skirt.', category: 'Casual', color: '#EFE5DD' },
+    { id: 'outfit_s2', name: 'Casual Chic Outfit', desc: 'Sleek blouse paired with high-waisted denim.', category: 'Streetwear', color: '#F8DCCB' },
+    { id: 'outfit_s3', name: 'Formal Office Look', desc: 'Tailored blazer with tapered ankle trousers.', category: 'Formal', color: '#F5EFEB' },
+    { id: 'outfit_s4', name: 'Relaxed Weekend Vibe', desc: 'Loose knit sweater with comfortable leggings.', category: 'Minimalist', color: '#FFFFFF' },
   ];
 
   return baseOutfits.map((outfit) => {

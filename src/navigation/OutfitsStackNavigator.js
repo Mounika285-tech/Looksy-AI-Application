@@ -13,6 +13,8 @@ import { ColorMatchingSelectionScreen } from '../screens/outfits/ColorMatchingSe
 import { ColorMatchingSuggestionsScreen } from '../screens/outfits/ColorMatchingSuggestionsScreen';
 import { ColorMatchingResultScreen } from '../screens/outfits/ColorMatchingResultScreen';
 import { OutfitDetailsScreen } from '../screens/outfits/OutfitDetailsScreen';
+import { InspirationScreen } from '../screens/outfits/InspirationScreen';
+import { InspirationGalleryScreen } from '../screens/outfits/InspirationGalleryScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +32,8 @@ export const OutfitsStackNavigator = () => {
       <Stack.Screen name="ColorMatchingSuggestions" component={ColorMatchingSuggestionsScreen} />
       <Stack.Screen name="ColorMatchingResult" component={ColorMatchingResultScreen} />
       <Stack.Screen name="OutfitDetails" component={OutfitDetailsScreen} />
+      <Stack.Screen name="Inspiration" component={InspirationScreen} />
+      <Stack.Screen name="InspirationGallery" component={InspirationGalleryScreen} />
     </Stack.Navigator>
   );
 };

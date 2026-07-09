@@ -12,19 +12,9 @@ import { colors } from '../../theme/colors';
 import { Feather } from '@expo/vector-icons';
 import { useAuth } from '../../context/AuthContext';
 import { GEMINI_API_KEY, GEMINI_ENDPOINT } from '../../config/gemini';
+import { fetchLocationByIP, fetchWeather } from '../../utils/weatherService';
 
-// Weather condition config
-const WEATHER_DATA = {
-  temp: 28,
-  unit: '°C',
-  condition: 'Partly Cloudy',
-  location: 'Mumbai, India',
-  wind: '12 km/h',
-  humidity: '72%',
-  visibility: '8 km',
-  icon: 'cloud',
-  feelsLike: '31°C',
-};
+// Dynamic Weather config
 
 const getWeatherIcon = (condition) => {
   if (condition.toLowerCase().includes('sun') || condition.toLowerCase().includes('clear')) return 'sun';
@@ -35,15 +25,52 @@ const getWeatherIcon = (condition) => {
   return 'cloud';
 };
 
-export const WeatherDetailsScreen = ({ navigation }) => {
+export const WeatherDetailsScreen = ({ route, navigation }) => {
   const { profile } = useAuth();
   const [aiTips, setAiTips] = useState(null);
   const [isLoadingTips, setIsLoadingTips] = useState(true);
   const prefStyle = profile?.stylePreferences?.[0] || 'Casual';
 
+  const passedWeather = route?.params?.weatherData;
+  const [weather, setWeather] = useState(passedWeather || {
+    temp: 28,
+    condition: 'Partly Cloudy',
+    location: 'Mumbai, India',
+    wind: '12 km/h',
+    humidity: '72%',
+    visibility: '8 km',
+    icon: 'cloud',
+    feelsLike: '31°C',
+  });
+  const [isLoadingWeather, setIsLoadingWeather] = useState(!passedWeather);
+
+  const loadFallbackWeather = async () => {
+    try {
+      const coords = await fetchLocationByIP();
+      const forecast = await fetchWeather(coords.latitude, coords.longitude);
+      const newWeather = {
+        ...forecast,
+        location: `${coords.city}, ${coords.country}`,
+      };
+      setWeather(newWeather);
+    } catch (e) {
+      console.error('Error loading fallback weather:', e);
+    } finally {
+      setIsLoadingWeather(false);
+    }
+  };
+
   useEffect(() => {
-    fetchAIWeatherTips();
+    if (!passedWeather) {
+      loadFallbackWeather();
+    }
   }, []);
+
+  useEffect(() => {
+    if (!isLoadingWeather && weather) {
+      fetchAIWeatherTips();
+    }
+  }, [weather, isLoadingWeather]);
 
   const fetchAIWeatherTips = async () => {
     setIsLoadingTips(true);
@@ -52,11 +79,11 @@ export const WeatherDetailsScreen = ({ navigation }) => {
         You are LookSy's expert fashion AI. A user is checking the weather and needs personalized outfit styling advice.
 
         Weather conditions:
-        - Temperature: ${WEATHER_DATA.temp}${WEATHER_DATA.unit} (Feels like ${WEATHER_DATA.feelsLike})
-        - Condition: ${WEATHER_DATA.condition}
-        - Humidity: ${WEATHER_DATA.humidity}
-        - Wind: ${WEATHER_DATA.wind}
-        - Location: ${WEATHER_DATA.location}
+        - Temperature: ${weather.temp}°C (Feels like ${weather.feelsLike})
+        - Condition: ${weather.condition}
+        - Humidity: ${weather.humidity}
+        - Wind: ${weather.wind}
+        - Location: ${weather.location}
 
         User's preferred style: ${prefStyle}
 
@@ -90,11 +117,11 @@ export const WeatherDetailsScreen = ({ navigation }) => {
     } catch (e) {
       console.error('Weather AI tips failed:', e);
       setAiTips({
-        summary: `${WEATHER_DATA.temp}°C with ${WEATHER_DATA.condition.toLowerCase()} skies calls for comfortable, breathable layers. Stay stylish while adapting to the day's conditions.`,
+        summary: `${weather.temp}°C with ${weather.condition.toLowerCase()} skies calls for comfortable, breathable layers. Stay stylish while adapting to the day's conditions.`,
         tips: [
-          `Choose light ${prefStyle.toLowerCase()} fabrics that breathe well in ${WEATHER_DATA.temp}°C heat`,
+          `Choose light ${prefStyle.toLowerCase()} fabrics that breathe well in ${weather.temp}°C heat`,
           'Opt for neutral tones or pastels to reflect sunlight and stay cool',
-          `A structured ${WEATHER_DATA.wind !== '0 km/h' ? 'windbreaker layer' : 'light jacket'} adds versatility`,
+          `A structured ${weather.wind !== '0 km/h' ? 'windbreaker layer' : 'light jacket'} adds versatility`,
           'Complete with comfortable footwear suited for outdoor movement',
         ],
         outfitType: `${prefStyle} Ready`,
@@ -104,7 +131,7 @@ export const WeatherDetailsScreen = ({ navigation }) => {
     }
   };
 
-  const weatherIcon = getWeatherIcon(WEATHER_DATA.condition);
+  const weatherIcon = getWeatherIcon(weather.condition);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -122,39 +149,47 @@ export const WeatherDetailsScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
-
-        {/* Large Weather Display */}
-        <View style={styles.weatherHero}>
-          <View style={[styles.weatherIconWrapper, { backgroundColor: colors.accent }]}>
-            <Feather name={weatherIcon} size={60} color={colors.primary} />
-          </View>
-          <Text style={styles.temp}>{WEATHER_DATA.temp}{WEATHER_DATA.unit}</Text>
-          <Text style={styles.feelsLike}>Feels like {WEATHER_DATA.feelsLike}</Text>
-          <Text style={styles.status}>{WEATHER_DATA.condition}</Text>
-          <Text style={styles.location}>
-            <Feather name="map-pin" size={13} color={colors.textSecondary} /> {WEATHER_DATA.location}
+      {isLoadingWeather ? (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size="large" color={colors.primary} />
+          <Text style={{ marginTop: 12, fontSize: 13, color: colors.textSecondary, fontWeight: '600' }}>
+            Fetching localized forecast details...
           </Text>
         </View>
+      ) : (
+        <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
 
-        {/* Conditions Grid */}
-        <View style={styles.conditionsGrid}>
-          <View style={styles.conditionCard}>
-            <Feather name="wind" size={20} color={colors.textSecondary} style={styles.condIcon} />
-            <Text style={styles.condLabel}>Wind</Text>
-            <Text style={styles.condValue}>{WEATHER_DATA.wind}</Text>
+          {/* Large Weather Display */}
+          <View style={styles.weatherHero}>
+            <View style={[styles.weatherIconWrapper, { backgroundColor: colors.accent }]}>
+              <Feather name={weatherIcon} size={60} color={colors.primary} />
+            </View>
+            <Text style={styles.temp}>{weather.temp}°C</Text>
+            <Text style={styles.feelsLike}>Feels like {weather.feelsLike}</Text>
+            <Text style={styles.status}>{weather.condition}</Text>
+            <Text style={styles.location}>
+              <Feather name="map-pin" size={13} color={colors.textSecondary} /> {weather.location}
+            </Text>
           </View>
-          <View style={styles.conditionCard}>
-            <Feather name="droplet" size={20} color={colors.textSecondary} style={styles.condIcon} />
-            <Text style={styles.condLabel}>Humidity</Text>
-            <Text style={styles.condValue}>{WEATHER_DATA.humidity}</Text>
+
+          {/* Conditions Grid */}
+          <View style={styles.conditionsGrid}>
+            <View style={styles.conditionCard}>
+              <Feather name="wind" size={20} color={colors.textSecondary} style={styles.condIcon} />
+              <Text style={styles.condLabel}>Wind</Text>
+              <Text style={styles.condValue}>{weather.wind}</Text>
+            </View>
+            <View style={styles.conditionCard}>
+              <Feather name="droplet" size={20} color={colors.textSecondary} style={styles.condIcon} />
+              <Text style={styles.condLabel}>Humidity</Text>
+              <Text style={styles.condValue}>{weather.humidity}</Text>
+            </View>
+            <View style={styles.conditionCard}>
+              <Feather name="eye" size={20} color={colors.textSecondary} style={styles.condIcon} />
+              <Text style={styles.condLabel}>Visibility</Text>
+              <Text style={styles.condValue}>{weather.visibility}</Text>
+            </View>
           </View>
-          <View style={styles.conditionCard}>
-            <Feather name="eye" size={20} color={colors.textSecondary} style={styles.condIcon} />
-            <Text style={styles.condLabel}>Visibility</Text>
-            <Text style={styles.condValue}>{WEATHER_DATA.visibility}</Text>
-          </View>
-        </View>
 
         {/* AI Styling Advice */}
         <View style={styles.adviceCard}>
@@ -207,6 +242,7 @@ export const WeatherDetailsScreen = ({ navigation }) => {
         </TouchableOpacity>
 
       </ScrollView>
+      )}
     </SafeAreaView>
   );
 };

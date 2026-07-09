@@ -42,7 +42,7 @@ export const AISuggestionsScreen = ({ navigation }) => {
         : [];
 
       try {
-        const results = await generateSuggestions(closetItems, selectedStyleTags);
+        const results = await generateSuggestions(closetItems, selectedStyleTags, profile?.gender);
         setSuggestedOutfits(results);
       } catch (error) {
         console.error("Failed to generate AI suggestions:", error);

@@ -12,7 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../theme/colors';
 import { useAuth } from '../../context/AuthContext';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, update } from 'firebase/database';
 import { database } from '../../config/firebase';
 import { Feather } from '@expo/vector-icons';
 
@@ -52,22 +52,50 @@ export const WardrobeGridScreen = ({ navigation }) => {
     ? items
     : items.filter((item) => item.category === activeFilter);
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('ItemDetails', { itemId: item.id })}
-      activeOpacity={0.8}
-      style={styles.itemCard}
-    >
-      <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
-      <View style={styles.itemMeta}>
-        <Text style={styles.itemName} numberOfLines={1}>
-          {item.name || 'Unnamed Item'}
-        </Text>
-        <Text style={styles.itemCategory}>{item.category}</Text>
-      </View>
-      <View style={[styles.colorIndicator, { backgroundColor: item.colorHex || '#CCCCCC' }]} />
-    </TouchableOpacity>
-  );
+  const handleToggleFavorite = async (item) => {
+    try {
+      if (!user) return;
+      const itemRef = ref(database, `users/${user.uid}/wardrobe/${item.id}`);
+      const nextStatus = !item.isFavorite;
+      await update(itemRef, { isFavorite: nextStatus });
+    } catch (e) {
+      console.error('Error toggling closet item favorite status:', e);
+    }
+  };
+
+  const renderItem = ({ item }) => {
+    const isFav = item.isFavorite === true;
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate('ItemDetails', { itemId: item.id })}
+        activeOpacity={0.8}
+        style={styles.itemCard}
+      >
+        <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
+        
+        {/* Favorite heart overlay button */}
+        <TouchableOpacity
+          onPress={() => handleToggleFavorite(item)}
+          style={styles.heartBtn}
+          activeOpacity={0.8}
+        >
+          <Feather
+            name="heart"
+            size={16}
+            color={isFav ? colors.primary : colors.textSecondary}
+          />
+        </TouchableOpacity>
+
+        <View style={styles.itemMeta}>
+          <Text style={styles.itemName} numberOfLines={1}>
+            {item.name || 'Unnamed Item'}
+          </Text>
+          <Text style={styles.itemCategory}>{item.category}</Text>
+        </View>
+        <View style={[styles.colorIndicator, { backgroundColor: item.colorHex || '#CCCCCC' }]} />
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -347,5 +375,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 12,
     elevation: 6,
+  },
+  heartBtn: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: colors.text,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+    zIndex: 10,
   },
 });

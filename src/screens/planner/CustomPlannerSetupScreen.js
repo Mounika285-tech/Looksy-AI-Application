@@ -13,16 +13,36 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../theme/colors';
 import { useAuth } from '../../context/AuthContext';
-import { ref, onValue, push, set } from 'firebase/database';
+import { ref, onValue, push, set, update } from 'firebase/database';
 import { database } from '../../config/firebase';
 import { Feather } from '@expo/vector-icons';
 
-export const CustomPlannerSetupScreen = ({ navigation }) => {
+export const CustomPlannerSetupScreen = ({ navigation, route }) => {
   const { user } = useAuth();
   const [favoriteOutfits, setFavoriteOutfits] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [plannedDate, setPlannedDate] = useState('Tomorrow');
   const [selectedOutfit, setSelectedOutfit] = useState(null);
+
+  const editPlanId = route?.params?.editPlanId;
+  const currentPlan = route?.params?.currentPlan;
+
+  useEffect(() => {
+    if (editPlanId && currentPlan) {
+      setPlannedDate(currentPlan.plannedDate || 'Tomorrow');
+      const outfits = favoriteOutfits.length > 0 ? favoriteOutfits : fallbackOutfits;
+      const matching = outfits.find(o => o.name === currentPlan.name);
+      if (matching) {
+        setSelectedOutfit(matching);
+      } else {
+        setSelectedOutfit({
+          id: 'edit_mock',
+          name: currentPlan.name,
+          items: currentPlan.items,
+        });
+      }
+    }
+  }, [editPlanId, currentPlan, favoriteOutfits]);
 
   const dates = ['Today', 'Tomorrow', 'This Weekend'];
 
@@ -103,15 +123,26 @@ export const CustomPlannerSetupScreen = ({ navigation }) => {
         }
       });
 
-      await set(newPlanRef, {
-        name: selectedOutfit.name,
-        plannedDate: plannedDate,
-        createdAt: Date.now(),
-        notificationEnabled: true,
-        items: itemsData,
-      });
-
-      Alert.alert('Scheduled successfully!', `Look planned for ${plannedDate}.`);
+      if (editPlanId) {
+        // Update existing plan
+        const planRef = ref(database, `users/${user.uid}/planner/${editPlanId}`);
+        await update(planRef, {
+          name: selectedOutfit.name,
+          plannedDate: plannedDate,
+          items: itemsData,
+        });
+        Alert.alert('Updated successfully!', `Look updated for ${plannedDate}.`);
+      } else {
+        // Write new plan to planner node
+        await set(newPlanRef, {
+          name: selectedOutfit.name,
+          plannedDate: plannedDate,
+          createdAt: Date.now(),
+          notificationEnabled: true,
+          items: itemsData,
+        });
+        Alert.alert('Scheduled successfully!', `Look planned for ${plannedDate}.`);
+      }
       navigation.navigate('PlannerHome');
     } catch (e) {
       console.error('Error saving manual planned look:', e);
@@ -162,7 +193,7 @@ export const CustomPlannerSetupScreen = ({ navigation }) => {
         >
           <Feather name="arrow-left" size={20} color={colors.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Custom Scheduler</Text>
+        <Text style={styles.headerTitle}>{editPlanId ? 'Edit Scheduled Look' : 'Custom Scheduler'}</Text>
         <View style={styles.placeholder} />
       </View>
 
@@ -239,7 +270,7 @@ export const CustomPlannerSetupScreen = ({ navigation }) => {
           ]}
           activeOpacity={0.85}
         >
-          <Text style={styles.actionBtnText}>Confirm Scheduled Look</Text>
+          <Text style={styles.actionBtnText}>{editPlanId ? 'Update Scheduled Look' : 'Confirm Scheduled Look'}</Text>
           <Feather name="calendar" size={16} color={colors.white} style={styles.btnIcon} />
         </TouchableOpacity>
       </ScrollView>

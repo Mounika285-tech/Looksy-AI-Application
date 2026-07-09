@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -26,6 +26,38 @@ export const OutfitDetailsScreen = ({ navigation, route }) => {
   const [isFavoriteSaving, setIsFavoriteSaving] = useState(false);
   const [showPlannerModal, setShowPlannerModal] = useState(false);
   const [plannedDate, setPlannedDate] = useState('Tomorrow');
+
+  useEffect(() => {
+    if (user && outfit) {
+      try {
+        const sanitizedKey = outfit.name.replace(/[.#$[\]]/g, '_');
+        const recentRef = ref(database, `users/${user.uid}/recently_viewed_outfits/${sanitizedKey}`);
+        
+        const itemsData = {};
+        Object.keys(outfit.items || {}).forEach((key) => {
+          const item = outfit.items[key];
+          if (item) {
+            itemsData[key] = {
+              id: item.id || '',
+              name: item.name || '',
+              imageUrl: item.imageUrl || '',
+              category: item.category || 'Garment',
+              colorHex: item.colorHex || '#CCCCCC',
+            };
+          }
+        });
+
+        set(recentRef, {
+          name: outfit.name,
+          type: outfit.type || 'Outfit suggestion',
+          viewedAt: Date.now(),
+          items: itemsData,
+        });
+      } catch (error) {
+        console.error('Error saving recently viewed outfit:', error);
+      }
+    }
+  }, [user, outfit]);
 
   const handleFavorite = async () => {
     if (isFavorited) {

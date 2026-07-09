@@ -22,30 +22,7 @@ export const SavedItemsScreen = ({ navigation }) => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Mock fallback items if closet is empty
-  const fallbackItems = [
-    {
-      id: 'fb_item1',
-      name: 'Ivory Silk Blouse',
-      category: 'Top Wear',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAkWqkR5PT7Bavl-4ujQPl8DZuSpY6oLPErC1MjdO_PObRL9j8GaonEC-ex0j7jxdiDUFog_QkNH6Bl34sAW6ahUhT4PDTuuY4NALKF06n9sJ3AWa-HdJc2g0DZPeJOikUc70nkH1caGEcw0BCvnt2pC5klyGsoecxn9zcGbVHQOutt6BzcQ-qpYBe9gwUmqTC4ISVDtr59TArPw2lyiVP4maclE7aevSktVh7HSqwLvGm3fPZ4eYNzOU082MuDsgBNCru_JGW6aX8',
-      isFavorite: true,
-    },
-    {
-      id: 'fb_item2',
-      name: 'Wool Wide-Leg Trousers',
-      category: 'Bottom Wear',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCQpB5RNTvJARmGajGuy_rwCPsFDeu5dL2yZTwNnuTYlIBuuPepLWbkPkQan3uN5qmpZ4EFklHWrW3eSVPHY8ujqGh2ThUIJ0xszj7tk4PzMRdJ1MTtxWYJhwdRHrBbIZDUpbC-qXgCdwJqprDhnuE1Ex7V5ADmiDtKp78Qe_bmRyDtgaY3aqB6Ene2tv1PRTCfb5AiudckUh07Tk-7D1-Yu1IsjbI9ltLDd71cNSygMqQw0b0xJ8tklUYDp5q_ctM9NwniNNT1gfg',
-      isFavorite: true,
-    },
-    {
-      id: 'fb_item3',
-      name: 'Classic Camel Trench Coat',
-      category: 'Accessories',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBHVpIFT5dGtyzj8s0ebTZ4TMq1BHM6uVue9hMJG0j2EjrQZLinMwsmy8ksSYH1s4DO6efQj87KE7t6-zyRwq_83z4FvYbkVfhm-ufK2VFU3JR31Jp9-EWgPW-evaNJt4X5H-Ax-InQnODX-XdiINGv9UdXWKstm2tw2wX3KijZoCfiOPenSlylofnHUCmQ8zsU47YUZV7XvrHh3N02ncJO-tU44wX7jCoCGt3OvuDBgX69Ww7PU0GIGG1qr_jeJaP7tUlnsUKo5TM',
-      isFavorite: false,
-    },
-  ];
+  // Dynamic favorite closet items
 
   useEffect(() => {
     if (!user) {
@@ -57,10 +34,12 @@ export const SavedItemsScreen = ({ navigation }) => {
     const unsubscribe = onValue(wardrobeRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        const parsed = Object.keys(data).map((key) => ({
-          id: key,
-          ...data[key],
-        }));
+        const parsed = Object.keys(data)
+          .map((key) => ({
+            id: key,
+            ...data[key],
+          }))
+          .filter((item) => item.isFavorite === true);
         setItems(parsed.reverse());
       } else {
         setItems([]);
@@ -74,19 +53,9 @@ export const SavedItemsScreen = ({ navigation }) => {
     return () => unsubscribe();
   }, [user]);
 
-  const displayItems = items.length > 0 ? items : fallbackItems;
+  const displayItems = items;
 
   const handleToggleFavorite = async (item) => {
-    if (item.id.startsWith('fb_')) {
-      // Toggle local fallback states
-      const nextList = displayItems.map((i) => {
-        if (i.id === item.id) return { ...i, isFavorite: !i.isFavorite };
-        return i;
-      });
-      setItems(nextList);
-      return;
-    }
-
     try {
       if (!user) return;
       const itemRef = ref(database, `users/${user.uid}/wardrobe/${item.id}`);
@@ -141,20 +110,25 @@ export const SavedItemsScreen = ({ navigation }) => {
         <View style={styles.placeholder} />
       </View>
 
-      {items.length === 0 && !isLoading && (
-        <View style={styles.fallbackNotice}>
-          <Feather name="info" size={16} color={colors.primary} style={styles.infoIcon} />
-          <Text style={styles.fallbackNoticeText}>
-            Your digital closet is empty. Showing Fallback Essentials. Heart items to toggle favorites in real-time!
-          </Text>
-        </View>
-      )}
-
-      {/* Grid Content */}
       {isLoading ? (
         <View style={styles.loaderContainer}>
           <ActivityIndicator size="large" color={colors.primary} />
           <Text style={styles.loaderText}>Loading Closet Items...</Text>
+        </View>
+      ) : displayItems.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <View style={styles.emptyIconWrapper}>
+            <Feather name="heart" size={28} color={colors.textSecondary} />
+          </View>
+          <Text style={styles.emptyTitle}>No Saved Items</Text>
+          <Text style={styles.emptyText}>Heart items in your wardrobe closet to see them displayed here in real-time.</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('WardrobeTab')}
+            style={styles.browseBtn}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.browseBtnText}>Browse Wardrobe</Text>
+          </TouchableOpacity>
         </View>
       ) : (
         <FlatList
@@ -194,27 +168,6 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     width: 36,
-  },
-  fallbackNotice: {
-    flexDirection: 'row',
-    backgroundColor: colors.accent,
-    marginHorizontal: 16,
-    marginTop: 16,
-    padding: 12,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: colors.accentDark,
-    alignItems: 'center',
-  },
-  infoIcon: {
-    marginRight: 8,
-  },
-  fallbackNoticeText: {
-    flex: 1,
-    fontSize: 11,
-    fontWeight: '600',
-    color: colors.textSecondary,
-    lineHeight: 15,
   },
   gridContent: {
     paddingHorizontal: 16,
@@ -285,5 +238,52 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     marginTop: 12,
     fontWeight: '600',
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 32,
+  },
+  emptyIconWrapper: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: colors.surface,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+    borderWidth: 1.5,
+    borderColor: colors.border,
+  },
+  emptyTitle: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: colors.text,
+    marginBottom: 6,
+  },
+  emptyText: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    lineHeight: 18,
+    marginBottom: 20,
+    fontWeight: '600',
+  },
+  browseBtn: {
+    backgroundColor: colors.primary,
+    paddingHorizontal: 22,
+    paddingVertical: 12,
+    borderRadius: 24,
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  browseBtnText: {
+    color: colors.white,
+    fontWeight: '700',
+    fontSize: 13,
   },
 });
