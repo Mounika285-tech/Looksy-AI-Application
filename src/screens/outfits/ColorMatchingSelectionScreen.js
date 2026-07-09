@@ -25,35 +25,7 @@ export const ColorMatchingSelectionScreen = ({ navigation }) => {
 
   const filters = ['All', 'Top Wear', 'Bottom Wear', 'Footwear', 'Accessories'];
 
-  const fallbackEssentials = [
-    {
-      id: 'fb_c_top1',
-      name: 'Oversized Trench in Sand',
-      category: 'Accessories',
-      colorName: 'Warm Sand',
-      colorHex: '#D2B48C',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBHVpIFT5dGtyzj8s0ebTZ4TMq1BHM6uVue9hMJG0j2EjrQZLinMwsmy8ksSYH1s4DO6efQj87KE7t6-zyRwq_83z4FvYbkVfhm-ufK2VFU3JR31Jp9-EWgPW-evaNJt4X5H-Ax-InQnODX-XdiINGv9UdXWKstm2tw2wX3KijZoCfiOPenSlylofnHUCmQ8zsU47YUZV7XvrHh3N02ncJO-tU44wX7jCoCGt3OvuDBgX69Ww7PU0GIGG1qr_jeJaP7tUlnsUKo5TM',
-      isFallback: true,
-    },
-    {
-      id: 'fb_c_top2',
-      name: 'Ivory Silk Blouse',
-      category: 'Top Wear',
-      colorName: 'Cream',
-      colorHex: '#FFFDF9',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAkWqkR5PT7Bavl-4ujQPl8DZuSpY6oLPErC1MjdO_PObRL9j8GaonEC-ex0j7jxdiDUFog_QkNH6Bl34sAW6ahUhT4PDTuuY4NALKF06n9sJ3AWa-HdJc2g0DZPeJOikUc70nkH1caGEcw0BCvnt2pC5klyGsoecxn9zcGbVHQOutt6BzcQ-qpYBe9gwUmqTC4ISVDtr59TArPw2lyiVP4maclE7aevSktVh7HSqwLvGm3fPZ4eYNzOU082MuDsgBNCru_JGW6aX8',
-      isFallback: true,
-    },
-    {
-      id: 'fb_c_bottom1',
-      name: 'Charcoal Trousers',
-      category: 'Bottom Wear',
-      colorName: 'Charcoal',
-      colorHex: '#4A4A4A',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCQpB5RNTvJARmGajGuy_rwCPsFDeu5dL2yZTwNnuTYlIBuuPepLWbkPkQan3uN5qmpZ4EFklHWrW3eSVPHY8ujqGh2ThUIJ0xszj7tk4PzMRdJ1MTtxWYJhwdRHrBbIZDUpbC-qXgCdwJqprDhnuE1Ex7V5ADmiDtKp78Qe_bmRyDtgaY3aqB6Ene2tv1PRTCfb5AiudckUh07Tk-7D1-Yu1IsjbI9ltLDd71cNSygMqQw0b0xJ8tklUYDp5q_ctM9NwniNNT1gfg',
-      isFallback: true,
-    },
-  ];
+  // No fallbacks, user must upload real items
 
   useEffect(() => {
     if (!user) {
@@ -82,7 +54,8 @@ export const ColorMatchingSelectionScreen = ({ navigation }) => {
     return () => unsubscribe();
   }, [user]);
 
-  const displayItems = items.length > 0 ? items : fallbackEssentials;
+  // Use actual items
+  const displayItems = items;
 
   const filteredItems = activeFilter === 'All'
     ? displayItems
@@ -182,7 +155,7 @@ export const ColorMatchingSelectionScreen = ({ navigation }) => {
         <View style={styles.fallbackNotice}>
           <Feather name="info" size={16} color={colors.primary} style={styles.infoIcon} />
           <Text style={styles.fallbackNoticeText}>
-            Your wardrobe is empty. Showing premium Fallback Essentials to let you explore color matches!
+            Your wardrobe is empty. Please upload clothing items in the Wardrobe tab to start curating matching looks!
           </Text>
         </View>
       )}

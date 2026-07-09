@@ -25,45 +25,7 @@ export const MixMatchSelectionScreen = ({ navigation }) => {
 
   const filters = ['All', 'Top Wear', 'Bottom Wear', 'Footwear', 'Accessories'];
 
-  // Mock luxury designer essentials in case user has no items uploaded
-  const fallbackEssentials = [
-    {
-      id: 'fb_top1',
-      name: 'Ivory Silk Blouse',
-      category: 'Top Wear',
-      colorName: 'Cream',
-      colorHex: '#FFFDF9',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAkWqkR5PT7Bavl-4ujQPl8DZuSpY6oLPErC1MjdO_PObRL9j8GaonEC-ex0j7jxdiDUFog_QkNH6Bl34sAW6ahUhT4PDTuuY4NALKF06n9sJ3AWa-HdJc2g0DZPeJOikUc70nkH1caGEcw0BCvnt2pC5klyGsoecxn9zcGbVHQOutt6BzcQ-qpYBe9gwUmqTC4ISVDtr59TArPw2lyiVP4maclE7aevSktVh7HSqwLvGm3fPZ4eYNzOU082MuDsgBNCru_JGW6aX8',
-      isFallback: true,
-    },
-    {
-      id: 'fb_bottom1',
-      name: 'Charcoal Trousers',
-      category: 'Bottom Wear',
-      colorName: 'Charcoal',
-      colorHex: '#4A4A4A',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCQpB5RNTvJARmGajGuy_rwCPsFDeu5dL2yZTwNnuTYlIBuuPepLWbkPkQan3uN5qmpZ4EFklHWrW3eSVPHY8ujqGh2ThUIJ0xszj7tk4PzMRdJ1MTtxWYJhwdRHrBbIZDUpbC-qXgCdwJqprDhnuE1Ex7V5ADmiDtKp78Qe_bmRyDtgaY3aqB6Ene2tv1PRTCfb5AiudckUh07Tk-7D1-Yu1IsjbI9ltLDd71cNSygMqQw0b0xJ8tklUYDp5q_ctM9NwniNNT1gfg',
-      isFallback: true,
-    },
-    {
-      id: 'fb_foot1',
-      name: 'Leather Pumps',
-      category: 'Footwear',
-      colorName: 'Blush Pink',
-      colorHex: '#E8B4B8',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA6xM_c1ZnQnGYmDB6mTSmlJis3BoNGNOicxm2ybXbW-x5qqSoMYJEtpV1AzZDR3CDkIrX6G3lhRZQxjHF2RgMjt4B2q_rKScN1hX3fyBzFdcmDtW0PZJ0rJMywMWEKovppWBE3bqKJ38O_cz26MmTnm9sCqNaDK36aSIhaO_yn59aLYfcQKAlZ-6xAiMYkiGv2e8ze8odJh989VtMbtyp9nVfaiKOQOe2TEOzw-kP5RtJu91ariljYpYBfFcpgRoIXnLb-MrQULYY',
-      isFallback: true,
-    },
-    {
-      id: 'fb_acc1',
-      name: 'Classic Camel Trench',
-      category: 'Accessories',
-      colorName: 'Warm Sand',
-      colorHex: '#D2B48C',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBc4sHkVDSXDBHgVaNbwy4wkEwg_AtArL6vRr4kgGzf2TAUsOEIX2ziEvbxvWIaCFbbKysN9X3hauOFEwmvd5yEAMwvlLwVSmTwXRwO48MC56CSy2CSVt-gRge-8IbXn4sFW_bw3qIJ7An-w_3UDu89AL8LKGSbo5UQOamsPK-YjFTL9br0YF2eWeJoYQFrqhzeFOC6BxUGEA_SUaEDaX4U8rGcUGr5JjtX0Lqeq0_-ofk5--HX886EE5mQyqXAszTu2TWP3bR7Ttc',
-      isFallback: true,
-    },
-  ];
+  // No fallbacks, user must upload real items
 
   useEffect(() => {
     if (!user) {
@@ -92,8 +54,8 @@ export const MixMatchSelectionScreen = ({ navigation }) => {
     return () => unsubscribe();
   }, [user]);
 
-  // Combine user items and fallback essentials if closet is completely empty
-  const displayItems = items.length > 0 ? items : fallbackEssentials;
+  // Use actual items
+  const displayItems = items;
 
   const filteredItems = activeFilter === 'All'
     ? displayItems
@@ -193,7 +155,7 @@ export const MixMatchSelectionScreen = ({ navigation }) => {
         <View style={styles.fallbackNotice}>
           <Feather name="info" size={16} color={colors.primary} style={styles.infoIcon} />
           <Text style={styles.fallbackNoticeText}>
-            Your wardrobe is empty. Showing premium Fallback Essentials to let you explore matching combinations!
+            Your wardrobe is empty. Please upload clothing items in the Wardrobe tab to start curating matching looks!
           </Text>
         </View>
       )}

@@ -168,6 +168,15 @@ export const AISuggestionsScreen = ({ navigation }) => {
               const favorited = isOutfitFavorited(outfit.name);
               const itemsList = Object.values(outfit.items || {}).filter(Boolean);
 
+              // Check missing categories for dynamic warnings
+              const missingCats = [];
+              if (outfit.suggestedAdditions) {
+                if (!outfit.items?.top && outfit.suggestedAdditions.top) missingCats.push(`Top (${outfit.suggestedAdditions.top})`);
+                if (!outfit.items?.bottom && outfit.suggestedAdditions.bottom) missingCats.push(`Bottom (${outfit.suggestedAdditions.bottom})`);
+                if (!outfit.items?.footwear && outfit.suggestedAdditions.footwear) missingCats.push(`Shoes (${outfit.suggestedAdditions.footwear})`);
+                if (!outfit.items?.accessory && outfit.suggestedAdditions.accessory) missingCats.push(`Accessory (${outfit.suggestedAdditions.accessory})`);
+              }
+
               return (
                 <View key={outfit.id || index} style={styles.outfitCard}>
                   <View style={styles.cardHeader}>
@@ -183,7 +192,6 @@ export const AISuggestionsScreen = ({ navigation }) => {
                         name={favorited ? 'heart' : 'heart'}
                         size={18}
                         color={favorited ? colors.primary : colors.textSecondary}
-                        style={favorited && styles.heartFilled}
                       />
                     </TouchableOpacity>
                   </View>
@@ -206,6 +214,15 @@ export const AISuggestionsScreen = ({ navigation }) => {
                       </View>
                     ))}
                   </View>
+
+                  {missingCats.length > 0 && (
+                    <View style={styles.warningContainer}>
+                      <Feather name="info" size={11} color={colors.primary} style={styles.warningIcon} />
+                      <Text style={styles.warningText}>
+                        Missing: {missingCats.join(', ')}.
+                      </Text>
+                    </View>
+                  )}
 
                   <TouchableOpacity
                     onPress={() => handleViewDetails(outfit)}
@@ -308,9 +325,6 @@ const styles = StyleSheet.create({
   favoriteBtn: {
     padding: 4,
   },
-  heartFilled: {
-    // Styling when heart is favorited (if any specific style is needed)
-  },
   outfitName: {
     fontSize: 18,
     fontWeight: '800',
@@ -387,5 +401,24 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     textAlign: 'center',
   },
+  warningContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.accent,
+    borderWidth: 1,
+    borderColor: colors.accentDark,
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginBottom: 16,
+  },
+  warningIcon: {
+    marginRight: 6,
+  },
+  warningText: {
+    flex: 1,
+    fontSize: 10,
+    fontWeight: '700',
+    color: colors.textSecondary,
+  },
 });
-

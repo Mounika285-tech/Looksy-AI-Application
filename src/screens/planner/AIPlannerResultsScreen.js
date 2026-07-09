@@ -18,27 +18,13 @@ import { Feather } from '@expo/vector-icons';
 import { generateWeeklyPlanner } from '../../utils/geminiService';
 
 export const AIPlannerResultsScreen = ({ navigation, route }) => {
-  const { vibe, weatherSync, accessories } = route.params;
+  const { vibe, weatherSync } = route.params;
   const { user } = useAuth();
   const [weeklyDrafts, setWeeklyDrafts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isEmptyState, setIsEmptyState] = useState(false);
 
-  // High-fidelity fallback styling items
-  const fallbacks = {
-    top: { id: 'fb_ai_t', name: 'Ivory Silk slip dress', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDtW5eVHJ9MX0Mc_ooTyQ_Y2dyNu8FFJqtGiOqlGxeG9bd8tST2nw1n4eDIF-QK4I03D1kV9BEsXQAboEbC5prK_GhgYyppFYp1Q0hiOp-CjFGsWg3GMA4XuMob06CIiQUQU-xlg2Zq6nzlpBut8ekgWShAmKRPddxd8DzP_AkseULzeaicuV0nWOpR4Q7Si0lsl0Be6-X3VrtBT7jfP8hxguB0iX-20iGHLmXwEl3EMRVespKpK3I9HjgVlgG3c6x6bgaYqYTmVf4' },
-    accessory: { id: 'fb_ai_a', name: 'Classic Camel Trench', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCrkXfdQu_MDw4w8v01V69ErBFw12nPB7Hp1p9oA786ghJWM_5UthMzRKPn5H4HNQr78fZ_JPdSHZNdYCUVGVdbxyDyY-q4ZW4iUcXbN6z6JzMAA26KYEkVj14YJXJYzhMdv9CMwDijvnVFZGz6oSDuR7ZXX8lz0UDNDtkUisX0FtN3kNddqrWHHbYGoAKvbfjMUXwpfwxRZlkGbohNKo4dMxCdmj4aGPHM4J7Qzg-hZnY5rdWG7mfZ46tkNes9OTzqhFjgIGqOpVI' },
-    bottom: { id: 'fb_ai_b', name: 'Wide-Leg White Trousers', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCoh0N90yJ5MDl6c1pJQoMgj1_69saIexO5gQiJ4lsrVp-KZQCq0BrnV4-gIf9ut0WGlJsJQh5q_ySJ7NisQE1JNmBYKYG1djb1njjUCdoUaVh059CIizjauo6-mu1Epcd74XMlfb5h5KbI728vclCQuSfooidiDEf8Mt0vSu2ITNU00Dh-eOjbZMotUlmCbQEaGI6de-eJEGGsuKVFo--KbehadqfG_Hfi0dUrZqO6Xn9c1033-hNhkL5YWRvM6QthGfcHxPkgK_Y' },
-  };
-
-  const weekDays = [
-    { label: 'MON 11', name: 'Gallery Opening Night', fallbackTop: fallbacks.top, fallbackAcc: fallbacks.accessory },
-    { label: 'TUE 12', name: 'Client Brunch', fallbackTop: fallbacks.top, fallbackAcc: fallbacks.bottom },
-    { label: 'WED 13', name: 'Weekend Getaway Prep', fallbackTop: fallbacks.bottom, fallbackAcc: fallbacks.accessory },
-    { label: 'THU 14', name: 'Business Board Meeting', fallbackTop: fallbacks.top, fallbackAcc: fallbacks.accessory },
-    { label: 'FRI 15', name: 'Leisure Coffee Date', fallbackTop: fallbacks.top, fallbackAcc: fallbacks.bottom },
-    { label: 'SAT 16', name: 'Weekend Beach Walk', fallbackTop: fallbacks.bottom, fallbackAcc: fallbacks.accessory },
-    { label: 'SUN 17', name: 'Sunday Dinner Gala', fallbackTop: fallbacks.top, fallbackAcc: fallbacks.accessory },
-  ];
+  const weekDays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
   useEffect(() => {
     generateAIWeek();
@@ -47,6 +33,7 @@ export const AIPlannerResultsScreen = ({ navigation, route }) => {
   const generateAIWeek = async () => {
     try {
       setIsLoading(true);
+      setIsEmptyState(false);
       
       let closetItems = [];
       if (user) {
@@ -63,6 +50,12 @@ export const AIPlannerResultsScreen = ({ navigation, route }) => {
         }
       }
 
+      if (closetItems.length === 0) {
+        setIsEmptyState(true);
+        setIsLoading(false);
+        return;
+      }
+
       // Query real Gemini AI Weekly style generator
       const resultPlans = await generateWeeklyPlanner(
         closetItems,
@@ -73,36 +66,48 @@ export const AIPlannerResultsScreen = ({ navigation, route }) => {
       // Assign dynamic indices or ids
       const mapped = resultPlans.map((plan, idx) => ({
         id: `draft_${idx}`,
-        label: plan.plannedDate || weekDays[idx].label,
+        label: plan.plannedDate || weekDays[idx],
         name: plan.name || `${plan.plannedDate || 'Scheduled'} ${vibe} Look`,
-        items: plan.items
+        items: plan.items || {},
+        suggestedAdditions: plan.suggestedAdditions || {},
       }));
 
       setWeeklyDrafts(mapped);
       setIsLoading(false);
     } catch (e) {
       console.error('Error auto generating week planner:', e);
-      setWeeklyDrafts(createFallbackWeek());
+      setWeeklyDrafts(createFallbackWeek(closetItems));
       setIsLoading(false);
     }
   };
 
-  const selectRandom = (pool, fallback) => {
-    if (pool.length === 0) return fallback;
-    const idx = Math.floor(Math.random() * pool.length);
-    return pool[idx];
-  };
+  const createFallbackWeek = (closetItems) => {
+    const closet = closetItems || [];
+    const tops = closet.filter(i => i.category === 'Top Wear');
+    const bottoms = closet.filter(i => i.category === 'Bottom Wear');
 
-  const createFallbackWeek = () => {
-    return weekDays.map((day, idx) => ({
-      id: `draft_${idx}`,
-      label: day.label,
-      name: day.name,
-      items: {
-        top: day.fallbackTop,
-        bottom: day.fallbackAcc,
-      },
-    }));
+    const getRand = (arr) => arr.length > 0 ? arr[Math.floor(Math.random() * arr.length)] : null;
+
+    return weekDays.map((day, idx) => {
+      const selectedTop = getRand(tops);
+      const selectedBottom = getRand(bottoms);
+
+      return {
+        id: `draft_${idx}`,
+        label: day,
+        name: `${day} ${vibe} Look`,
+        items: {
+          top: selectedTop,
+          bottom: selectedBottom,
+        },
+        suggestedAdditions: {
+          top: selectedTop ? null : 'top wear',
+          bottom: selectedBottom ? null : 'bottom wear',
+          footwear: 'classic shoes',
+          accessory: 'leather belt',
+        }
+      };
+    });
   };
 
   const handleApplySchedule = async () => {
@@ -122,13 +127,13 @@ export const AIPlannerResultsScreen = ({ navigation, route }) => {
         const newPlanRef = push(plannerRef);
 
         const itemsData = {};
-        Object.keys(draft.items).forEach((key) => {
+        Object.keys(draft.items || {}).forEach((key) => {
           const val = draft.items[key];
           if (val) {
             itemsData[key] = {
-              id: val.id,
-              name: val.name,
-              imageUrl: val.imageUrl,
+              id: val.id || '',
+              name: val.name || '',
+              imageUrl: val.imageUrl || '',
               category: val.category || 'Garment',
             };
           }
@@ -158,6 +163,39 @@ export const AIPlannerResultsScreen = ({ navigation, route }) => {
         <ActivityIndicator size="large" color={colors.primary} />
         <Text style={styles.loaderText}>LookSy AI is scanning styling rules and weather forecasts...</Text>
       </View>
+    );
+  }
+
+  if (isEmptyState) {
+    return (
+      <SafeAreaView style={styles.container}>
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backBtn}
+            activeOpacity={0.7}
+          >
+            <Feather name="arrow-left" size={20} color={colors.text} />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>AI Draft Schedule</Text>
+          <View style={styles.placeholder} />
+        </View>
+        <View style={styles.emptyContainer}>
+          <Feather name="folder-plus" size={48} color={colors.primary} style={styles.emptyIcon} />
+          <Text style={styles.emptyTitle}>Your Wardrobe is Empty</Text>
+          <Text style={styles.emptySubtitle}>
+            Please upload garments in the Wardrobe tab first so LookSy AI can schedule your weekly outfits!
+          </Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('WardrobeTab')}
+            style={styles.uploadBtn}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.uploadBtnText}>Go to Wardrobe</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     );
   }
 
@@ -196,20 +234,44 @@ export const AIPlannerResultsScreen = ({ navigation, route }) => {
             const itemsList = Object.values(draft.items || {}).filter(Boolean);
             const thumbnails = itemsList.map((i) => i.imageUrl).filter(Boolean);
             const itemNames = itemsList.map((i) => i.name).filter(Boolean).join(' & ');
+            
+            // Check missing categories and build advice
+            const missingCats = [];
+            if (!draft.items?.top && draft.suggestedAdditions?.top) missingCats.push(`Top (${draft.suggestedAdditions.top})`);
+            if (!draft.items?.bottom && draft.suggestedAdditions?.bottom) missingCats.push(`Bottom (${draft.suggestedAdditions.bottom})`);
+            if (!draft.items?.footwear && draft.suggestedAdditions?.footwear) missingCats.push(`Shoes (${draft.suggestedAdditions.footwear})`);
+            if (!draft.items?.accessory && draft.suggestedAdditions?.accessory) missingCats.push(`Accessory (${draft.suggestedAdditions.accessory})`);
+
             return (
-              <View key={draft.id} style={styles.draftRow}>
-                <View style={styles.draftMeta}>
-                  <Text style={styles.draftDayText}>{draft.label}</Text>
-                  <Text style={styles.draftNameText}>{draft.name}</Text>
-                  <Text style={styles.draftStyleText} numberOfLines={1}>
-                    {itemNames || 'Empty Outfit'}
-                  </Text>
+              <View key={draft.id} style={styles.draftCard}>
+                <View style={styles.draftRow}>
+                  <View style={styles.draftMeta}>
+                    <Text style={styles.draftDayText}>{draft.label}</Text>
+                    <Text style={styles.draftNameText}>{draft.name}</Text>
+                    <Text style={styles.draftStyleText} numberOfLines={1}>
+                      {itemNames || 'Empty Outfit'}
+                    </Text>
+                  </View>
+                  <View style={styles.thumbsWrapper}>
+                    {thumbnails.length > 0 ? (
+                      thumbnails.map((uri, idx) => (
+                        <Image key={idx} source={{ uri }} style={styles.thumbnail} />
+                      ))
+                    ) : (
+                      <View style={styles.emptyThumb}>
+                        <Feather name="slash" size={14} color={colors.textSecondary} />
+                      </View>
+                    )}
+                  </View>
                 </View>
-                <View style={styles.thumbsWrapper}>
-                  {thumbnails.map((uri, idx) => (
-                    <Image key={idx} source={{ uri }} style={styles.thumbnail} />
-                  ))}
-                </View>
+                {missingCats.length > 0 && (
+                  <View style={styles.warningContainer}>
+                    <Feather name="info" size={11} color={colors.primary} style={styles.warningIcon} />
+                    <Text style={styles.warningText}>
+                      Missing: {missingCats.join(', ')}.
+                    </Text>
+                  </View>
+                )}
               </View>
             );
           })}
@@ -254,6 +316,9 @@ const styles = StyleSheet.create({
   refreshBtn: {
     padding: 8,
   },
+  placeholder: {
+    width: 36,
+  },
   scrollContent: {
     paddingBottom: 40,
   },
@@ -278,9 +343,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     marginBottom: 32,
   },
-  draftRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  draftCard: {
     backgroundColor: colors.white,
     borderWidth: 1.5,
     borderColor: colors.border,
@@ -292,6 +355,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.01,
     shadowRadius: 6,
     elevation: 1,
+  },
+  draftRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   draftMeta: {
     flex: 1,
@@ -325,6 +392,34 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     marginLeft: 6,
     resizeMode: 'cover',
+  },
+  emptyThumb: {
+    width: 40,
+    height: 52,
+    borderRadius: 8,
+    backgroundColor: colors.surface,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  warningContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.accent,
+    borderWidth: 1,
+    borderColor: colors.accentDark,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    marginTop: 10,
+  },
+  warningIcon: {
+    marginRight: 6,
+  },
+  warningText: {
+    flex: 1,
+    fontSize: 10,
+    fontWeight: '700',
+    color: colors.textSecondary,
   },
   actionBtn: {
     marginHorizontal: 24,
@@ -362,5 +457,43 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
     lineHeight: 20,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 32,
+    backgroundColor: colors.background,
+    paddingTop: 80,
+  },
+  emptyIcon: {
+    marginBottom: 16,
+  },
+  emptyTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: colors.text,
+    marginBottom: 8,
+  },
+  emptySubtitle: {
+    fontSize: 13,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    lineHeight: 18,
+    marginBottom: 24,
+    fontWeight: '600',
+  },
+  uploadBtn: {
+    height: 48,
+    paddingHorizontal: 24,
+    borderRadius: 24,
+    backgroundColor: colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  uploadBtnText: {
+    color: colors.white,
+    fontWeight: '700',
+    fontSize: 14,
   },
 });
