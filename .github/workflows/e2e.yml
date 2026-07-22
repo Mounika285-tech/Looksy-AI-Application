@@ -135,6 +135,12 @@ jobs:
           name: web-build
           path: ./dist
 
+      - name: Download Excel Report Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Selenium-Test-Report
+          path: ./dist/reports
+
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -143,3 +149,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: true
