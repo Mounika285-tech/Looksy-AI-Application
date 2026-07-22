@@ -51,7 +51,7 @@ jobs:
 
   Appium-Android-Tests:
     runs-on: ubuntu-latest
-    name: Appium — Android Tests (500)
+    name: Appium — Android Tests (300)
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -63,9 +63,9 @@ jobs:
         working-directory: ./E2E_Tests
         run: npm run test
 
-  Backend-Security-Tests:
+  Unit-Tests-API:
     runs-on: ubuntu-latest
-    name: Backend Security — Vuln Tests (300)
+    name: Unit Tests — API (300)
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -108,7 +108,7 @@ jobs:
   Compile-Master-Report-Deploy:
     runs-on: ubuntu-latest
     name: Compile Master Report & Deploy
-    needs: [Selenium-Website-Tests, Appium-Android-Tests, Backend-Security-Tests, Validation-Tests, Deployment-Status, Load-Testing-Performance]
+    needs: [Selenium-Website-Tests, Appium-Android-Tests, Unit-Tests-API, Validation-Tests, Deployment-Status, Load-Testing-Performance]
     permissions:
       pages: write
       id-token: write
