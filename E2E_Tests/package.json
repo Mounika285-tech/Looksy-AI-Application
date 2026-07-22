@@ -4,7 +4,11 @@
   "description": "Selenium E2E Tests for Looksy AI Web App",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/**/*.test.js --reporter ./utils/excelReporter.js --timeout 30000"
+    "test": "mocha tests/**/*.test.js --reporter ./utils/excelReporter.js --timeout 30000",
+    "test:web": "mocha tests/1_web_*.test.js --reporter ./utils/excelReporter.js --timeout 30000",
+    "test:app": "mocha tests/2_app_*.test.js --reporter ./utils/excelReporter.js --timeout 30000",
+    "test:api": "mocha tests/3_backend_vuln_*.test.js --reporter ./utils/excelReporter.js --timeout 30000",
+    "test:load": "mocha tests/4_backend_load_*.test.js --reporter ./utils/excelReporter.js --timeout 30000"
   },
   "dependencies": {
     "chromedriver": "^130.0.0",

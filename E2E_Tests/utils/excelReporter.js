@@ -62,8 +62,9 @@ class ExcelReporter {
   async generateReport() {
     const workbook = new ExcelJS.Workbook();
     
-    // Sheet 1: Selenium Test Report
-    const sheet1 = workbook.addWorksheet('Selenium Test Report');
+    // Sheet 1: Main Test Report
+    const sheet1Name = process.env.REPORT_SHEETNAME || 'Selenium Test Report';
+    const sheet1 = workbook.addWorksheet(sheet1Name);
     sheet1.columns = [
       { header: 'Test Category', key: 'category', width: 25 },
       { header: 'Test Case Name', key: 'title', width: 50 },
@@ -118,7 +119,7 @@ class ExcelReporter {
     });
 
     // Write file
-    const reportName = `E2E_Test_Report_LooksyAI.xlsx`;
+    const reportName = process.env.REPORT_FILENAME || `E2E_Test_Report_LooksyAI.xlsx`;
     const outputPath = path.resolve(process.cwd(), reportName);
     
     await workbook.xlsx.writeFile(outputPath);

@@ -36,16 +36,18 @@ jobs:
 
       - name: Run E2E Tests
         working-directory: ./E2E_Tests
-        run: npm run test
+        run: npm run test:web
         env:
           TEST_BASE_URL: http://localhost:8081
+          REPORT_FILENAME: Web_Test_Report.xlsx
+          REPORT_SHEETNAME: Web Test Report
 
       - name: Upload Excel Report Artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: Selenium-Test-Report
-          path: ./E2E_Tests/E2E_Test_Report_LooksyAI.xlsx
+          path: ./E2E_Tests/Web_Test_Report.xlsx
 
       - name: Upload Web Dist Artifact
         uses: actions/upload-artifact@v4
@@ -68,11 +70,21 @@ jobs:
         run: npm ci || npm install
       - name: Run App Tests
         working-directory: ./E2E_Tests
-        run: npm run test
+        run: npm run test:app
+        env:
+          REPORT_FILENAME: Appium_Test_Report.xlsx
+          REPORT_SHEETNAME: Appium Test Report
 
-  Unit-Tests-API:
+      - name: Upload Excel Report Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Appium-Test-Report
+          path: ./E2E_Tests/Appium_Test_Report.xlsx
+
+  Backend-Vulnerability-Tests:
     runs-on: ubuntu-latest
-    name: Unit Tests — API (300)
+    name: Backend — Vulnerability Tests (300)
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -85,7 +97,17 @@ jobs:
         run: npm ci || npm install
       - name: Run Vuln Tests
         working-directory: ./E2E_Tests
-        run: npm run test
+        run: npm run test:api
+        env:
+          REPORT_FILENAME: Backend_Vulnerability_Test_Report.xlsx
+          REPORT_SHEETNAME: Backend Vulnerability Report
+
+      - name: Upload Excel Report Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Backend-Vulnerability-Report
+          path: ./E2E_Tests/Backend_Vulnerability_Test_Report.xlsx
 
   Validation-Tests:
     runs-on: ubuntu-latest
@@ -101,9 +123,9 @@ jobs:
       - name: Stub execution
         run: echo "Deployment status checks would execute here."
 
-  Load-Testing-Performance:
+  Backend-Load-Tests:
     runs-on: ubuntu-latest
-    name: Load Testing — Performance (300)
+    name: Backend — Load Tests (300)
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -116,12 +138,22 @@ jobs:
         run: npm ci || npm install
       - name: Run Load Tests
         working-directory: ./E2E_Tests
-        run: npm run test
+        run: npm run test:load
+        env:
+          REPORT_FILENAME: Backend_Load_Test_Report.xlsx
+          REPORT_SHEETNAME: Backend Load Report
+
+      - name: Upload Excel Report Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Backend-Load-Report
+          path: ./E2E_Tests/Backend_Load_Test_Report.xlsx
 
   Compile-Master-Report-Deploy:
     runs-on: ubuntu-latest
     name: Compile Master Report & Deploy
-    needs: [Selenium-Website-Tests, Appium-Android-Tests, Unit-Tests-API, Validation-Tests, Deployment-Status, Load-Testing-Performance]
+    needs: [Selenium-Website-Tests, Appium-Android-Tests, Backend-Vulnerability-Tests, Validation-Tests, Deployment-Status, Backend-Load-Tests]
     permissions:
       pages: write
       id-token: write
@@ -135,10 +167,28 @@ jobs:
           name: web-build
           path: ./dist
 
-      - name: Download Excel Report Artifact
+      - name: Download Selenium Report Artifact
         uses: actions/download-artifact@v4
         with:
           name: Selenium-Test-Report
+          path: ./dist/reports
+
+      - name: Download Appium Report Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Appium-Test-Report
+          path: ./dist/reports
+
+      - name: Download API Report Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Backend-Vulnerability-Report
+          path: ./dist/reports
+
+      - name: Download Load Report Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Backend-Load-Report
           path: ./dist/reports
 
       - name: Upload Pages Artifact
