@@ -1,0 +1,15 @@
+{
+  "name": "looksy-ai-e2e-tests",
+  "version": "1.0.0",
+  "description": "Selenium E2E Tests for Looksy AI Web App",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/**/*.test.js --reporter ./utils/excelReporter.js --timeout 30000"
+  },
+  "dependencies": {
+    "chromedriver": "^130.0.0",
+    "exceljs": "^4.4.0",
+    "mocha": "^10.7.3",
+    "selenium-webdriver": "^4.26.0"
+  }
+}
